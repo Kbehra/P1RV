@@ -1,0 +1,8 @@
+﻿loadjpeg.obj : error LNK2019: symbole externe non résolu jpeg_std_error référencé dans la fonction "public: bool __cdecl ImageJPEG::LoadJPEG(char *,bool)" (?LoadJPEG@ImageJPEG@@QEAA_NPEAD_N@Z)
+loadjpeg.obj : error LNK2019: symbole externe non résolu jpeg_CreateDecompress référencé dans la fonction "public: bool __cdecl ImageJPEG::LoadJPEG(char *,bool)" (?LoadJPEG@ImageJPEG@@QEAA_NPEAD_N@Z)
+loadjpeg.obj : error LNK2019: symbole externe non résolu jpeg_stdio_src référencé dans la fonction "public: bool __cdecl ImageJPEG::LoadJPEG(char *,bool)" (?LoadJPEG@ImageJPEG@@QEAA_NPEAD_N@Z)
+loadjpeg.obj : error LNK2019: symbole externe non résolu jpeg_read_header référencé dans la fonction "public: bool __cdecl ImageJPEG::LoadJPEG(char *,bool)" (?LoadJPEG@ImageJPEG@@QEAA_NPEAD_N@Z)
+loadjpeg.obj : error LNK2019: symbole externe non résolu jpeg_start_decompress référencé dans la fonction "public: bool __cdecl ImageJPEG::LoadJPEG(char *,bool)" (?LoadJPEG@ImageJPEG@@QEAA_NPEAD_N@Z)
+loadjpeg.obj : error LNK2019: symbole externe non résolu jpeg_read_scanlines référencé dans la fonction "public: bool __cdecl ImageJPEG::LoadJPEG(char *,bool)" (?LoadJPEG@ImageJPEG@@QEAA_NPEAD_N@Z)
+loadjpeg.obj : error LNK2019: symbole externe non résolu jpeg_finish_decompress référencé dans la fonction "public: bool __cdecl ImageJPEG::LoadJPEG(char *,bool)" (?LoadJPEG@ImageJPEG@@QEAA_NPEAD_N@Z)
+C:\Users\kilia\source\repos\P1RV\x64\Debug\P1RV.exe : fatal error LNK1120: 7 externes non résolus
