@@ -1,0 +1,44 @@
+﻿  main.cpp
+  createmap.cpp
+C:\dev\P1RV\main.cpp(40,31): warning C4305: 'initialisation' : troncation de 'double' à 'float'
+C:\dev\P1RV\Sources\createmap.cpp(54,30): warning C4018: '<' : incompatibilité signed/unsigned
+C:\dev\P1RV\Sources\createmap.cpp(55,33): warning C4018: '<' : incompatibilité signed/unsigned
+C:\dev\P1RV\Sources\createmap.cpp(86,22): warning C4018: '<' : incompatibilité signed/unsigned
+C:\dev\P1RV\Sources\createmap.cpp(87,23): warning C4018: '<' : incompatibilité signed/unsigned
+C:\dev\P1RV\Sources\createmap.cpp(119,30): warning C4018: '<' : incompatibilité signed/unsigned
+C:\dev\P1RV\Sources\createmap.cpp(120,33): warning C4018: '<' : incompatibilité signed/unsigned
+  display.cpp
+  Génération de code en cours...
+C:\dev\P1RV\Sources\createmap.cpp(26,12): warning C4101: 'tex' : variable locale non référencée
+  jpeg.lib(jerror.obj) : .netmodule ou module MSIL compilé avec /GL trouvé ; redémarrage de l'édition de liens avec /LTCG ; ajoutez /LTCG à la ligne de commande de l'édition de liens pour améliorer les performances de l'Éditeur de liens
+LINK : warning LNK4075: ' /INCREMENTAL' ignorÚ Ó cause de la spÚcification '/LTCG'
+LINK : warning LNK4098: conflit entre la bibliothÞque par dÚfaut 'LIBCMT' et les autres bibliothÞquesá; utilisez /NODEFAULTLIB:library
+  GÚnÚration de code en cours
+  Fin de la gÚnÚration du code
+jpeg.lib(jerror.obj) : warning LNK4099: PDB 'vc110.pdb' n'a pu Ûtre trouvÚ avec 'jpeg.lib(jerror.obj)' ou sur 'C:\dev\P1RV\Debug\vc110.pdb'á; l'objet sera liÚ sans informations de dÚbogage
+jpeg.lib(jdapimin.obj) : warning LNK4099: PDB 'vc110.pdb' n'a pu Ûtre trouvÚ avec 'jpeg.lib(jdapimin.obj)' ou sur 'C:\dev\P1RV\Debug\vc110.pdb'á; l'objet sera liÚ sans informations de dÚbogage
+jpeg.lib(jdatasrc.obj) : warning LNK4099: PDB 'vc110.pdb' n'a pu Ûtre trouvÚ avec 'jpeg.lib(jdatasrc.obj)' ou sur 'C:\dev\P1RV\Debug\vc110.pdb'á; l'objet sera liÚ sans informations de dÚbogage
+jpeg.lib(jdapistd.obj) : warning LNK4099: PDB 'vc110.pdb' n'a pu Ûtre trouvÚ avec 'jpeg.lib(jdapistd.obj)' ou sur 'C:\dev\P1RV\Debug\vc110.pdb'á; l'objet sera liÚ sans informations de dÚbogage
+jpeg.lib(jcomapi.obj) : warning LNK4099: PDB 'vc110.pdb' n'a pu Ûtre trouvÚ avec 'jpeg.lib(jcomapi.obj)' ou sur 'C:\dev\P1RV\Debug\vc110.pdb'á; l'objet sera liÚ sans informations de dÚbogage
+jpeg.lib(jdmarker.obj) : warning LNK4099: PDB 'vc110.pdb' n'a pu Ûtre trouvÚ avec 'jpeg.lib(jdmarker.obj)' ou sur 'C:\dev\P1RV\Debug\vc110.pdb'á; l'objet sera liÚ sans informations de dÚbogage
+jpeg.lib(jdinput.obj) : warning LNK4099: PDB 'vc110.pdb' n'a pu Ûtre trouvÚ avec 'jpeg.lib(jdinput.obj)' ou sur 'C:\dev\P1RV\Debug\vc110.pdb'á; l'objet sera liÚ sans informations de dÚbogage
+jpeg.lib(jmemmgr.obj) : warning LNK4099: PDB 'vc110.pdb' n'a pu Ûtre trouvÚ avec 'jpeg.lib(jmemmgr.obj)' ou sur 'C:\dev\P1RV\Debug\vc110.pdb'á; l'objet sera liÚ sans informations de dÚbogage
+jpeg.lib(jdmaster.obj) : warning LNK4099: PDB 'vc110.pdb' n'a pu Ûtre trouvÚ avec 'jpeg.lib(jdmaster.obj)' ou sur 'C:\dev\P1RV\Debug\vc110.pdb'á; l'objet sera liÚ sans informations de dÚbogage
+jpeg.lib(jutils.obj) : warning LNK4099: PDB 'vc110.pdb' n'a pu Ûtre trouvÚ avec 'jpeg.lib(jutils.obj)' ou sur 'C:\dev\P1RV\Debug\vc110.pdb'á; l'objet sera liÚ sans informations de dÚbogage
+jpeg.lib(jmemnobs.obj) : warning LNK4099: PDB 'vc110.pdb' n'a pu Ûtre trouvÚ avec 'jpeg.lib(jmemnobs.obj)' ou sur 'C:\dev\P1RV\Debug\vc110.pdb'á; l'objet sera liÚ sans informations de dÚbogage
+jpeg.lib(jdhuff.obj) : warning LNK4099: PDB 'vc110.pdb' n'a pu Ûtre trouvÚ avec 'jpeg.lib(jdhuff.obj)' ou sur 'C:\dev\P1RV\Debug\vc110.pdb'á; l'objet sera liÚ sans informations de dÚbogage
+jpeg.lib(jquant1.obj) : warning LNK4099: PDB 'vc110.pdb' n'a pu Ûtre trouvÚ avec 'jpeg.lib(jquant1.obj)' ou sur 'C:\dev\P1RV\Debug\vc110.pdb'á; l'objet sera liÚ sans informations de dÚbogage
+jpeg.lib(jddctmgr.obj) : warning LNK4099: PDB 'vc110.pdb' n'a pu Ûtre trouvÚ avec 'jpeg.lib(jddctmgr.obj)' ou sur 'C:\dev\P1RV\Debug\vc110.pdb'á; l'objet sera liÚ sans informations de dÚbogage
+jpeg.lib(jdsample.obj) : warning LNK4099: PDB 'vc110.pdb' n'a pu Ûtre trouvÚ avec 'jpeg.lib(jdsample.obj)' ou sur 'C:\dev\P1RV\Debug\vc110.pdb'á; l'objet sera liÚ sans informations de dÚbogage
+jpeg.lib(jdarith.obj) : warning LNK4099: PDB 'vc110.pdb' n'a pu Ûtre trouvÚ avec 'jpeg.lib(jdarith.obj)' ou sur 'C:\dev\P1RV\Debug\vc110.pdb'á; l'objet sera liÚ sans informations de dÚbogage
+jpeg.lib(jdcolor.obj) : warning LNK4099: PDB 'vc110.pdb' n'a pu Ûtre trouvÚ avec 'jpeg.lib(jdcolor.obj)' ou sur 'C:\dev\P1RV\Debug\vc110.pdb'á; l'objet sera liÚ sans informations de dÚbogage
+jpeg.lib(jdcoefct.obj) : warning LNK4099: PDB 'vc110.pdb' n'a pu Ûtre trouvÚ avec 'jpeg.lib(jdcoefct.obj)' ou sur 'C:\dev\P1RV\Debug\vc110.pdb'á; l'objet sera liÚ sans informations de dÚbogage
+jpeg.lib(jquant2.obj) : warning LNK4099: PDB 'vc110.pdb' n'a pu Ûtre trouvÚ avec 'jpeg.lib(jquant2.obj)' ou sur 'C:\dev\P1RV\Debug\vc110.pdb'á; l'objet sera liÚ sans informations de dÚbogage
+jpeg.lib(jdmerge.obj) : warning LNK4099: PDB 'vc110.pdb' n'a pu Ûtre trouvÚ avec 'jpeg.lib(jdmerge.obj)' ou sur 'C:\dev\P1RV\Debug\vc110.pdb'á; l'objet sera liÚ sans informations de dÚbogage
+jpeg.lib(jdmainct.obj) : warning LNK4099: PDB 'vc110.pdb' n'a pu Ûtre trouvÚ avec 'jpeg.lib(jdmainct.obj)' ou sur 'C:\dev\P1RV\Debug\vc110.pdb'á; l'objet sera liÚ sans informations de dÚbogage
+jpeg.lib(jdpostct.obj) : warning LNK4099: PDB 'vc110.pdb' n'a pu Ûtre trouvÚ avec 'jpeg.lib(jdpostct.obj)' ou sur 'C:\dev\P1RV\Debug\vc110.pdb'á; l'objet sera liÚ sans informations de dÚbogage
+jpeg.lib(jidctint.obj) : warning LNK4099: PDB 'vc110.pdb' n'a pu Ûtre trouvÚ avec 'jpeg.lib(jidctint.obj)' ou sur 'C:\dev\P1RV\Debug\vc110.pdb'á; l'objet sera liÚ sans informations de dÚbogage
+jpeg.lib(jidctflt.obj) : warning LNK4099: PDB 'vc110.pdb' n'a pu Ûtre trouvÚ avec 'jpeg.lib(jidctflt.obj)' ou sur 'C:\dev\P1RV\Debug\vc110.pdb'á; l'objet sera liÚ sans informations de dÚbogage
+jpeg.lib(jidctfst.obj) : warning LNK4099: PDB 'vc110.pdb' n'a pu Ûtre trouvÚ avec 'jpeg.lib(jidctfst.obj)' ou sur 'C:\dev\P1RV\Debug\vc110.pdb'á; l'objet sera liÚ sans informations de dÚbogage
+jpeg.lib(jaricom.obj) : warning LNK4099: PDB 'vc110.pdb' n'a pu Ûtre trouvÚ avec 'jpeg.lib(jaricom.obj)' ou sur 'C:\dev\P1RV\Debug\vc110.pdb'á; l'objet sera liÚ sans informations de dÚbogage
+  P1RV.vcxproj -> C:\dev\P1RV\Debug\P1RV.exe
