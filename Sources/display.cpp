@@ -49,11 +49,10 @@ void Display :: initWindow(int argc, char *argv[]){
 
     // Initialement on desactive le Z-buffer
     glEnable(GL_DEPTH_TEST);
-    //glEnable(GL_TEXTURE_3D);
+    glEnable(GL_TEXTURE_2D);
 
 
     // Lumiere
-	/*
     GLfloat lightpos[] = { 0.0f, 0.0f, 15.0f };
     GLfloat lightcolor[] = { 1.0f, 1.0f, 0.0f };
     GLfloat ambcolor[] = { 0.0f, 0.0f, 1.0f };
@@ -69,7 +68,6 @@ void Display :: initWindow(int argc, char *argv[]){
 
     // Shading model
     glShadeModel(GL_SMOOTH);
-	*/
 
 }
 
@@ -107,10 +105,6 @@ GLvoid Display :: clavier (unsigned char touche, int x, int y){
             choiceMat = (choiceMat + 1) % 5;
             Material((int)choiceMat);
             break;
-		case 'x':
-			// change the default mesh 
-			map.changeMode(); 
-			break; 
         default:
             break;
     }
@@ -140,7 +134,6 @@ GLvoid Display :: redimensionner(int w, int h) {
     glViewport(0, 0, windowW, windowH);
 
     // Mise en place de la perspective
-    //std::cout<<far<<std::endl;
     gluPerspective(focale, ratio, Near, Far);
 
 
@@ -164,18 +157,17 @@ int Display ::getWindowH() {
  */
 GLvoid affichage(){
 
-    //glEnable(GL_CULL_FACE);
     glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    //glClear(GL_COLOR_BUFFER_BIT);
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
+
+	Shader mapShader("shader.vert", "shader.frag");
 
     glMatrixMode(GL_MODELVIEW);
 
     // give a map a material
-
+	//map.init(&mapShader);
     map.afficher();
     //Material(4);
-
 
     glLoadIdentity();
     glRotatef(-cam.getAngleY(),1.0f,0.0f,0.0f);

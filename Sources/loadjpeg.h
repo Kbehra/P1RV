@@ -21,7 +21,7 @@ protected:
     unsigned long y;
     unsigned short int bpp;         // bits per pixels   unsigned short int
     GLbyte* texData;                // the data of the image
-    GLuint ID;                      // the id ogl gives it
+    GLuint ID;                      // the id OpenGl gives it
     unsigned long size;             // length of the file
     GLuint type;
     int channels;                   // the channels of the image 3 = RGA 4 = RGBA
@@ -33,8 +33,6 @@ public:
     unsigned long getX() const;
     unsigned long getY() const;
     GLbyte* getData() const;
-    void setX(unsigned long x);
-    void setY(unsigned long y);
     bool LoadJPEG(char* FileName, bool Fast = true);    //chargement de l'image
     Pixel getPixel(int x, int y) const;                 //acceder a un pixel
     vector<vector<Pixel>>* getMatPixel();               //pointeur sur la matrice de pixels
