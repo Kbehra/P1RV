@@ -19,11 +19,11 @@ CreateMap map;
 Display goDisplay;
 Camera cam;
 
+int alicia = 42;
+
 // Liens vers le fichier à charger
 //char* LINK_IMAGE = "/home/kiki/CLionProjects/P1RV_Heightmaps_BEHRA_MARAVAT/examples/Heightmap3.jpeg";
 char* LINK_IMAGE = _strdup("C:/dev/P1RV/examples/Heightmap.jpeg");
-
-int DEPUISLEWEB;
 
 int main(int argc, char *argv[]) {
 
