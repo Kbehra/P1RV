@@ -151,10 +151,10 @@ void CreateMap :: generateMap() {
 					glVertex3f((float)p2.getPosx() / x, (float)p2.getR() / 255, (float)p2.getPosy() / y);
 
 					glTexCoord2d(0, 1);
-					glVertex3f((float)p3.getPosx() / x, (float)p3.getR() / 255, (float)p3.getPosy() / y);
+					glVertex3f((float)p4.getPosx() / x, (float)p4.getR() / 255, (float)p4.getPosy() / y);
 
 					glTexCoord2d(1, 1);
-					glVertex3f((float)p4.getPosx() / x, (float)p4.getR() / 255, (float)p4.getPosy() / y);
+					glVertex3f((float)p3.getPosx() / x, (float)p3.getR() / 255, (float)p3.getPosy() / y);
 
 				}
 			}
