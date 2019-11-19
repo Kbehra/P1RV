@@ -81,8 +81,6 @@ bool ImageJPEG :: LoadJPEG(char* FileName, bool Fast)
     GLbyte* p1 = texData;
     GLbyte** p2 = &p1;
     int numlines = 0;
-    // Matrix of pixel
-//    Pixel Pixels[x][y];
 
     JSAMPARRAY buffer;
     buffer = (*info.mem->alloc_sarray)((j_common_ptr)&info, JPOOL_IMAGE, info.output_width*info.output_components,1);
@@ -114,7 +112,7 @@ bool ImageJPEG :: LoadJPEG(char* FileName, bool Fast)
         numlines++; //parcourir les lignes
     }
 
-//        std::cout << "taille :" <<info.output_width<<" " << info.output_height <<" "<< numlines <<std::endl;       // -- DEBUG
+//    std::cout << "taille :" <<info.output_width<<" " << info.output_height <<" "<< numlines <<std::endl;       // -- DEBUG
 
     jpeg_finish_decompress(&info);   //finish decompressing this file
 
@@ -122,6 +120,7 @@ bool ImageJPEG :: LoadJPEG(char* FileName, bool Fast)
 
     return true;
 }
+
 GLbyte* ImageJPEG ::getData() const {
     return texData;
 }

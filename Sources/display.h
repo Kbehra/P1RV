@@ -8,6 +8,7 @@
 #include <Windows.h>
 #include <GL/gl.h>
 #include <GL/glut.h>
+#include "shader.h"
 
 
 /*
@@ -16,7 +17,6 @@
 class Display{
 private :
     int choiceMat;
-	int mode; 
 public :
     int windowW;
     int windowH;
@@ -30,7 +30,6 @@ public :
     void initWindow(int argc, char *argv[]);
     int getWindowW();
     int getWindowH();
-
 
 };
 
