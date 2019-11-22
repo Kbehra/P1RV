@@ -3,7 +3,7 @@
 //
 
 #include "callback.h"
-#include "shader.h"
+classe Shader; 
 
 extern CreateMap map;
 extern Display goDisplay;
