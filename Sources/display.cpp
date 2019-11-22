@@ -1,22 +1,14 @@
 //
 // Created by kiki on 17/10/2019.
 //
-#include <Windows.h>
-#include <iostream>
-#include <math.h>
-
 
 #include "display.h"
-#include "createmap.h"
-#include "camera.h"
-#include "Material.h"
-
 
 extern Camera cam;
 extern CreateMap map;
 extern Display goDisplay;
-#define VITESSE_DEPLACEMENT 0.1
-#define VITESSE_ROTATION 0.1
+
+
 
 Display :: Display() {
     windowW = 1080;
@@ -26,8 +18,7 @@ Display :: Display() {
     Near = 0.0f;
     Far = 0.0f;
 
-    //
-    choiceMat = 4;
+    choiceMat = 4;			// permet de sélectionner un matériau par défaut 
 
 
 }
@@ -68,6 +59,15 @@ void Display :: initWindow(int argc, char *argv[]){
 
     // Shading model
     glShadeModel(GL_SMOOTH);
+
+	// fonctions de callback
+	glutDisplayFunc(affichage);
+	glutReshapeFunc(rezise);
+
+	glutKeyboardFunc(KeyBoard);
+	glutMouseFunc(souris);
+	glutMotionFunc(deplacementSouris);
+
 
 }
 
@@ -152,33 +152,11 @@ int Display ::getWindowH() {
     return windowH;
 }
 
+
 /*
  *
  */
-GLvoid affichage(){
 
-    glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
 
-	Shader mapShader("shader.vert", "shader.frag");
 
-    glMatrixMode(GL_MODELVIEW);
-
-    // give a map a material
-	//map.init(&mapShader);
-    map.afficher();
-    //Material(4);
-
-    glLoadIdentity();
-    glRotatef(-cam.getAngleY(),1.0f,0.0f,0.0f);
-    glRotatef(-cam.getAngleX(),0.0f,1.0f,0.0f);
-
-    //glFlush();
-    glutSwapBuffers();
-    glutPostRedisplay();
-}
-
-GLvoid redimensionner(int w, int h){
-    goDisplay.redimensionner(w, h);
-}
 

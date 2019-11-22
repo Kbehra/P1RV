@@ -4,11 +4,21 @@
 
 #ifndef P1RV_HEIGHTMAPS_BEHRA_MARAVAT_SHADER_H
 #define P1RV_HEIGHTMAPS_BEHRA_MARAVAT_SHADER_H
+#pragma once 
+#include<GL/glew.h>
+#include <Windows.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <iostream>
+#include <fstream>
 #include <GL/gl.h>
+#include <GL/glext.h>
+#include <GL/wglext.h>
 #include <GL/glut.h>
+#include <GL/freeglut.h>
 #include <string>
 #include <iostream>
-#include "loadjpeg.h"
+
 
 using namespace std;
 
@@ -25,7 +35,7 @@ private:    //Attributs
 public:
     //Constructeurs & destructeur
     Shader();
-    Shader(string vertexSource, string fragmentSource);
+    Shader(char* vertexSource, char* fragmentSource);
 	Shader(Shader const& shaderACopier); //de recopie
     ~Shader();
 

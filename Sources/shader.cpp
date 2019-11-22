@@ -2,26 +2,9 @@
 // Created by alicia on 14/11/2019.
 //
 
-#pragma once 
 
-#include <Windows.h>
-#include<GL/glew.h>
-#include <stdio.h>
-#include <stdlib.h>
 #include "shader.h"
-#include <iostream>
-#include <fstream>
-#include <GL/glext.h>
-#include <GL/gl.h>
-#include <GL/glut.h>
-#include <GL/glext.h>
-//#include <GL/glcorearb.h>
-//#include <GL/freeglut_ext.h>
 
-//#include <glad/glad.h>
-#include <string>
-
-using namespace std;
 
 //Constructeurs
 Shader::Shader() : m_vertexID(0), m_fragmentID(0), m_programID(0), m_vertexSource(), m_fragmentSource()
@@ -29,7 +12,7 @@ Shader::Shader() : m_vertexID(0), m_fragmentID(0), m_programID(0), m_vertexSourc
 
 }
 
-Shader::Shader(string vertexSource, string fragmentSource) : m_vertexID(0), m_fragmentID(0), m_programID(0),
+Shader::Shader(char* vertexSource, char* fragmentSource) : m_vertexID(0), m_fragmentID(0), m_programID(0),
                                                              m_vertexSource(vertexSource), m_fragmentSource(fragmentSource)
 {
 

@@ -6,9 +6,14 @@
 #define P1RV_HEIGHTMAPS_BEHRA_MARAVAT_DISPLAY_H
 #pragma once
 #include <Windows.h>
+#include <iostream>
+#include <math.h>
+#include "createmap.h"
+#include "callback.h"
 #include <GL/gl.h>
 #include <GL/glut.h>
-#include "shader.h"
+#include "camera.h"
+#include "Material.h"
 
 
 /*
@@ -33,7 +38,5 @@ public :
 
 };
 
-GLvoid affichage();
-GLvoid redimensionner(int w, int h);
-GLvoid Special(int key, int x, int y);
+
 #endif //P1RV_HEIGHTMAPS_BEHRA_MARAVAT_DISPLAY_H

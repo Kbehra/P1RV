@@ -3,7 +3,7 @@
 //
 
 #include "pixel.h"
-#include <iostream>
+
 Pixel :: Pixel(){
 
 }

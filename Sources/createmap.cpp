@@ -13,13 +13,11 @@ CreateMap ::CreateMap(ImageJPEG uneimage) {
     image = uneimage;
 	idDisplayList = 0;
     pas_pixel = 10;
-    mode = 6;
+    mode = 6;						// permet de sélectionner le mode d'affichage
     //TODO reflechir à une alternative
 
 }
-CreateMap :: CreateMap(){
-
-}
+CreateMap :: CreateMap(){ }
 
 /*
  * Permet de créer la Map
@@ -214,6 +212,7 @@ void CreateMap :: generateMap() {
 			} */
 			break;
 		case 6:
+		{
 			//SHADER AVEC TRIANGLE_STRIP
 			float* vertices = new float[tailleVerticesBytes];
 
@@ -253,40 +252,43 @@ void CreateMap :: generateMap() {
 			}
 
 			/* ***** Gestion du VBO ***** */
-			GLuint vbo;
 
-			// Génération du VBO
-			glGenBuffers(1, &vbo);
+			//GLuint vbo;
 
-			// Verrouillage
-			glBindBuffer(GL_ARRAY_BUFFER, vbo);
+			//// Génération du VBO
+			//glGenBuffers(1, &vbo);
 
-			// Remplissage
-			glBufferData(GL_ARRAY_BUFFER, tailleVerticesBytes, 0, GL_STATIC_DRAW);
-			glBufferSubData(GL_ARRAY_BUFFER, 0, tailleVerticesBytes, vertices);
+			//// Verrouillage
+			//glBindBuffer(GL_ARRAY_BUFFER, vbo);
 
-			// Déverrouillage du VBO
-			glBindBuffer(GL_ARRAY_BUFFER, 0);
+			//// Remplissage
+			//glBufferData(GL_ARRAY_BUFFER, tailleVerticesBytes, 0, GL_STATIC_DRAW);
+			//glBufferSubData(GL_ARRAY_BUFFER, 0, tailleVerticesBytes, vertices);
 
-			/* ***** Gestion du VAO ***** */
-			GLuint vao;
-			glGenVertexArrays(1, &vao);
+			//// Déverrouillage du VBO
+			//glBindBuffer(GL_ARRAY_BUFFER, 0);
 
-			// Verrouillage du VAO
-			glBindVertexArray(vao);
+			///* ***** Gestion du VAO ***** */
+			//GLuint vao;
+			//glGenVertexArrays(1, &vao);
 
-			// Verrouillage du VBO
-			glBindBuffer(GL_ARRAY_BUFFER, vbo);
+			//// Verrouillage du VAO
+			//glBindVertexArray(vao);
 
-			// Vertex Attrib 0 (Vertices)
-			//glVertexAttribPointer(0, tailleVerticesBytes, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(0));
-			glEnableVertexAttribArray(0);
+			//// Verrouillage du VBO
+			//glBindBuffer(GL_ARRAY_BUFFER, vbo);
 
-			// Déverrouillage du VBO
-			glBindBuffer(GL_ARRAY_BUFFER, 0);
+			//// Vertex Attrib 0 (Vertices)
+			////glVertexAttribPointer(0, tailleVerticesBytes, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(0));
+			//glEnableVertexAttribArray(0);
 
-			// Déverrouillage du VAO
-			glBindVertexArray(0);
+			//// Déverrouillage du VBO
+			//glBindBuffer(GL_ARRAY_BUFFER, 0);
+
+			//// Déverrouillage du VAO
+			//glBindVertexArray(0);
+
+		}
 			break;
         default:
 

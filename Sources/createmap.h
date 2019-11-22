@@ -6,11 +6,14 @@
 #define P1RV_HEIGHTMAPS_BEHRA_MARAVAT_CREATEMAP_H
 
 #pragma once
+
 #include <Windows.h>
-#include "loadjpeg.h"
 #include "GL/gl.h"
+#include<GL/glext.h>
+#include<GL/wglext.h>
+#include "loadjpeg.h"
 #include "camera.h"
-#include "shader.h"
+
 
 class CreateMap {
     public:
@@ -22,9 +25,6 @@ class CreateMap {
     GLvoid afficher();
     int  getPas();
     void setMode(int mode);
-
-
-protected:
 
 
 private:

@@ -2,14 +2,16 @@
 // Created by kiki on 12/10/2019.
 //
 #define _CRT_SECURE_NO_WARNINGS
-#include <iostream>
-#include <stdio.h>
-#include <stdlib.h>
-
 #define GL_GLEXT_PROTOTYPES
 #include "loadjpeg.h"
+#include <Windows.h>
 #include "jpeglib.h"
 #include "jerror.h"
+#include "jinclude.h"
+#include "cderror.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <vector>
 
 /* 
 Permet d'éviter le problème de symbole sur __iob_func
@@ -39,7 +41,7 @@ bool ImageJPEG :: LoadJPEG(char* FileName, bool Fast)
     //if the jpeg file didnt load exit
     if(!file)
     {
-        fprintf(stderr, "Error reading JPEG file %s!!!", FileName);
+        //fprintf(stderr, "Error reading JPEG file %s!!!", FileName);
         return false;
     }
 
