@@ -1,5 +1,0 @@
-﻿  main.cpp
-  callback.cpp
-  display.cpp
-  Génération de code en cours...
-C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.23.28105\include\GL\glew.h(85,1): fatal error C1189: #error:  gl.h included before glew.h
