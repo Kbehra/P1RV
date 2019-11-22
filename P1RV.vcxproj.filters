@@ -39,6 +39,9 @@
     <ClCompile Include="Sources\pixel.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
+    <ClCompile Include="Sources\shader.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Sources\callback.h">
@@ -61,6 +64,9 @@
     </ClInclude>
     <ClInclude Include="Sources\pixel.h">
       <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="Sources\shader.h">
+      <Filter>Fichiers sources</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
