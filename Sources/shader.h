@@ -4,18 +4,18 @@
 
 #ifndef P1RV_HEIGHTMAPS_BEHRA_MARAVAT_SHADER_H
 #define P1RV_HEIGHTMAPS_BEHRA_MARAVAT_SHADER_H
+#define GLUT_DISABLE_ATEXIT_HACK
 #pragma once 
+#define GLEW_STATIC
 #include<GL/glew.h>
 #include <Windows.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <iostream>
 #include <fstream>
-#include <GL/gl.h>
+#include <GL/freeglut.h>
 #include <GL/glext.h>
 #include <GL/wglext.h>
-#include <GL/glut.h>
-#include <GL/freeglut.h>
+
 #include <string>
 #include <iostream>
 

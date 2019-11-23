@@ -3,6 +3,7 @@
 //
 #define _CRT_SECURE_NO_WARNINGS
 #define GL_GLEXT_PROTOTYPES
+
 #include "loadjpeg.h"
 #include <Windows.h>
 #include "jpeglib.h"

@@ -2,12 +2,14 @@
 // Created by kiki on 31/10/2019.
 //
 
+#include "shader.h"
 #include "callback.h"
-classe Shader; 
+
 
 extern CreateMap map;
 extern Display goDisplay;
 extern Camera cam;
+
 extern char* LINK_SHADERVERT;
 extern char* LINK_SHADERFRAG;
 
@@ -40,7 +42,7 @@ GLvoid affichage() {
 	// give a map a material
 	//map.init(&mapShader);
 	map.afficher();
-	//Material(4);
+	Material(4);
 
 	glLoadIdentity();
 	glRotatef(-cam.getAngleY(), 1.0f, 0.0f, 0.0f);

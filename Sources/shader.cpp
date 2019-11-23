@@ -31,10 +31,12 @@ Shader::Shader(Shader const& shaderACopier)
 // Destructeur
 Shader::~Shader()
 {
+	/*
 	// Destruction du shader
 	glDeleteShader(m_vertexID);
 	glDeleteShader(m_fragmentID);
 	glDeleteProgram(m_programID);
+	*/
 }
 
 //surcharge operateur =

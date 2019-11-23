@@ -7,9 +7,9 @@
 
 #define _CRT_SECURE_NO_WARNINGS
 #define GL_GLEXT_PROTOTYPES
+#define GLUT_DISABLE_ATEXIT_HACK
 #include <Windows.h>
-#include <GL/gl.h>
-#include <GL/glut.h>
+#include <GL/freeglut.h>
 #include <GL/glext.h>
 #include <iostream>
 #include <stdio.h>

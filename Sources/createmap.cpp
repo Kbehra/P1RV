@@ -5,7 +5,7 @@
 #include "createmap.h"
 extern Camera cam;
 
-char* LINK_TEX = _strdup("C:/dev/P1RV_1611/P1RV_1611/examples/texture1.jpeg");
+char* LINK_TEX = _strdup("C:/Users/kilia/P1RV/examples/Heightmap.jpeg");
 
 CreateMap ::CreateMap(ImageJPEG uneimage) {
     x = uneimage.getX();
@@ -13,8 +13,37 @@ CreateMap ::CreateMap(ImageJPEG uneimage) {
     image = uneimage;
 	idDisplayList = 0;
     pas_pixel = 10;
-    mode = 6;						// permet de sélectionner le mode d'affichage
+    mode = 3;								// permet de sélectionner le mode d'affichage
     //TODO reflechir à une alternative
+
+	loadertex= matexture.LoadJPEG(LINK_TEX);
+
+
+	glLoadIdentity();
+	glRotatef(-cam.getAngleX(), 1.0f, 0.0f, 0.0f);
+	glRotatef(-cam.getAngleY(), 0.0f, 1.0f, 0.0f);
+
+	//
+	idDisplayList = glGenLists(1); 
+	glNewList(idDisplayList, GL_COMPILE);
+
+	//Génération de l'ID
+	glGenTextures(1, &tex);
+
+	//Verrouillage
+	glBindTexture(GL_TEXTURE_2D, tex);
+
+	//Copie des pixels
+	// SEGMENTATION FAULT ICI
+	//glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, matexture.getX(), matexture.getY(), 0, GL_RGB, GL_UNSIGNED_BYTE, matexture.getMatPixel());
+
+	//Application de filtres
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+
+	//Déverrouillage
+	glBindTexture(GL_TEXTURE_2D, 0);
+	
 
 }
 CreateMap :: CreateMap(){ }
@@ -24,35 +53,7 @@ CreateMap :: CreateMap(){ }
  */
 void CreateMap :: generateMap() {
 
-	GLuint tex;
-	int tailleVerticesBytes = 12 * sizeof(float);
-
-	//chargement de la texture
-	ImageJPEG matexture;
-	bool loadertex = matexture.LoadJPEG(LINK_TEX);
-
-	glLoadIdentity();
-	glRotatef(-cam.getAngleX(), 1.0f, 0.0f, 0.0f);
-	glRotatef(-cam.getAngleY(), 0.0f, 1.0f, 0.0f);
-
-	//Génération de l'ID
-	glGenTextures(1, &tex);
-
-	//Verrouillage
-	glBindTexture(GL_TEXTURE_2D, tex);
-
-	//Copie des pixels
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, matexture.getX(), matexture.getY(), 0, GL_RGB, GL_UNSIGNED_BYTE, matexture.getMatPixel());
 	
-	//Application de filtres
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-
-	//Déverrouillage
-	glBindTexture(GL_TEXTURE_2D, 0);
-
-	//on choisi notre couleur de la carte
-	glColor3f(1.0f, 1.0f, 1.0f);
 
     switch (mode)
     {
@@ -113,6 +114,7 @@ void CreateMap :: generateMap() {
             break;
         case 3:
             // QUADS SANS TEXTURE
+
             glBegin(GL_QUADS);
             for (int j = 0; j<x-pas_pixel; j+=pas_pixel){
                 for (int i =0; i<y-pas_pixel; i+=pas_pixel) {
@@ -214,7 +216,8 @@ void CreateMap :: generateMap() {
 		case 6:
 		{
 			//SHADER AVEC TRIANGLE_STRIP
-			float* vertices = new float[tailleVerticesBytes];
+
+			/*float* vertices = new float[tailleVerticesBytes];
 
 			int k = 0;
 
@@ -251,42 +254,43 @@ void CreateMap :: generateMap() {
 				}
 			}
 
+
 			/* ***** Gestion du VBO ***** */
+			/*
+			GLuint vbo;
 
-			//GLuint vbo;
+			// Génération du VBO
+			glGenBuffers(1, &vbo);
 
-			//// Génération du VBO
-			//glGenBuffers(1, &vbo);
+			// Verrouillage
+			glBindBuffer(GL_ARRAY_BUFFER, vbo);
 
-			//// Verrouillage
-			//glBindBuffer(GL_ARRAY_BUFFER, vbo);
+			// Remplissage
+			glBufferData(GL_ARRAY_BUFFER, tailleVerticesBytes, 0, GL_STATIC_DRAW);
+			glBufferSubData(GL_ARRAY_BUFFER, 0, tailleVerticesBytes, vertices);
 
-			//// Remplissage
-			//glBufferData(GL_ARRAY_BUFFER, tailleVerticesBytes, 0, GL_STATIC_DRAW);
-			//glBufferSubData(GL_ARRAY_BUFFER, 0, tailleVerticesBytes, vertices);
+			// Déverrouillage du VBO
+			glBindBuffer(GL_ARRAY_BUFFER, 0);
 
-			//// Déverrouillage du VBO
-			//glBindBuffer(GL_ARRAY_BUFFER, 0);
+			GLuint vao;
+			glGenVertexArrays(1, &vao);
 
-			///* ***** Gestion du VAO ***** */
-			//GLuint vao;
-			//glGenVertexArrays(1, &vao);
+			// Verrouillage du VAO
+			glBindVertexArray(vao);
 
-			//// Verrouillage du VAO
-			//glBindVertexArray(vao);
+			// Verrouillage du VBO
+			glBindBuffer(GL_ARRAY_BUFFER, vbo);
 
-			//// Verrouillage du VBO
-			//glBindBuffer(GL_ARRAY_BUFFER, vbo);
+			// Vertex Attrib 0 (Vertices)
+			//glVertexAttribPointer(0, tailleVerticesBytes, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(0));
+			glEnableVertexAttribArray(0);
 
-			//// Vertex Attrib 0 (Vertices)
-			////glVertexAttribPointer(0, tailleVerticesBytes, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(0));
-			//glEnableVertexAttribArray(0);
+			// Déverrouillage du VBO
+			glBindBuffer(GL_ARRAY_BUFFER, 0);
 
-			//// Déverrouillage du VBO
-			//glBindBuffer(GL_ARRAY_BUFFER, 0);
-
-			//// Déverrouillage du VAO
-			//glBindVertexArray(0);
+			// Déverrouillage du VAO
+			glBindVertexArray(0);
+			*/
 
 		}
 			break;
@@ -295,6 +299,7 @@ void CreateMap :: generateMap() {
             break;
     }
     glEnd();
+	glEndList();
 }
 
 /*

@@ -4,12 +4,11 @@
 
 #ifndef P1RV_HEIGHTMAPS_BEHRA_MARAVAT_CAMERA_H
 #define P1RV_HEIGHTMAPS_BEHRA_MARAVAT_CAMERA_H
-
+#define GLUT_DISABLE_ATEXIT_HACK
 #pragma once
 #include <Windows.h>
-#include <GL/gl.h>
-#include <GL/glut.h>
 #include <GL/freeglut.h>
+
 
 
 class Camera{

@@ -24,6 +24,7 @@ Display :: Display() {
 }
 
 void Display :: initWindow(int argc, char *argv[]){
+
     // initialisation de GLUT
     glutInit(&argc, argv);
     // choix du mode d'affichage (ici RGB)
@@ -40,10 +41,11 @@ void Display :: initWindow(int argc, char *argv[]){
 
     // Initialement on desactive le Z-buffer
     glEnable(GL_DEPTH_TEST);
-    glEnable(GL_TEXTURE_2D);
+    //glEnable(GL_TEXTURE_2D);
 
 
     // Lumiere
+
     GLfloat lightpos[] = { 0.0f, 0.0f, 15.0f };
     GLfloat lightcolor[] = { 1.0f, 1.0f, 0.0f };
     GLfloat ambcolor[] = { 0.0f, 0.0f, 1.0f };
@@ -59,7 +61,7 @@ void Display :: initWindow(int argc, char *argv[]){
 
     // Shading model
     glShadeModel(GL_SMOOTH);
-
+	
 	// fonctions de callback
 	glutDisplayFunc(affichage);
 	glutReshapeFunc(rezise);

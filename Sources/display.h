@@ -4,14 +4,14 @@
 
 #ifndef P1RV_HEIGHTMAPS_BEHRA_MARAVAT_DISPLAY_H
 #define P1RV_HEIGHTMAPS_BEHRA_MARAVAT_DISPLAY_H
+#define GLUT_DISABLE_ATEXIT_HACK
 #pragma once
 #include <Windows.h>
 #include <iostream>
 #include <math.h>
 #include "createmap.h"
 #include "callback.h"
-#include <GL/gl.h>
-#include <GL/glut.h>
+#include <GL/freeglut.h>
 #include "camera.h"
 #include "Material.h"
 
