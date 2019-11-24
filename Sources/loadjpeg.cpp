@@ -113,6 +113,8 @@ bool ImageJPEG :: LoadJPEG(char* FileName, bool Fast)
             Pixels[numlines][i] = Pixel;
 
         }
+
+		*p2 += numlines * 3 * info.output_width; // pour utiliser texData (texture)
         numlines++; //parcourir les lignes
     }
 

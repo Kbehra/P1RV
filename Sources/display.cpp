@@ -41,7 +41,7 @@ void Display :: initWindow(int argc, char *argv[]){
 
     // Initialement on desactive le Z-buffer
 	glEnable(GL_DEPTH_TEST);
-	// desactive texture
+	//active texture
 	glEnable(GL_TEXTURE_2D);
 
     // Lumiere

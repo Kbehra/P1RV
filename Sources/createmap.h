@@ -40,6 +40,8 @@ private:
 	//chargement de la texture
 	ImageJPEG matexture;
 	bool loadertex; 
+	GLuint textureID;
+	void applyTexture();
 
 };
 

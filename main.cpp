@@ -21,9 +21,9 @@ Camera cam;
 
 // Liens vers le fichier à charger
 
-char* LINK_IMAGE = _strdup("C:/Users/Admin/P1RV/examples/Heightmap.jpeg");
-char* LINK_SHADERVERT = _strdup("C:/Users/Admin/P1RV/Sources/shader/shader.vert");
-char* LINK_SHADERFRAG = _strdup("C:/Users/Admin/P1RV/Sources/shader/shader.frag");
+char* LINK_IMAGE = _strdup("C:/Users/kilia/P1RV/examples/Heightmap.jpeg");
+char* LINK_SHADERVERT = _strdup("C:/Users/kilia/P1RV/Sources/shader/shader.vert");
+char* LINK_SHADERFRAG = _strdup("C:/Users/kilia/P1RV/Sources/shader/shader.frag");
 
 
 int main(int argc, char *argv[]) {

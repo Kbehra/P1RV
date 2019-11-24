@@ -5,7 +5,7 @@
 #include "createmap.h"
 extern Camera cam;
 
-char* LINK_TEX = _strdup("C:/Users/Admin/P1RV/examples/texture3.jpeg");
+char* LINK_TEX = _strdup("C:/Users/kilia/P1RV/examples/Heightmap.jpeg");
 
 CreateMap ::CreateMap(ImageJPEG uneimage) {
     x = uneimage.getX();
@@ -13,12 +13,14 @@ CreateMap ::CreateMap(ImageJPEG uneimage) {
     image = uneimage;
 	idDisplayList = 0;
     pas_pixel = 10;
-    mode = 4;								// permet de sélectionner le mode d'affichage
+    mode = 1;								// permet de sélectionner le mode d'affichage
     //TODO reflechir à une alternative
 
 	loadertex= matexture.LoadJPEG(LINK_TEX);
 	if (loadertex) {
+		textureID = 1;
 		std::cout << "texture chargee" << std::endl;
+		applyTexture();
 	}
 	//createTexture(matexture);
 
@@ -111,6 +113,7 @@ void CreateMap :: generateMap() {
             break;
         case 4:
             // QUADS AVEC TEXTURE
+			glEnable(GL_TEXTURE_2D);
 			glBegin(GL_QUADS);
 			glFrontFace(GL_CW);
 			for (int j = 0; j < x - pas_pixel; j += pas_pixel) {
@@ -277,6 +280,34 @@ void CreateMap :: generateMap() {
     glEnd();
 	glEndList();
 }
+void CreateMap ::applyTexture()
+{
+	glGenTextures(1, &textureID);
+
+	//Vérouillage
+	glBindTexture(GL_TEXTURE_2D, textureID);
+
+	glTexImage2D(GL_TEXTURE_2D, 0, matexture.getType(), matexture.getX(), matexture.getY(), 0, matexture.getType(), GL_UNSIGNED_BYTE, matexture.getData());
+
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_BASE_LEVEL, 0);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAX_LEVEL, 0);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_GENERATE_MIPMAP, GL_TRUE);
+
+	// Correction de la perspective
+	//glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);
+
+	// Blending
+	//glEnable(GL_BLEND);
+	//glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+	//Déverrouillage
+	//glBindTexture(GL_TEXTURE_2D, textureID);
+
+}
 
 /*
  * Permet d'afficher
@@ -296,30 +327,7 @@ void CreateMap :: setMode(int mode){
 
 GLvoid createTexture(ImageJPEG tex) {
 
-	glGenTextures(1, tex.getptrID());
-
-	//Vérouillage
-	glBindTexture(GL_TEXTURE_2D, tex.getID()); 
-
-	glTexImage2D(GL_TEXTURE_2D, 0, tex.getType(), tex.getX(), tex.getY(), 0, tex.getType(), GL_UNSIGNED_BYTE,tex.getData());
 	
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_BASE_LEVEL, 0);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAX_LEVEL, 0);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
-	glTexParameteri(GL_TEXTURE_2D, GL_GENERATE_MIPMAP, GL_TRUE);
-
-	// Correction de la perspective
-	glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);
-
-	// Blending
-	glEnable(GL_BLEND);
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-
-	//Déverrouillage
-	glBindTexture(GL_TEXTURE_2D, tex.getID());
 
 }
 

@@ -32,8 +32,8 @@ GLvoid rezise(int w, int h) {
 
 GLvoid affichage() {
 
-	glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
+	//glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
+	//glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
 
 	Shader mapShader(LINK_SHADERVERT, LINK_SHADERFRAG);
 
@@ -54,7 +54,7 @@ GLvoid affichage() {
 
 	BitmapOutput(1.0, 1.0, Zoom, GLUT_BITMAP_TIMES_ROMAN_24); //debug
 
-	//glFlush();
+	glFlush();
 	glutSwapBuffers();
 	glutPostRedisplay();
 }
