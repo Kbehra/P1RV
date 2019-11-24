@@ -47,8 +47,23 @@ GLvoid affichage() {
 	glLoadIdentity();
 	glRotatef(-cam.getAngleY(), 1.0f, 0.0f, 0.0f);
 	glRotatef(-cam.getAngleX(), 0.0f, 1.0f, 0.0f);
+	glScalef(1.0f+(cam.getZoom() / 100), 1.0f + (cam.getZoom() / 100), 1.0f + (cam.getZoom() / 100));
+
+	// affichage des informations sur l'écran 
+	std::string Zoom = std::to_string(cam.getZoom());
+
+	BitmapOutput(1.0, 1.0, Zoom, GLUT_BITMAP_TIMES_ROMAN_24); //debug
 
 	//glFlush();
 	glutSwapBuffers();
 	glutPostRedisplay();
+}
+
+void BitmapOutput(float x, float y, std::string string, void* font)
+{
+	int len, i; // len donne la longueur de la chaîne de caractères
+	glRasterPos2f(x, y); // Positionne le premier caractère de la chaîne
+	//len = (int) strlen(string); // Calcule la longueur de la chaîne
+	len = string.length();
+	for (i = 0; i < len; i++) glutBitmapCharacter(font, string[i]); // Affiche chaque caractère de la chaîne
 }

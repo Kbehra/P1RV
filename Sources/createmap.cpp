@@ -5,7 +5,7 @@
 #include "createmap.h"
 extern Camera cam;
 
-char* LINK_TEX = _strdup("C:/Users/kilia/P1RV/examples/Heightmap.jpeg");
+char* LINK_TEX = _strdup("C:/Users/Admin/P1RV/examples/texture3.jpeg");
 
 CreateMap ::CreateMap(ImageJPEG uneimage) {
     x = uneimage.getX();
@@ -13,38 +13,22 @@ CreateMap ::CreateMap(ImageJPEG uneimage) {
     image = uneimage;
 	idDisplayList = 0;
     pas_pixel = 10;
-    mode = 3;								// permet de sélectionner le mode d'affichage
+    mode = 4;								// permet de sélectionner le mode d'affichage
     //TODO reflechir à une alternative
 
 	loadertex= matexture.LoadJPEG(LINK_TEX);
-
+	if (loadertex) {
+		std::cout << "texture chargee" << std::endl;
+	}
+	//createTexture(matexture);
 
 	glLoadIdentity();
 	glRotatef(-cam.getAngleX(), 1.0f, 0.0f, 0.0f);
 	glRotatef(-cam.getAngleY(), 0.0f, 1.0f, 0.0f);
 
-	//
 	idDisplayList = glGenLists(1); 
 	glNewList(idDisplayList, GL_COMPILE);
-
-	//Génération de l'ID
-	glGenTextures(1, &tex);
-
-	//Verrouillage
-	glBindTexture(GL_TEXTURE_2D, tex);
-
-	//Copie des pixels
-	// SEGMENTATION FAULT ICI
-	//glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, matexture.getX(), matexture.getY(), 0, GL_RGB, GL_UNSIGNED_BYTE, matexture.getMatPixel());
-
-	//Application de filtres
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-
-	//Déverrouillage
-	glBindTexture(GL_TEXTURE_2D, 0);
 	
-
 }
 CreateMap :: CreateMap(){ }
 
@@ -52,8 +36,6 @@ CreateMap :: CreateMap(){ }
  * Permet de créer la Map
  */
 void CreateMap :: generateMap() {
-
-	
 
     switch (mode)
     {
@@ -91,24 +73,18 @@ void CreateMap :: generateMap() {
 					Pixel p3 = image.getPixel(i, j + pas_pixel);
 					Pixel p4 = image.getPixel(i + pas_pixel, j + pas_pixel);
 
-					glTexCoord2d(0, 0);
-					//glTexCoord3f(0, (float)p1.getR()/255,0);
+					glTexCoord2f(0, 0);
 					glVertex3f((float)p1.getPosx() / x, (float)p1.getR() / 255, (float)p1.getPosy() / y);
 
-					glTexCoord2d(p2.getPosx() / x, 0);
+					glTexCoord2f(p2.getPosx() / x, 0);
 					//glTexCoord2d(1/matexture.getX(),0);
-					// glTexCoord3f((float) 1/matexture.getX(),(float)p2.getR()/255, 0);
 					glVertex3f((float)p2.getPosx() / x, (float)p2.getR() / 255, (float)p2.getPosy() / y);
 
-					glTexCoord2d(0.5 * p3.getPosx() / x, p3.getPosy() / y);
+					glTexCoord2f(0.5 * p3.getPosx() / x, p3.getPosy() / y);
 					//glTexCoord2d(0.5/matexture.getX(),1/matexture.getY());
-					//glTexCoord3f((float)0.5/matexture.getX(),(float)p3.getR()/255, (float)1/matexture.getY());
 					glVertex3f((float)p3.getPosx() / x, (float)p3.getR() / 255, (float)p3.getPosy() / y);
 
 					glVertex3f((float)p4.getPosx() / x, (float)p4.getR() / 255, (float)p4.getPosy() / y);
-
-					// -- DEBUG
-					std::cout << (float)p1.getPosx() / x << " " << (float)p1.getR() / 255 << " " << (float)p1.getPosy() / y << std::endl;
 				}
 			}
             break;
@@ -127,9 +103,9 @@ void CreateMap :: generateMap() {
 
                     glVertex3f((float) p2.getPosx() / x, (float) p2.getR() / 255, (float) p2.getPosy() / y);
 
-                    glVertex3f((float) p3.getPosx() / x, (float) p3.getR() / 255, (float) p3.getPosy() / y);
-
                     glVertex3f((float) p4.getPosx() / x, (float) p4.getR() / 255, (float) p4.getPosy() / y);
+
+                    glVertex3f((float) p3.getPosx() / x, (float) p3.getR() / 255, (float) p3.getPosy() / y);
                 }
             }
             break;
@@ -144,16 +120,16 @@ void CreateMap :: generateMap() {
 					Pixel p3 = image.getPixel(i, j + pas_pixel);
 					Pixel p4 = image.getPixel(i + pas_pixel, j + pas_pixel);
 
-					glTexCoord2d(0, 0);
+					glTexCoord2f((float)p1.getPosx() / x, (float)p1.getPosy() / y);
 					glVertex3f((float)p1.getPosx() / x, (float)p1.getR() / 255, (float)p1.getPosy() / y);
 
-					glTexCoord2d(0, 1);
+					glTexCoord2f((float)p2.getPosx() / x, (float)p2.getPosy() / y);
 					glVertex3f((float)p2.getPosx() / x, (float)p2.getR() / 255, (float)p2.getPosy() / y);
 
-					glTexCoord2d(0, 1);
+					glTexCoord2f((float)p4.getPosx() / x, (float)p4.getPosy() / y);
 					glVertex3f((float)p4.getPosx() / x, (float)p4.getR() / 255, (float)p4.getPosy() / y);
 
-					glTexCoord2d(1, 1);
+					glTexCoord2f((float)p3.getPosy() / x, (float)p3.getPosy() / y);
 					glVertex3f((float)p3.getPosx() / x, (float)p3.getR() / 255, (float)p3.getPosy() / y);
 
 				}
@@ -316,6 +292,35 @@ int CreateMap :: getPas(){
 
 void CreateMap :: setMode(int mode){
     this->mode=mode;
+}
+
+GLvoid createTexture(ImageJPEG tex) {
+
+	glGenTextures(1, tex.getptrID());
+
+	//Vérouillage
+	glBindTexture(GL_TEXTURE_2D, tex.getID()); 
+
+	glTexImage2D(GL_TEXTURE_2D, 0, tex.getType(), tex.getX(), tex.getY(), 0, tex.getType(), GL_UNSIGNED_BYTE,tex.getData());
+	
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_BASE_LEVEL, 0);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAX_LEVEL, 0);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_GENERATE_MIPMAP, GL_TRUE);
+
+	// Correction de la perspective
+	glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);
+
+	// Blending
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+	//Déverrouillage
+	glBindTexture(GL_TEXTURE_2D, tex.getID());
+
 }
 
 /*void CreateMap::init(Shader* shadertest) {

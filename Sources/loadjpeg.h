@@ -40,6 +40,9 @@ public:
     unsigned long getX() const;
     unsigned long getY() const;
     GLbyte* getData() const;
+	GLuint getID() const;
+	GLuint* getptrID();
+	GLuint getType() const;
     bool LoadJPEG(char* FileName, bool Fast = true);    //chargement de l'image
     Pixel getPixel(int x, int y) const;                 //acceder a un pixel
     vector<vector<Pixel>>* getMatPixel();               //pointeur sur la matrice de pixels

@@ -23,7 +23,7 @@ GLvoid rezise(int w, int h);
 
 GLvoid affichage();
 
-
+void BitmapOutput(float x, float y, std::string string, void* font);
 
 
 #endif //P1RV_HEIGHTMAPS_BEHRA_MARAVAT_CALLBACK_H

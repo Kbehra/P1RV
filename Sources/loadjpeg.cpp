@@ -84,6 +84,7 @@ bool ImageJPEG :: LoadJPEG(char* FileName, bool Fast)
     GLbyte* p1 = texData;
     GLbyte** p2 = &p1;
     int numlines = 0;
+	ID = 0;
 
     JSAMPARRAY buffer;
     buffer = (*info.mem->alloc_sarray)((j_common_ptr)&info, JPOOL_IMAGE, info.output_width*info.output_components,1);
@@ -128,11 +129,22 @@ GLbyte* ImageJPEG ::getData() const {
     return texData;
 }
 
+GLuint ImageJPEG::getType() const {
+	return type;
+}
+
 unsigned long ImageJPEG :: getX() const{
     return x;
 }
 unsigned long ImageJPEG :: getY() const{
     return y;
+}
+
+GLuint ImageJPEG::getID() const {
+	return ID;
+}
+GLuint* ImageJPEG::getptrID() {
+	return &ID;
 }
 
 Pixel ImageJPEG :: getPixel(int h, int l) const{

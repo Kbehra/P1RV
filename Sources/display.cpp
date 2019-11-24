@@ -28,7 +28,7 @@ void Display :: initWindow(int argc, char *argv[]){
     // initialisation de GLUT
     glutInit(&argc, argv);
     // choix du mode d'affichage (ici RGB)
-    glutInitDisplayMode(GLUT_RGB|GLUT_DOUBLE);
+    glutInitDisplayMode(GLUT_RGB|GLUT_DOUBLE|GLUT_DEPTH);
     // position initiale de la fenetre GLUT
     glutInitWindowPosition(0,0);
     // taille initiale de la fenetre GLUT
@@ -40,9 +40,9 @@ void Display :: initWindow(int argc, char *argv[]){
     glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
 
     // Initialement on desactive le Z-buffer
-    glEnable(GL_DEPTH_TEST);
-    //glEnable(GL_TEXTURE_2D);
-
+	glEnable(GL_DEPTH_TEST);
+	// desactive texture
+	glEnable(GL_TEXTURE_2D);
 
     // Lumiere
 
@@ -82,32 +82,44 @@ GLvoid Display :: clavier (unsigned char touche, int x, int y){
     switch(touche)
     {
         case 'z':
-            std::cout<<"Z"<<std::endl;
+		{
+			std::cout << "Z" << std::endl;
+		}
             break;
         case 'q':
-            std::cout<<"Q"<<std::endl;
+		{
+			std::cout << "Q" << std::endl;
+		}
             break;
         case 's':
-            std::cout<<"S"<<std::endl;
+		{
+			std::cout << "S" << std::endl;
+		}
             break;
         case 'd':
-            glEnable(GL_DEPTH_TEST);
-            glutPostRedisplay();
+		{
+			glEnable(GL_DEPTH_TEST);
+			glutPostRedisplay();
+		}
             break;
         case 'w':
-            std::cout<<"w"<<std::endl;
-            glDisable(GL_DEPTH_TEST);
-            glutPostRedisplay();
+		{
+			std::cout << "w" << std::endl;
+			glDisable(GL_DEPTH_TEST);
+			glutPostRedisplay();
+		}
             break;
-
         case 'e':
             break;
         case 'm':
-            // change de the default material
-            choiceMat = (choiceMat + 1) % 5;
-            Material((int)choiceMat);
+		{
+			// change de the default material
+			choiceMat = (choiceMat + 1) % 5;
+			Material((int)choiceMat);
+		}
             break;
         default:
+		{}
             break;
     }
     // Demande a GLUT de reafficher la scene
@@ -139,13 +151,9 @@ GLvoid Display :: redimensionner(int w, int h) {
     gluPerspective(focale, ratio, Near, Far);
 
 
-    // Placement de la caméra
-    //gluLookAt(-1, 1, 2, 0, 0, 0, 1, 1, 0);
-
     // Retourne a la pile modelview
     glMatrixMode(GL_MODELVIEW);
 }
-
 
 int Display :: getWindowW() {
     return windowW;
@@ -154,10 +162,6 @@ int Display ::getWindowH() {
     return windowH;
 }
 
-
-/*
- *
- */
 
 
 
