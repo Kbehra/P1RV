@@ -59,14 +59,11 @@ void Display :: initWindow(int argc, char *argv[]){
     glLightfv(GL_LIGHT0,GL_DIFFUSE,lightcolor);
     glLightfv(GL_LIGHT0,GL_SPECULAR,lightcolor);
 
-    // Shading model
-    glShadeModel(GL_SMOOTH);
-	
+
 	// fonctions de callback
 	glutDisplayFunc(affichage);
 	glutReshapeFunc(rezise);
-
-	glutKeyboardFunc(KeyBoard);
+	glutKeyboardFunc(keyBoard);
 	glutMouseFunc(souris);
 	glutMotionFunc(deplacementSouris);
 

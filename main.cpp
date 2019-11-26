@@ -4,16 +4,21 @@
  * main.cpp
  */
 
+#ifdef __linux__
+#include <string>
+#include <memory.h>
+#elif _WIN32
 #include <Windows.h>
-#include <iostream>
 #define GLUT_DISABLE_ATEXIT_HACK
-#include "sources/loadjpeg.h"
-#include "sources/createmap.h"
-#include "sources/display.h"
-#include "sources/camera.h"
-#include "sources/callback.h"
-#include <GL/freeglut.h>
-#include <GL/GLU.h>
+#endif
+
+#include <iostream>
+#include "Sources/loadjpeg.h"
+#include "Sources/createmap.h"
+#include "Sources/display.h"
+#include "Sources/camera.h"
+#include "Sources/callback.h"
+
 // Variables globales
 CreateMap map;
 Display goDisplay;
@@ -21,9 +26,9 @@ Camera cam;
 
 // Liens vers le fichier à charger
 
-char* LINK_IMAGE = _strdup("C:/Users/kilia/P1RV/examples/Heightmap.jpeg");
-char* LINK_SHADERVERT = _strdup("C:/Users/kilia/P1RV/Sources/shader/shader.vert");
-char* LINK_SHADERFRAG = _strdup("C:/Users/kilia/P1RV/Sources/shader/shader.frag");
+char* LINK_IMAGE = strdup("../examples/Heightmap.jpeg");
+char* LINK_SHADERVERT = strdup("C:/Users/kilia/P1RV/Sources/shader/shader.vert");
+char* LINK_SHADERFRAG = strdup("C:/Users/kilia/P1RV/Sources/shader/shader.frag");
 
 
 int main(int argc, char *argv[]) {

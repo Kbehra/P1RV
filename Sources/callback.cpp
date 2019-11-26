@@ -2,7 +2,6 @@
 // Created by kiki on 31/10/2019.
 //
 
-#include "shader.h"
 #include "callback.h"
 
 
@@ -10,10 +9,7 @@ extern CreateMap map;
 extern Display goDisplay;
 extern Camera cam;
 
-extern char* LINK_SHADERVERT;
-extern char* LINK_SHADERFRAG;
-
-void KeyBoard(unsigned char c, int x, int y){
+void keyBoard(unsigned char c, int x, int y){
     goDisplay.clavier(c, x, y);
 }
 
@@ -32,15 +28,13 @@ GLvoid rezise(int w, int h) {
 
 GLvoid affichage() {
 
-	//glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
-	//glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
+	glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
 
-	Shader mapShader(LINK_SHADERVERT, LINK_SHADERFRAG);
 
 	glMatrixMode(GL_MODELVIEW);
 
 	// give a map a material
-	//map.init(&mapShader);
 	map.afficher();
 	Material(4);
 
@@ -49,10 +43,12 @@ GLvoid affichage() {
 	glRotatef(-cam.getAngleX(), 0.0f, 1.0f, 0.0f);
 	glScalef(1.0f+(cam.getZoom() / 100), 1.0f + (cam.getZoom() / 100), 1.0f + (cam.getZoom() / 100));
 
-	// affichage des informations sur l'écran 
-	std::string Zoom = std::to_string(cam.getZoom());
+	// affichage des informations sur l'Ã©cran
+	//std::string Zoom = std::to_string(cam.getZoom());
 
-	BitmapOutput(1.0, 1.0, Zoom, GLUT_BITMAP_TIMES_ROMAN_24); //debug
+	std::cout << 1.0f + (cam.getZoom() / 100) << std::endl;
+
+	//BitmapOutput(1.0, 1.0, Zoom, GLUT_BITMAP_TIMES_ROMAN_24); //debug
 
 	glFlush();
 	glutSwapBuffers();
@@ -61,9 +57,9 @@ GLvoid affichage() {
 
 void BitmapOutput(float x, float y, std::string string, void* font)
 {
-	int len, i; // len donne la longueur de la chaîne de caractères
-	glRasterPos2f(x, y); // Positionne le premier caractère de la chaîne
-	//len = (int) strlen(string); // Calcule la longueur de la chaîne
+	int len, i; // len donne la longueur de la chaï¿½ne de caractï¿½res
+	glRasterPos2f(x, y); // Positionne le premier caractï¿½re de la chaï¿½ne
+	//len = (int) strlen(string); // Calcule la longueur de la chaï¿½ne
 	len = string.length();
-	for (i = 0; i < len; i++) glutBitmapCharacter(font, string[i]); // Affiche chaque caractère de la chaîne
+	for (i = 0; i < len; i++) glutBitmapCharacter(font, string[i]); // Affiche chaque caractï¿½re de la chaï¿½ne
 }

@@ -5,15 +5,17 @@
 #ifndef P1RV_HEIGHTMAPS_BEHRA_MARAVAT_CALLBACK_H
 #define P1RV_HEIGHTMAPS_BEHRA_MARAVAT_CALLBACK_H
 
-#pragma once
+#ifdef __linux__
+#elif __WIN32
 #include <Windows.h>
+#endif
 
 #include "createmap.h"
 #include "display.h"
 #include "camera.h"
 
 
-void KeyBoard(unsigned char c, int x, int y);
+void keyBoard(unsigned char c, int x, int y);
 
 void souris(int bouton, int etat, int x, int y);
 

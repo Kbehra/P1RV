@@ -5,25 +5,15 @@
 #define GL_GLEXT_PROTOTYPES
 
 #include "loadjpeg.h"
-#include <Windows.h>
 #include "jpeglib.h"
 #include "jerror.h"
-#include "jinclude.h"
-#include "cderror.h"
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <vector>
 
-/* 
-Permet d'éviter le problème de symbole sur __iob_func
-*/
-FILE _iob[] = { *stdin, *stdout, *stderr };
-
-extern "C" FILE * __cdecl __iob_func(void)
-{
-	return _iob;
-}
-
+GLbyte* texData;                // the data of the image
+extern GLbyte* texData;
 
 ImageJPEG :: ImageJPEG (){
 
@@ -114,8 +104,14 @@ bool ImageJPEG :: LoadJPEG(char* FileName, bool Fast)
 
         }
 
-		*p2 += numlines * 3 * info.output_width; // pour utiliser texData (texture)
+		//*p2 += numlines * 3 * info.output_width; // pour utiliser texData (texture)
         numlines++; //parcourir les lignes
+    }
+
+    while(info.output_scanline < info.output_height)
+    {
+        numlines = jpeg_read_scanlines(&info, (JSAMPLE**)p2, 1);
+        *p2 += numlines * 3 * info.output_width;
     }
 
 //    std::cout << "taille :" <<info.output_width<<" " << info.output_height <<" "<< numlines <<std::endl;       // -- DEBUG
@@ -127,9 +123,6 @@ bool ImageJPEG :: LoadJPEG(char* FileName, bool Fast)
     return true;
 }
 
-GLbyte* ImageJPEG ::getData() const {
-    return texData;
-}
 
 GLuint ImageJPEG::getType() const {
 	return type;

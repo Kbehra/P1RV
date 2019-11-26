@@ -9,8 +9,8 @@ extern Display goDisplay;
 
 Camera::Camera() {
     pointSize = 1.0f;
-    // Rotations autour de X et Y
-    angleX = 0.0f;
+
+    angleX = 0.0f;                  // Rotations autour de X et Y
     angleY = 0.0f;
 	zoom = 1.0;
     oldX = 0;
