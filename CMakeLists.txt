@@ -18,7 +18,7 @@ add_executable(P1RV
         Sources/callback.cpp
         Sources/callback.h
         Sources/Material.cpp
-        Sources/Material.h)
+        Sources/Material.h Sources/vertex.cpp Sources/vertex.h)
 
 
 # required packages

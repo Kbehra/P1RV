@@ -1,6 +1,8 @@
-//
-// Created by eleve on 14/10/2019.
-//
+/* Projet P1RV - sujet N°2 heightmaps - Kilian BEHRA & Alicia Maravat
+ *
+ *
+ * createmap.h
+ */
 
 #ifndef P1RV_HEIGHTMAPS_BEHRA_MARAVAT_CREATEMAP_H
 #define P1RV_HEIGHTMAPS_BEHRA_MARAVAT_CREATEMAP_H
@@ -23,15 +25,15 @@
 
 class CreateMap {
     public:
-    CreateMap(ImageJPEG uneimage);
-    CreateMap();
-   
-	//void init(Shader* shadertest);
-    void generateMap();
-    GLvoid afficher();
-    int  getPas();
-    void setMode(int mode);
 
+    CreateMap();
+    CreateMap(ImageJPEG uneimage);
+    void generateMap();                                 // génération de la map
+    GLvoid afficher();                                  // afficher la map
+    int  getPas();
+    float scale;                                        // facteur de hauteur de la map
+    void changeScale(float newscale);
+    float getScale();
 
 private:
 	unsigned long x;
@@ -39,17 +41,15 @@ private:
 	int idDisplayList;
 	ImageJPEG image;
 	int pas_pixel;              // permet de selectionner qu'une partie des pixels -- decimation
-    int mode;                   // permet de selectionner le mode d'affichage
 
-
-	//chargement de la texture
-	ImageJPEG matexture;
+	ImageJPEG matexture;                               //chargement de la texture
 	bool loadertex; 
 	GLuint textureID;
 	void applyTexture();
 
+
+
 };
 
-GLvoid createTexture(ImageJPEG tex);
 
 #endif //P1RV_HEIGHTMAPS_BEHRA_MARAVAT_CREATEMAP_H

@@ -31,7 +31,6 @@ GLvoid affichage() {
 	glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
 
-
 	glMatrixMode(GL_MODELVIEW);
 
 	// give a map a material
@@ -46,7 +45,6 @@ GLvoid affichage() {
 	// affichage des informations sur l'écran
 	//std::string Zoom = std::to_string(cam.getZoom());
 
-	std::cout << 1.0f + (cam.getZoom() / 100) << std::endl;
 
 	//BitmapOutput(1.0, 1.0, Zoom, GLUT_BITMAP_TIMES_ROMAN_24); //debug
 

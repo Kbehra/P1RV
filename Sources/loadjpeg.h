@@ -1,6 +1,8 @@
-//
-// Created by KIlian on 12/10/2019.
-//
+/* Projet P1RV - sujet N°2 heightmaps - Kilian BEHRA & Alicia Maravat
+ *
+ *
+ * loadjpeg.h
+ */
 
 #ifndef P1RV_HEIGHTMAPS_BEHRA_MARAVAT_LOADJPEG_H
 #define P1RV_HEIGHTMAPS_BEHRA_MARAVAT_LOADJPEG_H
@@ -20,8 +22,6 @@
 #include <stdlib.h>
 #include <vector>
 #include "pixel.h"
-
-
 
 using namespace std;
 
@@ -48,18 +48,12 @@ public:
 	GLuint* getptrID();
 	GLuint getType() const;
     bool LoadJPEG(char* FileName, bool Fast = true);    //chargement de l'image
+    bool LoadTexture(char * FileName, bool Fast);
     Pixel getPixel(int x, int y) const;                 //acceder a un pixel
     vector<vector<Pixel>>* getMatPixel();               //pointeur sur la matrice de pixels
     int seekMax() const;                                //permet de chercher le niveau max
     int seekMin() const;                                //permet de chercher le niveau min
 
-
 };
-
-
-
-
-
-
 
 #endif //P1RV_HEIGHTMAPS_BEHRA_MARAVAT_LOADJPEG_H

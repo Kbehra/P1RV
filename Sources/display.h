@@ -1,6 +1,8 @@
-//
-// Created by kiki on 17/10/2019.
-//
+/* Projet P1RV - sujet N°2 heightmaps - Kilian BEHRA & Alicia Maravat
+ *
+ *
+ * display.h
+ */
 
 #ifndef P1RV_HEIGHTMAPS_BEHRA_MARAVAT_DISPLAY_H
 #define P1RV_HEIGHTMAPS_BEHRA_MARAVAT_DISPLAY_H
@@ -25,6 +27,7 @@
 class Display{
 private :
     int choiceMat;
+    float pas;
 public :
     int windowW;
     int windowH;
@@ -33,6 +36,9 @@ public :
     float Near;
     float Far;
     Display();
+
+    GLvoid applyLights();
+
     GLvoid clavier(unsigned char touche, int x, int y);
     GLvoid redimensionner(int w, int h);
     void initWindow(int argc, char *argv[]);

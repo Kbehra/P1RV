@@ -1,6 +1,8 @@
-//
-// Created by kiki on 20/10/2019.
-//
+/* Projet P1RV - sujet N°2 heightmaps - Kilian BEHRA & Alicia Maravat
+ *
+ *
+ * camera.cpp
+ */
 
 #include "camera.h"
 #include "display.h"
