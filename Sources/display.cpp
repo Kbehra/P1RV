@@ -20,7 +20,8 @@ Display :: Display() {
     far = 0.0f;
 
     choice_mat = 4;			// permet de sélectionner un matériau par défaut
-
+    change_shade_model = false;
+    projection = false;
     pas = 0.1;
 
 }
@@ -80,10 +81,24 @@ GLvoid Display :: clavier (unsigned char touche, int x, int y){
 		{
 			std::cout << "Q" << std::endl;
 		}
+        case 'p':
+        {
+            std::cout << "Projection : Orthogonale <-> Perspective " << std::endl;
+            projection = !projection;
+        }
             break;
         case 's':
 		{
-			std::cout << "S" << std::endl;
+            std::cout << "Shade Model : " << std::endl;
+            if(change_shade_model){
+                glShadeModel(GL_SMOOTH);
+                std::cout << "GL_SMOOTH - rendu de Phong, 1 normale par sommets" << std::endl;
+            } else {
+                glShadeModel(GL_FLAT);
+                std::cout << "GL_FLAT - eclairage constant, 1 normale par faces" << std::endl;
+            }
+            change_shade_model = !change_shade_model;
+            glutPostRedisplay();
 		}
             break;
         case 'd':
@@ -106,6 +121,7 @@ GLvoid Display :: clavier (unsigned char touche, int x, int y){
 			// change de the default material
 			choice_mat = (choice_mat + 1) % 5;
 			Material((int)choice_mat);
+            glutPostRedisplay();
 		}
             break;
         case '+':
@@ -148,6 +164,11 @@ GLvoid Display :: redimensionner(int w, int h) {
     float ratio = (float)window_width / (float)window_high;
     std::cout << "Ratio : " << ratio << std::endl;
 
+    top = 1.0f;
+    bottom = -1.0f;
+    left = -ratio;
+    right = ratio;
+
     // Projection
     glMatrixMode(GL_PROJECTION);
 
@@ -158,8 +179,11 @@ GLvoid Display :: redimensionner(int w, int h) {
     glViewport(0, 0, window_width, window_high);
 
     // Mise en place de la perspective
-    gluPerspective(focale, ratio, near, far);
-
+    if(projection){
+        gluOrtho2D(left,right,bottom,top);
+    } else {
+        gluPerspective(focale, ratio, near, far);
+    }
 
     // Retourne a la pile modelview
     glMatrixMode(GL_MODELVIEW);

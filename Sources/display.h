@@ -24,19 +24,27 @@
 /*
  * Permet d'afficher sur l'écran le résultat de heightmapping grâce à OpenGL
  */
+
 class Display{
 private :
     int choice_mat;
+    bool change_shade_model;
+    bool projection;
     float pas;
-public :
-    //Public attribute
+
     int window_width;
     int window_high;
+
+    float left;
+    float right;
+    float top;
+    float bottom;
 
     float focale;
     float near;
     float far;
 
+public :
     //Methods
     Display();
 
