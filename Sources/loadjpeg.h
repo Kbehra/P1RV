@@ -37,7 +37,7 @@ protected:
     GLuint type;
     int channels;                   // the channels of the image 3 = RGA 4 = RGBA
     vector<vector<Pixel>> pixels;     //matrice de pixels
-
+    GLbyte* texData;                //donnees de textures
 
 public:
     ImageJPEG();

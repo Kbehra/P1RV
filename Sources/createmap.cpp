@@ -8,7 +8,6 @@
 #include "vertex.h"
 
 extern Camera cam;
-extern GLbyte* texData;
 extern char* LINK_TEX;
 
 
@@ -106,7 +105,7 @@ void CreateMap ::applyTexture()
 	//Vérouillage
 	glBindTexture(GL_TEXTURE_2D, texture_id);
 
-	glTexImage2D(GL_TEXTURE_2D, 0, ma_texture.getType(), ma_texture.getX(), ma_texture.getY(), 0, ma_texture.getType(), GL_UNSIGNED_BYTE, texData );
+	glTexImage2D(GL_TEXTURE_2D, 0, ma_texture.getType(), ma_texture.getX(), ma_texture.getY(), 0, ma_texture.getType(), GL_UNSIGNED_BYTE, ma_texture.getData() );
 
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_BASE_LEVEL, 0);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAX_LEVEL, 0);

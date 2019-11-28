@@ -14,9 +14,6 @@
 #include <stdlib.h>
 #include <vector>
 
-GLbyte* texData;                // the data of the image
-extern GLbyte* texData;
-
 ImageJPEG :: ImageJPEG (){}
 
 
@@ -203,6 +200,9 @@ GLuint ImageJPEG::getID() const {
 }
 GLuint* ImageJPEG::getPtrID() {
 	return &id;
+}
+GLbyte* ImageJPEG::getData() const {
+    return texData;
 }
 
 Pixel ImageJPEG :: getPixel(int h, int l) const{
