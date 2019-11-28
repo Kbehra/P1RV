@@ -32,7 +32,7 @@ bool ImageJPEG :: loadJPEG(char* FileName, bool Fast)
     //if the jpeg file didnt load exit
     if(!file)
     {
-        //fprintf(stderr, "Error reading JPEG file %s!!!", FileName);
+        fprintf(stderr, "Error reading JPEG file %s!!!", FileName);
         return false;
     }
 

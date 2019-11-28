@@ -60,34 +60,38 @@ void CreateMap :: generateMap()
             Pixel p4 = image.getPixel(i + pas_pixel, j + pas_pixel);
 
             std::cout << scale << std::endl;        //debug
-            Vertex v1 = Vertex((float)p1.getPosx() / x, (float)p1.getR() / (255 * scale), (float)p1.getPosy() / y);
-            Vertex v2 = Vertex((float)p2.getPosx() / x, (float)p2.getR() / (255 * scale), (float)p2.getPosy() / y);
-            Vertex v3 = Vertex((float)p4.getPosx() / x, (float)p4.getR() / (255 * scale), (float)p4.getPosy() / y);
-            Vertex v4 = Vertex((float)p3.getPosx() / x, (float)p3.getR() / (255 * scale), (float)p3.getPosy() / y);
+            Vertex v12 = Vertex((float)p1.getPosx() / x, (float)p1.getR() / (255 * scale), (float)p1.getPosy() / y, (float)p2.getPosx() / x, (float)p2.getR() / (255 * scale), (float)p2.getPosy() / y);
+            Vertex v21 = v12.inverseVertex();
+            Vertex v24 = Vertex((float)p2.getPosx() / x, (float)p2.getR() / (255 * scale), (float)p2.getPosy() / y, (float)p4.getPosx() / x, (float)p4.getR() / (255 * scale), (float)p4.getPosy() / y);
+            Vertex v42 = v24.inverseVertex();
+            Vertex v43 = Vertex((float)p4.getPosx() / x, (float)p4.getR() / (255 * scale), (float)p4.getPosy() / y, (float)p3.getPosx() / x, (float)p3.getR() / (255 * scale), (float)p3.getPosy() / y);
+            Vertex v34 = v43.inverseVertex();
+            Vertex v31 = Vertex((float)p3.getPosx() / x, (float)p3.getR() / (255 * scale), (float)p3.getPosy() / y, (float)p1.getPosx() / x, (float)p1.getR() / (255 * scale), (float)p1.getPosy() / y);
+            Vertex v13 = v31.inverseVertex();
 
             Vertex normal;
 
-            normal.computeCross(v1,v2);
+            normal.computeCross(v12,v13);
             glNormal3f(normal.getX(), normal.getY(), normal.getZ());
             glTexCoord2f(0.0, 0.0);
-            glVertex3f(v1.getX(), v1.getY(), v1.getZ());
+            glVertex3f((float)p1.getPosx() / x, (float)p1.getR() / (255 * scale), (float)p1.getPosy() / y);
 
 
-            normal.computeCross(v2,v3);
+            normal.computeCross(v24,v21);
             glNormal3f(normal.getX(), normal.getY(), normal.getZ());
             glTexCoord2f(0.0, 1.0);
-            glVertex3f(v2.getX(), v2.getY(), v2.getZ());
+            glVertex3f((float)p2.getPosx() / x, (float)p2.getR() / (255 * scale), (float)p2.getPosy() / y);
 
-            normal.computeCross(v3,v4);
+            normal.computeCross(v43,v42);
             glNormal3f(normal.getX(), normal.getY(), normal.getZ());
             glTexCoord2f(1.0, 1.0);
-            glVertex3f(v3.getX(), v3.getY(), v3.getZ());
+            glVertex3f((float)p4.getPosx() / x, (float)p4.getR() / (255 * scale), (float)p4.getPosy() / y);
 
 
-            normal.computeCross(v4,v1);
+            normal.computeCross(v31,v34);
             glNormal3f(normal.getX(), normal.getY(), normal.getZ());
             glTexCoord2f(1.0, 0.0);
-            glVertex3f(v4.getX(), v4.getY(), v4.getZ());
+            glVertex3f((float)p3.getPosx() / x, (float)p3.getR() / (255 * scale), (float)p3.getPosy() / y);
 
         }
     }

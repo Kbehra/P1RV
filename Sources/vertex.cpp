@@ -9,11 +9,11 @@
 
 Vertex ::Vertex() {}
 
-Vertex ::Vertex(float x, float y, float z)
+Vertex ::Vertex(float x1, float y1, float z1, float x2, float y2, float z2)
 {
-    this->x=x;
-    this->y=y;
-    this->z=z;
+    this->x=x2-x1;
+    this->y=y2-y1;
+    this->z=z2-z1;
 }
 
 Vertex Vertex:: computeCross(Vertex u, Vertex v)
@@ -22,6 +22,16 @@ Vertex Vertex:: computeCross(Vertex u, Vertex v)
     w.x = u.y*v.z - u.z*v.y ;
     w.y = u.z*v.x - u.x*v.z ;
     w.z = u.x*v.y - u.y*v.x ;
+    return w;
+
+}
+
+Vertex Vertex:: inverseVertex()
+{
+    Vertex w;
+    w.x = -x;
+    w.y = -y ;
+    w.z = -z;
     return w;
 
 }
