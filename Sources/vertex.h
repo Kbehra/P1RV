@@ -1,22 +1,22 @@
 /* Projet P1RV - sujet N°2 heightmaps - Kilian BEHRA & Alicia Maravat
  *
  *
- * vertex.h
+ * Vertex.h
  */
 
 #ifndef P1RV_VERTEX_H
 #define P1RV_VERTEX_H
 
 
-class vertex {
+class Vertex {
 private :
     float x;
     float y;
     float z;
 public:
-    vertex();
-    vertex(float x, float y, float z);
-    vertex computeCross(vertex u, vertex v);
+    Vertex();
+    Vertex(float x, float y, float z);
+    Vertex computeCross(Vertex u, Vertex v);
 
     float getX();
     float getY();

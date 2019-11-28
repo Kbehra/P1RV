@@ -17,8 +17,8 @@ add_executable(P1RV
         Sources/camera.h
         Sources/callback.cpp
         Sources/callback.h
-        Sources/Material.cpp
-        Sources/Material.h Sources/vertex.cpp Sources/vertex.h)
+        Sources/material.cpp
+        Sources/material.h Sources/vertex.cpp Sources/vertex.h)
 
 
 # required packages

@@ -29,16 +29,16 @@ void Pixel :: setB(uint8_t blue ){
     B = blue;
 }
 void Pixel :: setPosx(unsigned long x ){
-    posx = x;
+    pos_x = x;
 }
 void Pixel :: setPosy(unsigned long y ){
-    posy = y;
+    pos_y = y;
 }
 unsigned long Pixel ::getPosx() const {
-    return posx;
+    return pos_x;
 }
 unsigned long Pixel ::getPosy() const {
-    return posy;
+    return pos_y;
 }
 void Pixel ::printPixel() {
     std::cout <<"x = "<< getPosx() <<" y =" << getPosy()<< " ; R = "<< getR()<< ", G = "<< getG() <<" , B = "<<getB()<<std::endl;

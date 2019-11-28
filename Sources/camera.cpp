@@ -10,15 +10,15 @@
 extern Display goDisplay;
 
 Camera::Camera() {
-    pointSize = 1.0f;
+    point_size = 1.0f;
 
-    angleX = 0.0f;                  // Rotations autour de X et Y
-    angleY = 0.0f;
+    angle_x = 0.0f;                  // Rotations autour de X et Y
+    angle_y = 0.0f;
 	zoom = 1.0;
-    oldX = 0;
-    oldY = 0;
-    boutonClickLeft = false;
-	boutonClickRight = false;
+    old_x = 0;
+    old_y = 0;
+    bouton_click_left = false;
+    bouton_click_right = false;
 }
 Camera::~Camera() {
 }
@@ -27,22 +27,22 @@ Camera::~Camera() {
 GLvoid Camera :: mouseState(int bouton, int etat, int x, int y) {
     // Test pour voir si le bouton gauche de la souris est appuyé
     if (bouton == GLUT_LEFT_BUTTON && etat == GLUT_DOWN) {
-        boutonClickLeft = true;
-        oldX = x;
-        oldY = y;
+        bouton_click_left = true;
+        old_x = x;
+        old_y = y;
     }
     // si on relache le bouton gauche
     if (bouton == GLUT_LEFT_BUTTON && etat == GLUT_UP) {
-        boutonClickLeft = false;
+        bouton_click_left = false;
     }
 	if (bouton == GLUT_RIGHT_BUTTON && etat == GLUT_DOWN) {
-		boutonClickRight = true;
-		oldX = x;
-		oldY = y;
+        bouton_click_right = true;
+        old_x = x;
+        old_y = y;
 	}
 	// si on relache le bouton gauche
 	if (bouton == GLUT_RIGHT_BUTTON && etat == GLUT_UP) {
-		boutonClickRight = false;
+        bouton_click_right = false;
 	}
 }
 GLvoid Camera:: mouseMove(int x, int y) {
@@ -50,27 +50,27 @@ GLvoid Camera:: mouseMove(int x, int y) {
     // alors on doit modifier les angles de rotations du cube
     // en fonction de la derniere position de la souris
     // et de sa position actuelle
-    if(boutonClickLeft) {
-        angleX += (x-oldX);
-        angleY += (y-oldY);
+    if(bouton_click_left) {
+        angle_x += (x - old_x);
+        angle_y += (y - old_y);
         // Appeler le re-affichage de la scene OpenGL
         glutPostRedisplay();
     }
-	if (boutonClickRight) {
-		zoom += (x - oldX)+(y - oldY);
+	if (bouton_click_right) {
+		zoom += (x - old_x) + (y - old_y);
 		// Appeler le re-affichage de la scene OpenGL
 		glutPostRedisplay();
 	}
     // Mise a jour des anciennes positions de la souris en X et Y
-    oldX = x;
-    oldY = y;
+    old_x = x;
+    old_y = y;
 }
 
 GLfloat Camera :: getAngleX(){
-    return angleX;
+    return angle_x;
 }
 GLfloat Camera :: getAngleY(){
-    return angleY;
+    return angle_y;
 }
 GLfloat Camera::getZoom() {
 	return zoom;

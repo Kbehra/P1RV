@@ -2,7 +2,7 @@
 // Created by kiki on 01/11/2019.
 //
 
-#include "Material.h"
+#include "material.h"
 
 Material ::Material(int choice)
 {

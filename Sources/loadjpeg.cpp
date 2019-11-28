@@ -20,7 +20,7 @@ extern GLbyte* texData;
 ImageJPEG :: ImageJPEG (){}
 
 
-bool ImageJPEG :: LoadJPEG(char* FileName, bool Fast)
+bool ImageJPEG :: loadJPEG(char* FileName, bool Fast)
 {
     FILE* file = fopen(FileName, "rb");         //open the file
     struct jpeg_decompress_struct info;                //the jpeg decompress info
@@ -74,7 +74,7 @@ bool ImageJPEG :: LoadJPEG(char* FileName, bool Fast)
     GLbyte* p1 = texData;
     GLbyte** p2 = &p1;
     int numlines = 0;
-	ID = 0;
+    id = 0;
 
     JSAMPARRAY buffer;
     buffer = (*info.mem->alloc_sarray)((j_common_ptr)&info, JPOOL_IMAGE, info.output_width*info.output_components,1);
@@ -84,7 +84,7 @@ bool ImageJPEG :: LoadJPEG(char* FileName, bool Fast)
         (void) jpeg_read_scanlines(&info, buffer, 1);
         // get the pointer to the row
         unsigned char* pixel_row = (unsigned char*)(buffer[0]);
-        Pixels.push_back(std::vector<Pixel>(info.output_width));
+        pixels.push_back(std::vector<Pixel>(info.output_width));
 
         // iterate over the pixels
         for (int i=0; i<info.output_width; i++)
@@ -100,7 +100,7 @@ bool ImageJPEG :: LoadJPEG(char* FileName, bool Fast)
             Pixel.setPosy(numlines);
 
             // ligne / colonne ? ou colonne / ligne ?
-            Pixels[numlines][i] = Pixel;
+            pixels[numlines][i] = Pixel;
 
         }
 
@@ -123,7 +123,7 @@ bool ImageJPEG :: LoadJPEG(char* FileName, bool Fast)
     return true;
 }
 
-bool ImageJPEG :: LoadTexture(char * FileName, bool Fast){
+bool ImageJPEG :: loadTexture(char * FileName, bool Fast){
 
         FILE* file = fopen(FileName, "rb");  //open the file
         struct jpeg_decompress_struct info;  //the jpeg decompress info
@@ -199,10 +199,10 @@ unsigned long ImageJPEG :: getY() const{
 }
 
 GLuint ImageJPEG::getID() const {
-	return ID;
+	return id;
 }
-GLuint* ImageJPEG::getptrID() {
-	return &ID;
+GLuint* ImageJPEG::getPtrID() {
+	return &id;
 }
 
 Pixel ImageJPEG :: getPixel(int h, int l) const{
@@ -213,10 +213,10 @@ Pixel ImageJPEG :: getPixel(int h, int l) const{
         std::cout << "Veuillez renseigner un pixel présent dans l'image" << std::endl;
         return Error;
     }
-    else{ return Pixels[h][l];}
+    else{ return pixels[h][l];}
 
 }
 
 vector<vector<Pixel>> * ImageJPEG :: getMatPixel(){
-        return &Pixels ;
+        return &pixels ;
 }

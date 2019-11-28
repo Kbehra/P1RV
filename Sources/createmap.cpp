@@ -22,17 +22,17 @@ CreateMap ::CreateMap(ImageJPEG uneimage)
 
     scale = 1 ;                         // default scale
 
-	loadertex= matexture.LoadTexture(LINK_TEX, true);
-	if (loadertex)
+	loader_tex= ma_texture.loadTexture(LINK_TEX, true);
+	if (loader_tex)
 	{
-		textureID =0;
+        texture_id =0;
 		std::cout << "texture chargee" << std::endl;
 		applyTexture();
 	}
 	else { std::cout << "Impossible de charger une texture"<< std::endl;}
 
-	idDisplayList = glGenLists(1); 
-	glNewList(idDisplayList, GL_COMPILE);
+    id_display_list = glGenLists(1);
+	glNewList(id_display_list, GL_COMPILE);
 	
 }
 CreateMap :: CreateMap(){ }
@@ -60,12 +60,12 @@ void CreateMap :: generateMap()
             Pixel p4 = image.getPixel(i + pas_pixel, j + pas_pixel);
 
             std::cout << scale << std::endl;        //debug
-            vertex v1 = vertex((float)p1.getPosx() / x, (float)p1.getR() / (255*scale), (float)p1.getPosy() / y);
-            vertex v2 = vertex((float)p2.getPosx() / x, (float)p2.getR() / (255*scale), (float)p2.getPosy() / y);
-            vertex v3 = vertex((float)p4.getPosx() / x, (float)p4.getR() / (255*scale), (float)p4.getPosy() / y);
-            vertex v4 = vertex((float)p3.getPosx() / x, (float)p3.getR() / (255*scale), (float)p3.getPosy() / y);
+            Vertex v1 = Vertex((float)p1.getPosx() / x, (float)p1.getR() / (255 * scale), (float)p1.getPosy() / y);
+            Vertex v2 = Vertex((float)p2.getPosx() / x, (float)p2.getR() / (255 * scale), (float)p2.getPosy() / y);
+            Vertex v3 = Vertex((float)p4.getPosx() / x, (float)p4.getR() / (255 * scale), (float)p4.getPosy() / y);
+            Vertex v4 = Vertex((float)p3.getPosx() / x, (float)p3.getR() / (255 * scale), (float)p3.getPosy() / y);
 
-            vertex normal;
+            Vertex normal;
 
             normal.computeCross(v1,v2);
             glNormal3f(normal.getX(), normal.getY(), normal.getZ());
@@ -97,12 +97,12 @@ void CreateMap :: generateMap()
 }
 void CreateMap ::applyTexture()
 {
-	glGenTextures(1, &textureID);
+	glGenTextures(1, &texture_id);
 
 	//Vérouillage
-	glBindTexture(GL_TEXTURE_2D, textureID);
+	glBindTexture(GL_TEXTURE_2D, texture_id);
 
-	glTexImage2D(GL_TEXTURE_2D, 0, matexture.getType(), matexture.getX(), matexture.getY(), 0, matexture.getType(), GL_UNSIGNED_BYTE, texData );
+	glTexImage2D(GL_TEXTURE_2D, 0, ma_texture.getType(), ma_texture.getX(), ma_texture.getY(), 0, ma_texture.getType(), GL_UNSIGNED_BYTE, texData );
 
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_BASE_LEVEL, 0);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAX_LEVEL, 0);
@@ -120,7 +120,7 @@ void CreateMap ::applyTexture()
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
 	//Déverrouillage
-	//glBindTexture(GL_TEXTURE_2D, textureID);
+	//glBindTexture(GL_TEXTURE_2D, texture_id);
 
 }
 
@@ -132,7 +132,7 @@ void CreateMap ::applyTexture()
 
 GLvoid CreateMap :: afficher()
 {
-    glCallList(idDisplayList);
+    glCallList(id_display_list);
 }
 
 int CreateMap :: getPas()

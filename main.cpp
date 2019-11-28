@@ -35,7 +35,7 @@ int main(int argc, char *argv[]) {
 
     ImageJPEG monimage;
 
-    bool loaderimage = monimage.LoadJPEG(LINK_IMAGE);
+    bool loaderimage = monimage.loadJPEG(LINK_IMAGE);
 
     // création de la map
     map = CreateMap(monimage);

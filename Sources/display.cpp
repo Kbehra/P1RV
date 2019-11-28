@@ -12,14 +12,14 @@ extern Display goDisplay;
 
 
 Display :: Display() {
-    windowW = 1080;
-    windowH = 960;
+    window_width = 1080;
+    window_high = 960;
 
     focale = 11.1f;
-    Near = 0.00f;
-    Far = 0.0f;
+    near = 0.00f;
+    far = 0.0f;
 
-    choiceMat = 4;			// permet de sélectionner un matériau par défaut 
+    choice_mat = 4;			// permet de sélectionner un matériau par défaut
 
     pas = 0.1;
 
@@ -37,7 +37,7 @@ void Display :: initWindow(int argc, char *argv[]){
     glutInitWindowPosition(0,0);
 
     // taille initiale de la fenetre GLUT
-    glutInitWindowSize(windowW, windowH);
+    glutInitWindowSize(window_width, window_high);
 
     // création de la fenetre GLUT
     glutCreateWindow("Heightmap");
@@ -104,8 +104,8 @@ GLvoid Display :: clavier (unsigned char touche, int x, int y){
         case 'm':
 		{
 			// change de the default material
-			choiceMat = (choiceMat + 1) % 5;
-			Material((int)choiceMat);
+			choice_mat = (choice_mat + 1) % 5;
+			Material((int)choice_mat);
 		}
             break;
         case '+':
@@ -138,14 +138,14 @@ GLvoid Display :: clavier (unsigned char touche, int x, int y){
 
 GLvoid Display :: redimensionner(int w, int h) {
     // Garde les valeurs
-    windowW = w;
-    windowH = h;
+    window_width = w;
+    window_high = h;
 
     // eviter une division par 0
-    if(windowH==0)
-        windowH = 1;
+    if(window_high == 0)
+        window_high = 1;
 
-    float ratio = (float)windowW / (float)windowH;
+    float ratio = (float)window_width / (float)window_high;
     std::cout << "Ratio : " << ratio << std::endl;
 
     // Projection
@@ -155,10 +155,10 @@ GLvoid Display :: redimensionner(int w, int h) {
     glLoadIdentity();
 
     // Viewport
-    glViewport(0, 0, windowW, windowH);
+    glViewport(0, 0, window_width, window_high);
 
     // Mise en place de la perspective
-    gluPerspective(focale, ratio, Near, Far);
+    gluPerspective(focale, ratio, near, far);
 
 
     // Retourne a la pile modelview
@@ -183,10 +183,10 @@ GLvoid Display :: applyLights()
 }
 
 int Display :: getWindowW() {
-    return windowW;
+    return window_width;
 }
 int Display ::getWindowH() {
-    return windowH;
+    return window_high;
 }
 
 

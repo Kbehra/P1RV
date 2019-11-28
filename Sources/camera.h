@@ -32,15 +32,15 @@ public :
 	GLfloat getZoom();
 
 private:
-    GLfloat pointSize;
+    GLfloat point_size;
     // Rotations autour de X et Y
-    GLfloat angleX;
-    GLfloat angleY;
+    GLfloat angle_x;
+    GLfloat angle_y;
 	GLfloat zoom;
-    GLint oldX;
-    GLint oldY;
-    GLboolean boutonClickLeft;
-	GLboolean boutonClickRight;
+    GLint old_x;
+    GLint old_y;
+    GLboolean bouton_click_left;
+	GLboolean bouton_click_right;
 
 };
 

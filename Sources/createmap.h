@@ -38,16 +38,14 @@ class CreateMap {
 private:
 	unsigned long x;
 	unsigned long y;
-	int idDisplayList;
+	int id_display_list;
 	ImageJPEG image;
 	int pas_pixel;              // permet de selectionner qu'une partie des pixels -- decimation
 
-	ImageJPEG matexture;                               //chargement de la texture
-	bool loadertex; 
-	GLuint textureID;
+	ImageJPEG ma_texture;                               //chargement de la texture
+	bool loader_tex;
+	GLuint texture_id;
 	void applyTexture();
-
-
 
 };
 

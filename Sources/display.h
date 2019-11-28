@@ -18,7 +18,7 @@
 #include "callback.h"
 #include <GL/freeglut.h>
 #include "camera.h"
-#include "Material.h"
+#include "material.h"
 
 
 /*
@@ -26,19 +26,21 @@
  */
 class Display{
 private :
-    int choiceMat;
+    int choice_mat;
     float pas;
 public :
-    int windowW;
-    int windowH;
+    //Public attribute
+    int window_width;
+    int window_high;
 
     float focale;
-    float Near;
-    float Far;
+    float near;
+    float far;
+
+    //Methods
     Display();
 
     GLvoid applyLights();
-
     GLvoid clavier(unsigned char touche, int x, int y);
     GLvoid redimensionner(int w, int h);
     void initWindow(int argc, char *argv[]);

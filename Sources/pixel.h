@@ -29,17 +29,9 @@ protected:
     uint8_t G;
     uint8_t B;
     uint8_t A;
-    unsigned long posx;
-    unsigned long posy;
-private:
+    unsigned long pos_x;
+    unsigned long pos_y;
 
-//    uint8_t getR();
-//    uint8_t getG();
-//    uint8_t getB();
-//    uint8_t getA();
-//    void setR(uint8_t red);
-//    void setG(uint8_t green);
-//    void setB(uint8_t blue);
 };
 
 

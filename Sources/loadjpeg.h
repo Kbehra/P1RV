@@ -32,11 +32,11 @@ protected:
     unsigned long y;
     unsigned short int bpp;         // bits per pixels   unsigned short int
 
-    GLuint ID;                      // the id OpenGl gives it
+    GLuint id;                      // the id OpenGl gives it
     unsigned long size;             // length of the file
     GLuint type;
     int channels;                   // the channels of the image 3 = RGA 4 = RGBA
-    vector<vector<Pixel>> Pixels;     //matrice de pixels
+    vector<vector<Pixel>> pixels;     //matrice de pixels
 
 
 public:
@@ -45,10 +45,10 @@ public:
     unsigned long getY() const;
     GLbyte* getData() const;
 	GLuint getID() const;
-	GLuint* getptrID();
+	GLuint* getPtrID();
 	GLuint getType() const;
-    bool LoadJPEG(char* FileName, bool Fast = true);    //chargement de l'image
-    bool LoadTexture(char * FileName, bool Fast);
+    bool loadJPEG(char* FileName, bool Fast = true);    //chargement de l'image
+    bool loadTexture(char * FileName, bool Fast);
     Pixel getPixel(int x, int y) const;                 //acceder a un pixel
     vector<vector<Pixel>>* getMatPixel();               //pointeur sur la matrice de pixels
     int seekMax() const;                                //permet de chercher le niveau max
