@@ -15,8 +15,8 @@ Display :: Display() {
     window_width = 1080;
     window_high = 960;
 
-    focale = 11.1f;
-    near = 0.00f;
+    focale = 11.0f; //10
+    near = 0.0f;
     far = 0.0f;
 
     choice_mat = 4;			// permet de sélectionner un matériau par défaut
@@ -41,7 +41,7 @@ void Display :: initWindow(int argc, char *argv[]){
     glutInitWindowSize(window_width, window_high);
 
     // création de la fenetre GLUT
-    glutCreateWindow("Heightmap");
+    glutCreateWindow("Heightmap"); //remplacer "..." par argv[0] pour appel avec terminal
 
     // définition de la couleur d'effacement du framebuffer
     glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
@@ -104,6 +104,7 @@ GLvoid Display :: clavier (unsigned char touche, int x, int y){
         case 'd':
 		{
 			glEnable(GL_DEPTH_TEST);
+			glDepthFunc(GL_LESS);
 			glutPostRedisplay();
 		}
             break;
@@ -161,7 +162,7 @@ GLvoid Display :: redimensionner(int w, int h) {
     if(window_high == 0)
         window_high = 1;
 
-    float ratio = (float)window_width / (float)window_high;
+    GLdouble ratio = (GLfloat)window_width / (GLfloat)window_high;
     std::cout << "Ratio : " << ratio << std::endl;
 
     top = 1.0f;
@@ -194,9 +195,12 @@ GLvoid Display :: applyLights()
     GLfloat lightpos[] = { 0.0f, 0.0f, 15.0f };
     GLfloat lightcolor[] = { 1.0f, 1.0f, 0.0f };
     GLfloat ambcolor[] = { 0.0f, 0.0f, 1.0f };
+    GLfloat surf_diffuse[]={0.8,0.8,0.0,1.0};
 
+    glShadeModel(GL_SMOOTH);
     glEnable(GL_LIGHTING);                               // enable lighting
     glLightModelfv(GL_LIGHT_MODEL_AMBIENT,ambcolor);     // ambient light
+    glMaterialfv(GL_FRONT,GL_DIFFUSE,surf_diffuse );
 
     glEnable(GL_LIGHT0);                                 // enable light source
     glLightfv(GL_LIGHT0,GL_POSITION,lightpos);           // config light source
