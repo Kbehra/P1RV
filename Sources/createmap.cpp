@@ -42,11 +42,12 @@ CreateMap :: CreateMap(){ }
 void CreateMap :: generateMap()
 {
     // QUADS AVEC TEXTURE
-    glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
+    //glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
     glEnable(GL_TEXTURE_2D);
+    //glEnable(GL_NORMALIZE);
     glDrawBuffer(GL_COLOR_BUFFER_BIT);
     glBegin(GL_QUADS);
-    glFrontFace(GL_CW);
+    //glFrontFace(GL_CW);
 
     for (int j = 0; j < x - pas_pixel; j += pas_pixel)
     {
@@ -58,39 +59,46 @@ void CreateMap :: generateMap()
             Pixel p3 = image.getPixel(i, j + pas_pixel);
             Pixel p4 = image.getPixel(i + pas_pixel, j + pas_pixel);
 
+
             std::cout << scale << std::endl;        //debug
-            Vertex v12 = Vertex((float)p1.getPosx() / x, (float)p1.getR() / (255 * scale), (float)p1.getPosy() / y, (float)p2.getPosx() / x, (float)p2.getR() / (255 * scale), (float)p2.getPosy() / y);
-            Vertex v21 = v12.inverseVertex();
-            Vertex v24 = Vertex((float)p2.getPosx() / x, (float)p2.getR() / (255 * scale), (float)p2.getPosy() / y, (float)p4.getPosx() / x, (float)p4.getR() / (255 * scale), (float)p4.getPosy() / y);
-            Vertex v42 = v24.inverseVertex();
-            Vertex v43 = Vertex((float)p4.getPosx() / x, (float)p4.getR() / (255 * scale), (float)p4.getPosy() / y, (float)p3.getPosx() / x, (float)p3.getR() / (255 * scale), (float)p3.getPosy() / y);
-            Vertex v34 = v43.inverseVertex();
-            Vertex v31 = Vertex((float)p3.getPosx() / x, (float)p3.getR() / (255 * scale), (float)p3.getPosy() / y, (float)p1.getPosx() / x, (float)p1.getR() / (255 * scale), (float)p1.getPosy() / y);
-            Vertex v13 = v31.inverseVertex();
 
-            Vertex normal;
+            Vertex v1 = Vertex((float)p1.getPosx() / x, (float)p1.getR() / (255 * scale), (float)p1.getPosy() / y);
+            Vertex v2 = Vertex((float)p2.getPosx() / x, (float)p2.getR() / (255 * scale), (float)p2.getPosy() / y);
+            Vertex v3 = Vertex((float)p3.getPosx() / x, (float)p3.getR() / (255 * scale), (float)p3.getPosy() / y);
+            Vertex v4 = Vertex((float)p4.getPosx() / x, (float)p4.getR() / (255 * scale), (float)p4.getPosy() / y);
 
-            normal.computeCross(v12,v13);
-            glNormal3f(normal.getX(), normal.getY(), normal.getZ());
+
+
+
+            //Vertex normal;
+
+           // normal.computeCross(v12,v13);
+            //glNormal3f(normal.getX(), normal.getY(), normal.getZ());
             glTexCoord2f(0.0, 0.0);
-            glVertex3f((float)p1.getPosx() / x, (float)p1.getR() / (255 * scale), (float)p1.getPosy() / y);
+            glVertex3f(v1.getX(), v1.getY(), v1.getZ());
 
 
-            normal.computeCross(v24,v21);
-            glNormal3f(normal.getX(), normal.getY(), normal.getZ());
+            //normal.computeCross(v24,v21);
+           // glNormal3f(normal.getX(), normal.getY(), normal.getZ());
             glTexCoord2f(0.0, 1.0);
-            glVertex3f((float)p2.getPosx() / x, (float)p2.getR() / (255 * scale), (float)p2.getPosy() / y);
+            glVertex3f(v2.getX(), v2.getY(), v2.getZ());
 
-            normal.computeCross(v43,v42);
-            glNormal3f(normal.getX(), normal.getY(), normal.getZ());
+           // normal.computeCross(v43,v42);
+           // glNormal3f(normal.getX(), normal.getY(), normal.getZ());
             glTexCoord2f(1.0, 1.0);
-            glVertex3f((float)p4.getPosx() / x, (float)p4.getR() / (255 * scale), (float)p4.getPosy() / y);
+            glVertex3f(v4.getX(), v4.getY(), v4.getZ());
 
 
-            normal.computeCross(v31,v34);
-            glNormal3f(normal.getX(), normal.getY(), normal.getZ());
+           // normal.computeCross(v31,v34);
+            //glNormal3f(normal.getX(), normal.getY(), normal.getZ());
             glTexCoord2f(1.0, 0.0);
-            glVertex3f((float)p3.getPosx() / x, (float)p3.getR() / (255 * scale), (float)p3.getPosy() / y);
+            glVertex3f(v3.getX(), v3.getY(), v3.getZ());
+
+            // enregistrement des résultats (pour export)
+            vertex.push_back(v1);
+            vertex.push_back(v2);
+            vertex.push_back(v3);
+            vertex.push_back(v4);
 
         }
     }
@@ -150,3 +158,59 @@ float CreateMap :: getScale(){
     return scale;
 }
 
+/*
+ * Permet de sauvegarder le contexte OpenGL en STL
+ */
+
+void CreateMap::exportToSTL()
+{
+    // Mots clés format STL
+    string facetnormal = "facet normal";
+    string outerloop = "outer loop";
+    string namevertex = "vertex";
+    string endloop = "endloop";
+    string endfacet = "endfacet";
+    string endsolid = "ensolid name";
+
+    ofstream file("../test.stl");
+    if (file)
+    {
+        file << "solid name" << std::endl;
+        for (int i=0; i<vertex.size()-4; i+=4)
+        {
+            Vertex A = vertex.at(i);
+            Vertex B = vertex.at(i+1);
+            Vertex C = vertex.at(i+2);
+            Vertex D = vertex.at(i+3);
+
+            // calcul de la normal du 1er triangle
+            Vertex normal1;
+            normal1 = normal1.computeCross(B-A,C-A);
+            //
+            file << facetnormal << " "<<normal1.getX()<<" "<<normal1.getY()<<" "<<normal1.getZ()<< std::endl;
+            file << "    " << outerloop << std::endl;
+            file << "        " << namevertex<< " " << A.getX() << " " << A.getY() << " " << A.getZ() << std::endl;       // A
+            file << "        " << namevertex<< " " << C.getX() << " " << C.getY() << " " << C.getZ() << std::endl;       // C
+            file << "        " << namevertex<< " " << D.getX() << " " << D.getY() << " " << D.getZ() << std::endl;       // D
+            file << "    " << endloop << std::endl;
+            file << endfacet << std::endl;
+
+            // calcul de la normal du 2nd triangle
+            Vertex normal2;
+            normal2 = normal2.computeCross(D-A, C-B);
+            file << facetnormal << " "<<normal2.getX()<<" "<<normal2.getY()<<" "<<normal2.getZ()<< std::endl;
+            file << "    " << outerloop << std::endl;
+            file << "        " << namevertex<< " " << A.getX() << " " << A.getY() << " " << A.getZ() << std::endl;       // A
+            file << "        " << namevertex<< " " << B.getX() << " " << B.getY() << " " << B.getZ() << std::endl;       // B
+            file << "        " << namevertex<< " " << D.getX() << " " << D.getY() << " " << D.getZ() << std::endl;       // D
+            file << "    " << endloop << std::endl;
+            file << endfacet << std::endl;
+        }
+        file << endsolid << std::endl;
+    }
+    else
+        {
+        std::cout << "Impossible d'ouvrir le fichier"<<std::endl;
+        }
+
+}

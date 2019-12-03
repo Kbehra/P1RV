@@ -9,11 +9,11 @@
 
 Vertex ::Vertex() {}
 
-Vertex ::Vertex(float x1, float y1, float z1, float x2, float y2, float z2)
+Vertex ::Vertex(float x, float y, float z)
 {
-    this->x=x2-x1;
-    this->y=y2-y1;
-    this->z=z2-z1;
+    this->x=x;
+    this->y=y;
+    this->z=z;
 }
 
 Vertex Vertex:: computeCross(Vertex u, Vertex v)
@@ -23,7 +23,6 @@ Vertex Vertex:: computeCross(Vertex u, Vertex v)
     w.y = u.z*v.x - u.x*v.z ;
     w.z = u.x*v.y - u.y*v.x ;
     return w;
-
 }
 
 Vertex Vertex:: inverseVertex()
@@ -33,17 +32,32 @@ Vertex Vertex:: inverseVertex()
     w.y = -y ;
     w.z = -z;
     return w;
-
 }
 
-float Vertex ::getX() {
+float Vertex ::getX() const
+{
     return x;
 }
-float Vertex ::getY() {
+
+float Vertex ::getY() const
+{
     return y;
 }
-float Vertex ::getZ() {
+
+float Vertex ::getZ() const
+{
     return z;
 }
 
+Vertex operator+(const Vertex & u, const Vertex & v)
+{
+    return Vertex(u.getX()+v.getX(),u.getY()+v.getY(),u.getZ()+v.getZ());
+
+}
+
+Vertex operator-(const Vertex & u, const Vertex & v)
+{
+    return Vertex(u.getX()-v.getX(),u.getY()-v.getY(),u.getZ()-v.getZ());
+
+}
 

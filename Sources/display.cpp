@@ -128,7 +128,8 @@ GLvoid Display :: clavier (unsigned char touche, int x, int y){
             {
                 float scale = map.getScale();
                 map.changeScale(scale+=pas);
-                std::cout << map.getScale() << std::endl;
+                map.generateMap();
+                //std::cout << map.getScale() << std::endl;
                 glutSwapBuffers();
                 map.generateMap();
                 glutPostRedisplay();
@@ -138,11 +139,14 @@ GLvoid Display :: clavier (unsigned char touche, int x, int y){
             {
                 float scale = map.getScale();
                 map.changeScale(scale-=pas);
-                std::cout << map.getScale() << std::endl;
+                //std::cout << map.getScale() << std::endl;
                 glutSwapBuffers();
                 map.generateMap();
                 glutPostRedisplay();
             }
+            break;
+        case 'o':
+            map.exportToSTL();
             break;
         default:
 		{}
@@ -191,8 +195,8 @@ GLvoid Display :: redimensionner(int w, int h) {
 
 GLvoid Display :: applyLights()
 {
-    GLfloat lightpos[] = { 0.0f, 0.0f, 15.0f };
-    GLfloat lightcolor[] = { 1.0f, 1.0f, 0.0f };
+    GLfloat lightpos[] = { 10.5f, 2.0f, 10.5f };
+    GLfloat lightcolor[] = { 1.0f, 1.0f, 1.0f };
     GLfloat ambcolor[] = { 0.0f, 0.0f, 1.0f };
 
     glEnable(GL_LIGHTING);                               // enable lighting

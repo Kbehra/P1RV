@@ -9,20 +9,26 @@
 
 
 class Vertex {
+
 private :
+
     float x;
     float y;
     float z;
+
 public:
+
     Vertex();
-    Vertex(float x1, float y1, float z1, float x2, float y2, float z2);
+    Vertex(float x, float y, float z);
     Vertex computeCross(Vertex u, Vertex v);
     Vertex inverseVertex();
 
-    float getX();
-    float getY();
-    float getZ();
+    float getX() const;
+    float getY() const;
+    float getZ() const;
 
+    friend Vertex operator+(const Vertex &, const Vertex &);
+    friend Vertex operator-(const Vertex &, const Vertex &);
 };
 
 
