@@ -35,7 +35,6 @@ GLvoid affichage() {
 
 	// give a map a material
 	map.afficher();
-	//Material(4);
 
 	glLoadIdentity();
 	glRotatef(-cam.getAngleY(), 1.0f, 0.0f, 0.0f);

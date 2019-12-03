@@ -45,7 +45,6 @@ private:
 	ImageJPEG image;
 	int pas_pixel;                                      // permet de selectionner qu'une partie des pixels -- decimation
 	vector<Vertex> vertex;                              // vertex affichés à l'écran
-	vector<Vertex> normals;                             // normales des vertex affichés à l'écran
 
 	ImageJPEG ma_texture;                               //  chargement de la texture
 	bool loader_tex;

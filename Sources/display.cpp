@@ -53,7 +53,7 @@ void Display :: initWindow(int argc, char *argv[]){
 	glEnable(GL_TEXTURE_2D);
 
     // Lumiere
-   applyLights();
+    applyLights();
 
 	// fonctions de callback
 	glutDisplayFunc(affichage);
@@ -90,10 +90,13 @@ GLvoid Display :: clavier (unsigned char touche, int x, int y){
         case 's':
 		{
             std::cout << "Shade Model : " << std::endl;
-            if(change_shade_model){
+            if(change_shade_model)
+            {
                 glShadeModel(GL_SMOOTH);
                 std::cout << "GL_SMOOTH - rendu de Phong, 1 normale par sommets" << std::endl;
-            } else {
+            }
+            else
+            {
                 glShadeModel(GL_FLAT);
                 std::cout << "GL_FLAT - eclairage constant, 1 normale par faces" << std::endl;
             }
@@ -109,7 +112,6 @@ GLvoid Display :: clavier (unsigned char touche, int x, int y){
             break;
         case 'w':
 		{
-			std::cout << "w" << std::endl;
 			glDisable(GL_DEPTH_TEST);
 			glutPostRedisplay();
 		}
@@ -129,9 +131,10 @@ GLvoid Display :: clavier (unsigned char touche, int x, int y){
                 float scale = map.getScale();
                 map.changeScale(scale+=pas);
                 map.generateMap();
-                //std::cout << map.getScale() << std::endl;
+
+                std::cout << map.getScale() << std::endl;
+                glFlush();
                 glutSwapBuffers();
-                map.generateMap();
                 glutPostRedisplay();
             }
             break;
@@ -139,9 +142,9 @@ GLvoid Display :: clavier (unsigned char touche, int x, int y){
             {
                 float scale = map.getScale();
                 map.changeScale(scale-=pas);
-                //std::cout << map.getScale() << std::endl;
-                glutSwapBuffers();
                 map.generateMap();
+                glFlush();
+                glutSwapBuffers();
                 glutPostRedisplay();
             }
             break;
@@ -183,9 +186,12 @@ GLvoid Display :: redimensionner(int w, int h) {
     glViewport(0, 0, window_width, window_high);
 
     // Mise en place de la perspective
-    if(projection){
+    if(projection)
+    {
         gluOrtho2D(left,right,bottom,top);
-    } else {
+    }
+    else
+    {
         gluPerspective(focale, ratio, near, far);
     }
 
@@ -195,7 +201,7 @@ GLvoid Display :: redimensionner(int w, int h) {
 
 GLvoid Display :: applyLights()
 {
-    GLfloat lightpos[] = { 10.5f, 2.0f, 10.5f };
+    GLfloat lightpos[] = { 1.5f, 1.0f, 1.5f };
     GLfloat lightcolor[] = { 1.0f, 1.0f, 1.0f };
     GLfloat ambcolor[] = { 0.0f, 0.0f, 1.0f };
 
@@ -210,10 +216,13 @@ GLvoid Display :: applyLights()
 
 }
 
-int Display :: getWindowW() {
+int Display :: getWindowW()
+{
     return window_width;
 }
-int Display ::getWindowH() {
+
+int Display ::getWindowH()
+{
     return window_high;
 }
 
