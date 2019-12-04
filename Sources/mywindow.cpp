@@ -6,35 +6,7 @@
 
 MyWindow::MyWindow(QWidget *parent) : Interface (60, parent, (char *)"Premier poly" )
 {
-    // Construction du bouton
-    m_bouton_quit = new QPushButton("Close", this);
-    m_bouton_quit->setFont(QFont("Comic Sans MS", 14));
 
-    // Bouton pour charger soit une 'map' soit une texture
-    m_bouton_load = new QPushButton("File", this);
-    m_bouton_load->setFont(QFont("Comic Sans MS", 14));
-
-    // Bouton pour modifier les parametre (echelle, pas, scale, perspective...)
-    m_bouton_param = new QPushButton("Settings", this);
-    m_bouton_param->setFont(QFont("Comic Sans MS", 14));
-
-    // Bouton pour sauvegarder au format stl le rendu obtenu
-    m_bouton_save = new QPushButton("Save", this);
-    m_bouton_save->setFont(QFont("Comic Sans MS", 14));
-
-    //placement des boutons
-    QGridLayout *layout = new QGridLayout;
-    layout->addWidget(m_bouton_load, 0, 0);
-    layout->addWidget(m_bouton_save, 0, 1);
-    layout->addWidget(m_bouton_param, 0, 2);
-    layout->addWidget(m_bouton_quit, 20, 20);
-
-    setLayout(layout);
-
-    QObject::connect(m_bouton_quit, SIGNAL(clicked()), qApp, SLOT(quit()));
-    QObject::connect(m_bouton_load, SIGNAL(clicked()), this, SLOT(openFile()));
-    QObject::connect(m_bouton_save, SIGNAL(clicked()), this, SLOT(saveFile()));
-    QObject::connect(m_bouton_param, SIGNAL(clicked()), this, SLOT(chooseParam()));
 }
 
 void MyWindow::initializeGL()
@@ -81,43 +53,51 @@ void MyWindow::paintGL()
     glEnd();
 }
 
+//SLOTS
 void MyWindow::openFile()
 {
 
     //QMessageBox::information(this, "Titre de la fenêtre", "Bienvenu dans l'application HeightMap !");
     //QMessageBox::warning(this, "Titre de la fenêtre", "Attention, vous avez selectionner....!");
     //QMessageBox::critical(this, "Titre de la fenêtre", "Erreur: Vous blabla!");
-    QMessageBox::question(this, "File", "Would you like to open a new file?", QMessageBox::Open | QMessageBox::Cancel);
+    QString dossier = QFileDialog::getExistingDirectory(this);
+    QString file = QFileDialog::getOpenFileName(this, "Choose your file", QString(), "Images (*.jpg *.jpeg)");
+    QMessageBox::information(this, "File", "This file had been selected :\n" + file);
+    //TODO : relier le chemin avec la fonction pour lire heightmap
 
-    if(QMessageBox :: Open){
-        QString dossier = QFileDialog::getExistingDirectory(this);
-        QString file = QFileDialog::getOpenFileName(this, "Choose your file", QString(), "Images (*.jpg *.jpeg)");
-        QMessageBox::information(this, "File", "This file had been selected :\n" + file);
-        //TODO : relier le chemin avec la fonction pour lire heightmap
-    }
+}
+
+void MyWindow::openTex()
+{
+
+    //QMessageBox::information(this, "Titre de la fenêtre", "Bienvenu dans l'application HeightMap !");
+    //QMessageBox::warning(this, "Titre de la fenêtre", "Attention, vous avez selectionner....!");
+    //QMessageBox::critical(this, "Titre de la fenêtre", "Erreur: Vous blabla!");
+    QString dossier = QFileDialog::getExistingDirectory(this);
+    QString file = QFileDialog::getOpenFileName(this, "Choose your file", QString(), "Images (*.jpg *.jpeg)");
+    QMessageBox::information(this, "File", "This file had been selected :\n" + file);
+    //TODO : relier le chemin avec la fonction pour mettre texture
 
 }
 
 void MyWindow::saveFile()
 {
-    QMessageBox::question(this, "Save the file", "Do you want to save as a .stl file ?", QMessageBox::Save | QMessageBox::Cancel);
+    QMessageBox::information(this, "Save as (.stl)", "Enter the name of your file :");
 
-    if(QMessageBox::Save){
-        QString fichier = QFileDialog::getSaveFileName(this, "Save Heightmap", QString(), "Images (*.stl)");
-        //TODO : relier avec l'enregistrement en stl
-    } else {
-        //NOTHING TO DO
-    }
+
+    QString file_saved = QFileDialog::getSaveFileName(this, "Save Heightmap", QString(), "Images (*.stl)");
+    //TODO : relier avec l'enregistrement en stl
+
+
 }
 
 void MyWindow::chooseParam()
 {
-    QMessageBox::question(this, "Save the file", "Do you want to save as a .stl file ?", QMessageBox::Yes | QMessageBox::No);
+    QMessageBox::information(this, "Edit", "Parameters");
+//    QSlider param1 = QSlider();
+    QComboBox * projection = new QComboBox(); //add fenetre en question
+    projection->addItem("Ortho");
+    projection->addItem("Perspective");
+    //TODO : relier avec les differents trucs a parametrer
 
-    if(QMessageBox::Yes){
-        QString fichier = QFileDialog::getSaveFileName(this, "Save Heightmap", QString(), "Images (*.stl)");
-        //TODO : relier avec l'enregistrement en stl
-    } else {
-        //NOTHING TO DO
-    }
 }

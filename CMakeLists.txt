@@ -34,7 +34,7 @@ add_executable(P1RV
         Sources/interface.cpp
         Sources/interface.h
         Sources/mywindow.cpp
-        Sources/mywindow.h)
+        Sources/mywindow.h Sources/mymainwindow.cpp Sources/mymainwindow.h)
 
 # Qt4
 # required packages

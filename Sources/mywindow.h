@@ -9,10 +9,10 @@
 #include <GL/glu.h>
 #include <QApplication>
 #include <QWidget>
-#include <QPushButton>
 #include <QMessageBox>
 #include <QFileDialog>
-#include <QGridLayout>
+#include <QSlider>
+#include <QComboBox>
 
 class MyWindow : public Interface {
     Q_OBJECT
@@ -24,17 +24,13 @@ public:
     void paintGL();
 
 private:
-    QPushButton *m_bouton_quit;
-    QPushButton *m_bouton_load; //choix de charger map ou texture
-    QPushButton *m_bouton_param; //pour changement d'échelle (a voir)
-    QPushButton *m_bouton_save; //sauvegarder en stl
 
-    signals:
-
-public slots:
+public slots :
     void openFile();
+    void openTex();
     void saveFile();
     void chooseParam();
+
 };
 
 
