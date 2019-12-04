@@ -43,8 +43,6 @@ int main(int argc, char *argv[]) {
     my_map = CreateMap(monimage);
     my_map.generateMap();
 
-  
-
     glutMainLoop();
 
     return app.exec();

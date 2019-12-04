@@ -28,9 +28,8 @@ GLvoid rezise(int w, int h) {
 
 GLvoid affichage() {
 
-	glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
+    glClearColor(0.5f, 0.5f, 0.5f, 0.5f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
-
 	glMatrixMode(GL_MODELVIEW);
 
 	// give a my_map a material
@@ -41,15 +40,10 @@ GLvoid affichage() {
 	glRotatef(-cam.getAngleX(), 0.0f, 1.0f, 0.0f);
 	glScalef(1.0f+(cam.getZoom() / 100), 1.0f + (cam.getZoom() / 100), 1.0f + (cam.getZoom() / 100));
 
-	// affichage des informations sur l'écran
-	//std::string Zoom = std::to_string(cam.getZoom());
-
-
-	//BitmapOutput(1.0, 1.0, Zoom, GLUT_BITMAP_TIMES_ROMAN_24); //debug
-
 	glFlush();
 	glutSwapBuffers();
 	glutPostRedisplay();
+
 }
 
 void BitmapOutput(float x, float y, std::string string, void* font)
