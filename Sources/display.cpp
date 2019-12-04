@@ -201,18 +201,30 @@ GLvoid Display :: redimensionner(int w, int h) {
 
 GLvoid Display :: applyLights()
 {
-    GLfloat lightpos[] = { 1.5f, 1.0f, 1.5f };
-    GLfloat lightcolor[] = { 1.0f, 1.0f, 1.0f };
-    GLfloat ambcolor[] = { 0.0f, 0.0f, 1.0f };
-
-    glEnable(GL_LIGHTING);                               // enable lighting
-    glLightModelfv(GL_LIGHT_MODEL_AMBIENT,ambcolor);     // ambient light
-
-    glEnable(GL_LIGHT0);                                 // enable light source
-    glLightfv(GL_LIGHT0,GL_POSITION,lightpos);           // config light source
-    glLightfv(GL_LIGHT0,GL_AMBIENT,lightcolor);
-    glLightfv(GL_LIGHT0,GL_DIFFUSE,lightcolor);
-    glLightfv(GL_LIGHT0,GL_SPECULAR,lightcolor);
+//    GLfloat lightpos[] = { 0.0f, 10.0f, 0.0f , 0.0f};
+//    GLfloat lightcolor[] = { 1.0f, 1.0f, 1.0f, 0.5f };
+//    GLfloat ambcolor[] = { 0.0f, 0.0f, 1.0f };
+//
+//    glEnable(GL_LIGHTING);                               // enable lighting
+//
+//    // global Ambient light
+//    GLfloat lmodel_ambient[] = { 10.9f, 10.9f, 10.9f, 0.1f };
+//    //glLightModelfv(GL_LIGHT_MODEL_AMBIENT, lmodel_ambient);
+//    //glLightModeli(GL_LIGHT_MODEL_LOCAL_VIEWER, GL_TRUE);
+//
+//
+//
+//    //glLightModelfv(GL_LIGHT_MODEL_LOCAL_VIEWER,ambcolor);     // ambient light
+//    //glLightModelf(GL_LIGHT_MODEL_TWO_SIDE, 0.0);
+//
+//                                 // enable light source
+//    glLightfv(GL_LIGHT0,GL_POSITION,lightpos);           // config light source
+//    glLightfv(GL_LIGHT0,GL_AMBIENT,lightcolor);
+//    glLightfv(GL_LIGHT0,GL_DIFFUSE,lightcolor);
+//    glLightfv(GL_LIGHT0,GL_SPECULAR,lightcolor);
+//    glLightf(GL_LIGHT0, GL_QUADRATIC_ATTENUATION, 0.01);
+//    glEnable(GL_LIGHT0);
+   // gluLookAt(0,6,6,0,0,0,0,1,0);
 
 }
 

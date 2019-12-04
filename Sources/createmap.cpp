@@ -17,7 +17,7 @@ CreateMap ::CreateMap(ImageJPEG uneimage)
     x = uneimage.getX();                                          // dimension de l'image
     y = uneimage.getY();
     image = uneimage;                                             // image originale
-    pas_pixel = 2;                                                //
+    pas_pixel = 5;                                                //
 
     scale = 1 ;                                                   // default scale
 	loader_tex= ma_texture.loadTexture(LINK_TEX, true);     // texture de la map

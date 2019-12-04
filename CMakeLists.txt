@@ -24,6 +24,8 @@ add_executable(P1RV
 # required packages
 find_package ( OpenGL REQUIRED )
 find_package ( GLUT REQUIRED )
+find_package(Qt4 REQUIRED)
+
 
 include_directories( ${OPENGL_DIRS} ${GLUT_DIRS} )
 link_directories( /usr/lib/x86_64-linux-gnu )

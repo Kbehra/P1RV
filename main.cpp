@@ -24,7 +24,7 @@ Display goDisplay;
 Camera cam;
 
 // Liens vers le fichier à charger
-char* LINK_IMAGE = strdup("../examples/Heightmap4.jpeg");
+char* LINK_IMAGE = strdup("../examples/Heightmap.jpeg");
 char* LINK_TEX = strdup("../examples/texture1.jpeg");
 
 int main(int argc, char *argv[]) {
