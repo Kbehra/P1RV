@@ -22,7 +22,11 @@ add_executable(P1RV
         Sources/callback.cpp
         Sources/callback.h
         Sources/material.cpp
-        Sources/material.h Sources/vertex.cpp Sources/vertex.h Sources/interface.cpp Sources/interface.h)
+        Sources/material.h
+        Sources/vertex.cpp
+        Sources/vertex.h
+        Sources/interface.cpp
+        Sources/interface.h)
 
 
 # required packages

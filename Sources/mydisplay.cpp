@@ -145,6 +145,11 @@ GLvoid MyDisplay :: clavier (unsigned char touche, int x, int y){
                 glutPostRedisplay();
             }
             break;
+        case 'o':
+        {
+            my_map.exportToSTL();
+
+        }
         default:
 		{}
             break;
