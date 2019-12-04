@@ -1,5 +1,8 @@
 cmake_minimum_required(VERSION 3.00)
-project(P1RV)
+
+set(PROJECT_NAME "P1RV")
+
+project(${PROJECT_NAME})
 
 set (CMAKE_CXX_STANDARD 14)
 
@@ -8,8 +11,6 @@ link_directories( /usr/lib/x86_64-linux-gnu )
 set(CMAKE_PREFIX_PATH "/usr/lib/x86_64-linux-gnu ")
 
 set(CMAKE_AUTOMOC ON)
-set(CMAKE_AUTOUIC ON)
-set(CMAKE_AUTORCC ON)
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
 add_executable(P1RV
@@ -35,15 +36,30 @@ add_executable(P1RV
         Sources/mywindow.cpp
         Sources/mywindow.h)
 
+# Qt4
+# required packages
+find_package(Qt4 COMPONENTS QtCore QtGui QtOpenGL REQUIRED)
+include(${QT_USE_FILE})
+set(LIBRARIES ${LIBRARIES} ${QT_LIBRARIES})
 
+
+# OpenGL
 # required packages
 find_package ( OpenGL REQUIRED )
 find_package ( GLUT REQUIRED )
-find_package ( Qt4 REQUIRED )
 
-include( ${QT_USE_FILE} )
-add_definitions( ${QT_DEFINITIONS} )
+
+add_definitions(${QT_DEFINITIONS})
+
+include_directories(${CMAKE_CURRENT_BINARY_DIR})
 include_directories( ${CMAKE_BINARY_DIR} )
-
+include_directories(${QT_QTOPENGL_INCLUDE_DIR})
 include_directories( ${OPENGL_DIRS} ${GLUT_DIRS} )
-target_link_libraries( P1RV ${OPENGL_LIBRARIES} ${GLUT_LIBRARIES} ${QT_LIBRARIES} libjpeg.so)
+
+
+# target link
+target_link_libraries(  ${PROJECT_NAME}
+                        ${OPENGL_LIBRARIES}
+                        ${GLUT_LIBRARIES}
+                        ${QT_LIBRARIES}
+                          libjpeg.so)

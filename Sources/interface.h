@@ -4,16 +4,15 @@
 
 #ifndef P1RV_INTERFACE_H
 #define P1RV_INTERFACE_H
-
 #include <Qt>
-#include <QtOpenGL/QtOpenGL>
+#include <QtOpenGL>
 #include <QApplication>
 #include <QWidget>
 #include <QPushButton>
 #include <QMessageBox>
 #include <QFileDialog>
-#include <QtOpenGL/QGLWidget>
-#include <QtOpenGL/QGL>
+#include <QGLWidget>
+#include <QGL>
 
 class QWidget;
 
