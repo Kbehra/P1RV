@@ -53,7 +53,7 @@ void MyDisplay :: initWindow(int argc, char *argv[]){
 	glEnable(GL_TEXTURE_2D);
 
     // Lumiere
-   applyLights();
+   //applyLights();
 
 	// fonctions de callback
 	glutDisplayFunc(affichage);

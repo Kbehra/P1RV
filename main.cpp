@@ -17,6 +17,8 @@
 #include "Sources/createmap.h"
 #include "Sources/mydisplay.h"
 #include "Sources/camera.h"
+#include "Sources/interface.h"
+#include "Sources/mywindow.h"
 
 
 // Variables globales
@@ -31,8 +33,12 @@ char* LINK_TEX = strdup("../examples/texture1.jpeg");
 int main(int argc, char *argv[]) {
 
     QApplication app(argc, argv);
+    MyWindow my_window;
+    
+    my_window.show();
+
     // initialisation glut
-    go_display.initWindow(argc, argv);
+    //go_display.initWindow(argc, argv);
 
 
     ImageJPEG monimage;
@@ -45,8 +51,9 @@ int main(int argc, char *argv[]) {
 
   
 
-    glutMainLoop();
+    //glutMainLoop();
 
+    //return 1;
     return app.exec();
 }
 

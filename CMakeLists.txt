@@ -7,6 +7,11 @@ link_directories( /usr/lib/x86_64-linux-gnu )
 
 set(CMAKE_PREFIX_PATH "/usr/lib/x86_64-linux-gnu ")
 
+set(CMAKE_AUTOMOC ON)
+set(CMAKE_AUTOUIC ON)
+set(CMAKE_AUTORCC ON)
+set(CMAKE_INCLUDE_CURRENT_DIR ON)
+
 add_executable(P1RV
         main.cpp
         Sources/loadjpeg.cpp
@@ -26,13 +31,15 @@ add_executable(P1RV
         Sources/vertex.cpp
         Sources/vertex.h
         Sources/interface.cpp
-        Sources/interface.h)
+        Sources/interface.h
+        Sources/mywindow.cpp
+        Sources/mywindow.h)
 
 
 # required packages
 find_package ( OpenGL REQUIRED )
 find_package ( GLUT REQUIRED )
-find_package(Qt4 REQUIRED)
+find_package ( Qt4 REQUIRED )
 
 include( ${QT_USE_FILE} )
 add_definitions( ${QT_DEFINITIONS} )
