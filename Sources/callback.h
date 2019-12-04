@@ -11,7 +11,7 @@
 #endif
 
 #include "createmap.h"
-#include "display.h"
+#include "mydisplay.h"
 #include "camera.h"
 
 

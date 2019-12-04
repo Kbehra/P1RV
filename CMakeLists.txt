@@ -1,7 +1,13 @@
 cmake_minimum_required(VERSION 3.00)
 project(P1RV)
 
-set(CMAKE_CXX_STANDARD 14)
+set (CMAKE_CXX_STANDARD 14)
+
+link_directories( /usr/lib/x86_64-linux-gnu )
+
+#set(CMAKE_INCLUDE_CURRENT_DIR ON)
+set(CMAKE_PREFIX_PATH "/usr/lib/x86_64-linux-gnu ")
+
 
 add_executable(P1RV
         main.cpp
@@ -11,14 +17,14 @@ add_executable(P1RV
         Sources/pixel.h
         Sources/createmap.cpp
         Sources/createmap.h
-        Sources/display.cpp
-        Sources/display.h
+        Sources/mydisplay.cpp
+        Sources/mydisplay.h
         Sources/camera.cpp
         Sources/camera.h
         Sources/callback.cpp
         Sources/callback.h
         Sources/material.cpp
-        Sources/material.h Sources/vertex.cpp Sources/vertex.h)
+        Sources/material.h Sources/vertex.cpp Sources/vertex.h Sources/interface.cpp Sources/interface.h)
 
 
 # required packages
@@ -27,6 +33,10 @@ find_package ( GLUT REQUIRED )
 find_package(Qt4 REQUIRED)
 
 
+find_package( Qt4 REQUIRED )
+include( ${QT_USE_FILE} )
+add_definitions( ${QT_DEFINITIONS} )
+include_directories( ${CMAKE_BINARY_DIR} )
+
 include_directories( ${OPENGL_DIRS} ${GLUT_DIRS} )
-link_directories( /usr/lib/x86_64-linux-gnu )
-target_link_libraries( P1RV ${OPENGL_LIBRARIES} ${GLUT_LIBRARIES}  libjpeg.so)
+target_link_libraries( P1RV ${OPENGL_LIBRARIES} ${GLUT_LIBRARIES} ${QT4_LIBRARIES} libjpeg.so)

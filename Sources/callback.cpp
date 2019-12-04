@@ -6,7 +6,7 @@
 
 
 extern CreateMap map;
-extern Display goDisplay;
+extern MyDisplay goDisplay;
 extern Camera cam;
 
 void keyBoard(unsigned char c, int x, int y){

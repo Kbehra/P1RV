@@ -3,20 +3,20 @@
  *
  * display.cpp
  */
-#include "display.h"
+#include "mydisplay.h"
 
 extern Camera cam;
 extern CreateMap map;
-extern Display goDisplay;
+extern MyDisplay goDisplay;
 
 
 
-Display :: Display() {
+MyDisplay :: MyDisplay() {
     window_width = 1080;
     window_high = 960;
 
-    focale = 11.1f;
-    near = 0.00f;
+    focale = 11.0f; //10
+    near = 0.0f;
     far = 0.0f;
 
     choice_mat = 4;			// permet de sélectionner un matériau par défaut
@@ -26,7 +26,7 @@ Display :: Display() {
 
 }
 
-void Display :: initWindow(int argc, char *argv[]){
+void MyDisplay :: initWindow(int argc, char *argv[]){
 
     // initialisation de GLUT
     glutInit(&argc, argv);
@@ -41,7 +41,7 @@ void Display :: initWindow(int argc, char *argv[]){
     glutInitWindowSize(window_width, window_high);
 
     // création de la fenetre GLUT
-    glutCreateWindow("Heightmap");
+    glutCreateWindow("Heightmap"); //remplacer "..." par argv[0] pour appel avec terminal
 
     // définition de la couleur d'effacement du framebuffer
     glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
@@ -53,7 +53,7 @@ void Display :: initWindow(int argc, char *argv[]){
 	glEnable(GL_TEXTURE_2D);
 
     // Lumiere
-    applyLights();
+   applyLights();
 
 	// fonctions de callback
 	glutDisplayFunc(affichage);
@@ -64,7 +64,7 @@ void Display :: initWindow(int argc, char *argv[]){
 
 }
 
-GLvoid Display :: clavier (unsigned char touche, int x, int y){
+GLvoid MyDisplay :: clavier (unsigned char touche, int x, int y){
     // Suivant les touches pressees, nous aurons un comportement different de l'application
     // ESCAPE ou 'q' : fermera l'application
     // 'p' : affichage du carre plein
@@ -90,13 +90,10 @@ GLvoid Display :: clavier (unsigned char touche, int x, int y){
         case 's':
 		{
             std::cout << "Shade Model : " << std::endl;
-            if(change_shade_model)
-            {
+            if(change_shade_model){
                 glShadeModel(GL_SMOOTH);
                 std::cout << "GL_SMOOTH - rendu de Phong, 1 normale par sommets" << std::endl;
-            }
-            else
-            {
+            } else {
                 glShadeModel(GL_FLAT);
                 std::cout << "GL_FLAT - eclairage constant, 1 normale par faces" << std::endl;
             }
@@ -107,11 +104,13 @@ GLvoid Display :: clavier (unsigned char touche, int x, int y){
         case 'd':
 		{
 			glEnable(GL_DEPTH_TEST);
+			glDepthFunc(GL_LESS);
 			glutPostRedisplay();
 		}
             break;
         case 'w':
 		{
+			std::cout << "w" << std::endl;
 			glDisable(GL_DEPTH_TEST);
 			glutPostRedisplay();
 		}
@@ -130,11 +129,9 @@ GLvoid Display :: clavier (unsigned char touche, int x, int y){
             {
                 float scale = map.getScale();
                 map.changeScale(scale+=pas);
-                map.generateMap();
-
                 std::cout << map.getScale() << std::endl;
-                glFlush();
                 glutSwapBuffers();
+                map.generateMap();
                 glutPostRedisplay();
             }
             break;
@@ -142,14 +139,11 @@ GLvoid Display :: clavier (unsigned char touche, int x, int y){
             {
                 float scale = map.getScale();
                 map.changeScale(scale-=pas);
-                map.generateMap();
-                glFlush();
+                std::cout << map.getScale() << std::endl;
                 glutSwapBuffers();
+                map.generateMap();
                 glutPostRedisplay();
             }
-            break;
-        case 'o':
-            map.exportToSTL();
             break;
         default:
 		{}
@@ -159,7 +153,7 @@ GLvoid Display :: clavier (unsigned char touche, int x, int y){
     glutPostRedisplay();
 }
 
-GLvoid Display :: redimensionner(int w, int h) {
+GLvoid MyDisplay :: redimensionner(int w, int h) {
     // Garde les valeurs
     window_width = w;
     window_high = h;
@@ -168,7 +162,7 @@ GLvoid Display :: redimensionner(int w, int h) {
     if(window_high == 0)
         window_high = 1;
 
-    float ratio = (float)window_width / (float)window_high;
+    GLdouble ratio = (GLfloat)window_width / (GLfloat)window_high;
     std::cout << "Ratio : " << ratio << std::endl;
 
     top = 1.0f;
@@ -186,12 +180,9 @@ GLvoid Display :: redimensionner(int w, int h) {
     glViewport(0, 0, window_width, window_high);
 
     // Mise en place de la perspective
-    if(projection)
-    {
+    if(projection){
         gluOrtho2D(left,right,bottom,top);
-    }
-    else
-    {
+    } else {
         gluPerspective(focale, ratio, near, far);
     }
 
@@ -199,42 +190,30 @@ GLvoid Display :: redimensionner(int w, int h) {
     glMatrixMode(GL_MODELVIEW);
 }
 
-GLvoid Display :: applyLights()
+GLvoid MyDisplay :: applyLights()
 {
-//    GLfloat lightpos[] = { 0.0f, 10.0f, 0.0f , 0.0f};
-//    GLfloat lightcolor[] = { 1.0f, 1.0f, 1.0f, 0.5f };
-//    GLfloat ambcolor[] = { 0.0f, 0.0f, 1.0f };
-//
-//    glEnable(GL_LIGHTING);                               // enable lighting
-//
-//    // global Ambient light
-//    GLfloat lmodel_ambient[] = { 10.9f, 10.9f, 10.9f, 0.1f };
-//    //glLightModelfv(GL_LIGHT_MODEL_AMBIENT, lmodel_ambient);
-//    //glLightModeli(GL_LIGHT_MODEL_LOCAL_VIEWER, GL_TRUE);
-//
-//
-//
-//    //glLightModelfv(GL_LIGHT_MODEL_LOCAL_VIEWER,ambcolor);     // ambient light
-//    //glLightModelf(GL_LIGHT_MODEL_TWO_SIDE, 0.0);
-//
-//                                 // enable light source
-//    glLightfv(GL_LIGHT0,GL_POSITION,lightpos);           // config light source
-//    glLightfv(GL_LIGHT0,GL_AMBIENT,lightcolor);
-//    glLightfv(GL_LIGHT0,GL_DIFFUSE,lightcolor);
-//    glLightfv(GL_LIGHT0,GL_SPECULAR,lightcolor);
-//    glLightf(GL_LIGHT0, GL_QUADRATIC_ATTENUATION, 0.01);
-//    glEnable(GL_LIGHT0);
-   // gluLookAt(0,6,6,0,0,0,0,1,0);
+    GLfloat lightpos[] = { 0.0f, 0.0f, 15.0f };
+    GLfloat lightcolor[] = { 1.0f, 1.0f, 0.0f };
+    GLfloat ambcolor[] = { 0.0f, 0.0f, 1.0f };
+    GLfloat surf_diffuse[]={0.8,0.8,0.0,1.0};
+
+    glShadeModel(GL_SMOOTH);
+    glEnable(GL_LIGHTING);                               // enable lighting
+    glLightModelfv(GL_LIGHT_MODEL_AMBIENT,ambcolor);     // ambient light
+    glMaterialfv(GL_FRONT,GL_DIFFUSE,surf_diffuse );
+
+    glEnable(GL_LIGHT0);                                 // enable light source
+    glLightfv(GL_LIGHT0,GL_POSITION,lightpos);           // config light source
+    glLightfv(GL_LIGHT0,GL_AMBIENT,lightcolor);
+    glLightfv(GL_LIGHT0,GL_DIFFUSE,lightcolor);
+    glLightfv(GL_LIGHT0,GL_SPECULAR,lightcolor);
 
 }
 
-int Display :: getWindowW()
-{
+int MyDisplay :: getWindowW() {
     return window_width;
 }
-
-int Display ::getWindowH()
-{
+int MyDisplay ::getWindowH() {
     return window_high;
 }
 

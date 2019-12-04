@@ -25,7 +25,7 @@
  * Permet d'afficher sur l'écran le résultat de heightmapping grâce à OpenGL
  */
 
-class Display{
+class MyDisplay{
 private :
     int choice_mat;
     bool change_shade_model;
@@ -46,7 +46,7 @@ private :
 
 public :
     //Methods
-    Display();
+    MyDisplay();
 
     GLvoid applyLights();
     GLvoid clavier(unsigned char touche, int x, int y);

@@ -12,15 +12,16 @@
 #define GLUT_DISABLE_ATEXIT_HACK
 #endif
 
+#include <QApplication>
 #include "Sources/loadjpeg.h"
 #include "Sources/createmap.h"
-#include "Sources/display.h"
+#include "Sources/mydisplay.h"
 #include "Sources/camera.h"
 
 
 // Variables globales
 CreateMap map;
-Display goDisplay;
+MyDisplay goDisplay;
 Camera cam;
 
 // Liens vers le fichier à charger
@@ -29,6 +30,7 @@ char* LINK_TEX = strdup("../examples/texture1.jpeg");
 
 int main(int argc, char *argv[]) {
 
+    QApplication app(argc, argv);
     // initialisation glut
     goDisplay.initWindow(argc, argv);
 
@@ -45,6 +47,6 @@ int main(int argc, char *argv[]) {
 
     glutMainLoop();
 
-    return 0;
+    return app.exec();
 }
 
