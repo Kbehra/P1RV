@@ -22,7 +22,7 @@ MyDisplay :: MyDisplay() {
     choice_mat = 4;			// permet de sélectionner un matériau par défaut
     change_shade_model = false;
     projection = false;
-    pas = 0.1;
+    pas = 0.10;
 
 }
 
