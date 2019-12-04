@@ -3,15 +3,15 @@
  *
  * display.cpp
  */
-#include "display.h"
+#include "mydisplay.h"
 
 extern Camera cam;
 extern CreateMap map;
-extern Display goDisplay;
+extern MyDisplay goDisplay;
 
 
 
-Display :: Display() {
+MyDisplay :: MyDisplay() {
     window_width = 1080;
     window_high = 960;
 
@@ -26,7 +26,7 @@ Display :: Display() {
 
 }
 
-void Display :: initWindow(int argc, char *argv[]){
+void MyDisplay :: initWindow(int argc, char *argv[]){
 
     // initialisation de GLUT
     glutInit(&argc, argv);
@@ -64,7 +64,7 @@ void Display :: initWindow(int argc, char *argv[]){
 
 }
 
-GLvoid Display :: clavier (unsigned char touche, int x, int y){
+GLvoid MyDisplay :: clavier (unsigned char touche, int x, int y){
     // Suivant les touches pressees, nous aurons un comportement different de l'application
     // ESCAPE ou 'q' : fermera l'application
     // 'p' : affichage du carre plein
@@ -153,7 +153,7 @@ GLvoid Display :: clavier (unsigned char touche, int x, int y){
     glutPostRedisplay();
 }
 
-GLvoid Display :: redimensionner(int w, int h) {
+GLvoid MyDisplay :: redimensionner(int w, int h) {
     // Garde les valeurs
     window_width = w;
     window_high = h;
@@ -190,7 +190,7 @@ GLvoid Display :: redimensionner(int w, int h) {
     glMatrixMode(GL_MODELVIEW);
 }
 
-GLvoid Display :: applyLights()
+GLvoid MyDisplay :: applyLights()
 {
     GLfloat lightpos[] = { 0.0f, 0.0f, 15.0f };
     GLfloat lightcolor[] = { 1.0f, 1.0f, 0.0f };
@@ -210,10 +210,10 @@ GLvoid Display :: applyLights()
 
 }
 
-int Display :: getWindowW() {
+int MyDisplay :: getWindowW() {
     return window_width;
 }
-int Display ::getWindowH() {
+int MyDisplay ::getWindowH() {
     return window_high;
 }
 
