@@ -19,7 +19,7 @@ CreateMap ::CreateMap(ImageJPEG uneimage)
     image = uneimage;                                             // image originale
     pas_pixel = 5;                                                //
 
-    scale = 1 ;                                                   // default scale
+    scale = 5 ;                                                   // default scale
 	loader_tex= ma_texture.loadTexture(LINK_TEX, true);     // texture de la my_map
 	if (loader_tex)
 	{
@@ -42,7 +42,7 @@ void CreateMap :: generateMap()
 {
     // QUADS AVEC TEXTURE
     //glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
-    if (scale != 1){
+    if (scale != 5){
         id_display_list = glGenLists(1);
         glNewList(id_display_list, GL_COMPILE);
     }
@@ -83,10 +83,10 @@ void CreateMap :: generateMap()
             glVertex3f(v4.getX(), v4.getY(), v4.getZ());
 
 
-             normal.computeCross(v1-v3,v4-v3);
-             glNormal3f(normal.getX(), normal.getY(), normal.getZ());
-             glTexCoord2f(1.0, 0.0);
-             glVertex3f(v3.getX(), v3.getY(), v3.getZ());
+            normal.computeCross(v1-v3,v4-v3);
+            glNormal3f(normal.getX(), normal.getY(), normal.getZ());
+            glTexCoord2f(1.0, 0.0);
+            glVertex3f(v3.getX(), v3.getY(), v3.getZ());
 
             // enregistrement des résultats (pour export)
             vertex.push_back(v1);

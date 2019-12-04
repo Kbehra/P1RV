@@ -44,16 +44,17 @@ void MyDisplay :: initWindow(int argc, char *argv[]){
     glutCreateWindow("Heightmap"); //remplacer "..." par argv[0] pour appel avec terminal
 
     // définition de la couleur d'effacement du framebuffer
-    glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
+    glClearColor(0.95f, 0.95f, 0.95f, 0.95f);
 
     // Initialement on active le Z-buffer
-	glEnable(GL_DEPTH_TEST);
+	//glEnable(GL_DEPTH_TEST);
 
 	//active texture
 	glEnable(GL_TEXTURE_2D);
 
+
     // Lumiere
-   //applyLights();
+    applyLights();
 
 	// fonctions de callback
 	glutDisplayFunc(affichage);
@@ -64,40 +65,34 @@ void MyDisplay :: initWindow(int argc, char *argv[]){
 
 }
 
-GLvoid MyDisplay :: clavier (unsigned char touche, int x, int y){
-    // Suivant les touches pressees, nous aurons un comportement different de l'application
-    // ESCAPE ou 'q' : fermera l'application
-    // 'p' : affichage du carre plein
-    // 'f' : affichage du carre en fil de fer
-    // 's' : affichage des sommets du carre
+GLvoid MyDisplay :: clavier (unsigned char touche, int x, int y)
+{
     switch(touche)
     {
-        case 'z':
-		{
-			std::cout << "Z" << std::endl;
-		}
-            break;
-        case 'q':
-		{
-			std::cout << "Q" << std::endl;
-		}
         case 'p':
         {
+            // change projection mode
             std::cout << "Projection : Orthogonale <-> Perspective " << std::endl;
             projection = !projection;
         }
+
             break;
         case 's':
 		{
             std::cout << "Shade Model : " << std::endl;
-            if(change_shade_model){
+            if(change_shade_model)
+            {
                 glShadeModel(GL_SMOOTH);
                 std::cout << "GL_SMOOTH - rendu de Phong, 1 normale par sommets" << std::endl;
-            } else {
+            }
+            else
+            {
                 glShadeModel(GL_FLAT);
                 std::cout << "GL_FLAT - eclairage constant, 1 normale par faces" << std::endl;
             }
             change_shade_model = !change_shade_model;
+            glutSwapBuffers();
+            glFlush();
             glutPostRedisplay();
 		}
             break;
@@ -105,18 +100,20 @@ GLvoid MyDisplay :: clavier (unsigned char touche, int x, int y){
 		{
 			glEnable(GL_DEPTH_TEST);
 			glDepthFunc(GL_LESS);
+            glutSwapBuffers();
+            glFlush();
 			glutPostRedisplay();
 		}
             break;
         case 'w':
 		{
-			std::cout << "w" << std::endl;
 			glDisable(GL_DEPTH_TEST);
+            glutSwapBuffers();
+            glFlush();
 			glutPostRedisplay();
 		}
             break;
-        case 'e':
-            break;
+
         case 'm':
 		{
 			// change de the default material
@@ -159,14 +156,16 @@ GLvoid MyDisplay :: clavier (unsigned char touche, int x, int y){
 }
 
 GLvoid MyDisplay :: redimensionner(int w, int h) {
+
     // Garde les valeurs
     window_width = w;
     window_high = h;
 
     // eviter une division par 0
     if(window_high == 0)
+    {
         window_high = 1;
-
+    }
     GLdouble ratio = (GLfloat)window_width / (GLfloat)window_high;
     std::cout << "Ratio : " << ratio << std::endl;
 
@@ -185,9 +184,12 @@ GLvoid MyDisplay :: redimensionner(int w, int h) {
     glViewport(0, 0, window_width, window_high);
 
     // Mise en place de la perspective
-    if(projection){
+    if(projection)
+    {
         gluOrtho2D(left,right,bottom,top);
-    } else {
+    }
+    else
+    {
         gluPerspective(focale, ratio, near, far);
     }
 
@@ -197,19 +199,19 @@ GLvoid MyDisplay :: redimensionner(int w, int h) {
 
 GLvoid MyDisplay :: applyLights()
 {
-    GLfloat lightpos[] = { 0.0f, 0.0f, 15.0f };
-    GLfloat lightcolor[] = { 1.0f, 1.0f, 0.0f };
-    GLfloat ambcolor[] = { 0.0f, 0.0f, 1.0f };
-    GLfloat surf_diffuse[]={0.8,0.8,0.0,1.0};
+    // Lumiere
+    GLfloat lightpos[] = { 20.5f, 20.0f, 20.5f,20.5f };
+    GLfloat lightcolor[] = { 1.0f, 1.0f, 1.0f,0.5f };
+    GLfloat ambcolor[] = { 0.9f, 0.9f, 1.0f,0.9f};
+    GLfloat lightambient[] = {10.0f, 10.0f,10.0f, 0.0f};
 
-    glShadeModel(GL_SMOOTH);
     glEnable(GL_LIGHTING);                               // enable lighting
     glLightModelfv(GL_LIGHT_MODEL_AMBIENT,ambcolor);     // ambient light
-    glMaterialfv(GL_FRONT,GL_DIFFUSE,surf_diffuse );
+
 
     glEnable(GL_LIGHT0);                                 // enable light source
     glLightfv(GL_LIGHT0,GL_POSITION,lightpos);           // config light source
-    glLightfv(GL_LIGHT0,GL_AMBIENT,lightcolor);
+    glLightfv(GL_LIGHT0,GL_AMBIENT,lightambient);
     glLightfv(GL_LIGHT0,GL_DIFFUSE,lightcolor);
     glLightfv(GL_LIGHT0,GL_SPECULAR,lightcolor);
 
