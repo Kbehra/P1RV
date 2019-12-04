@@ -5,9 +5,7 @@ set (CMAKE_CXX_STANDARD 14)
 
 link_directories( /usr/lib/x86_64-linux-gnu )
 
-#set(CMAKE_INCLUDE_CURRENT_DIR ON)
 set(CMAKE_PREFIX_PATH "/usr/lib/x86_64-linux-gnu ")
-
 
 add_executable(P1RV
         main.cpp
@@ -32,11 +30,9 @@ find_package ( OpenGL REQUIRED )
 find_package ( GLUT REQUIRED )
 find_package(Qt4 REQUIRED)
 
-
-find_package( Qt4 REQUIRED )
 include( ${QT_USE_FILE} )
 add_definitions( ${QT_DEFINITIONS} )
 include_directories( ${CMAKE_BINARY_DIR} )
 
 include_directories( ${OPENGL_DIRS} ${GLUT_DIRS} )
-target_link_libraries( P1RV ${OPENGL_LIBRARIES} ${GLUT_LIBRARIES} ${QT4_LIBRARIES} libjpeg.so)
+target_link_libraries( P1RV ${OPENGL_LIBRARIES} ${GLUT_LIBRARIES} ${QT_LIBRARIES} libjpeg.so)

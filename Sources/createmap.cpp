@@ -20,7 +20,7 @@ CreateMap ::CreateMap(ImageJPEG uneimage)
     pas_pixel = 5;                                                //
 
     scale = 1 ;                                                   // default scale
-	loader_tex= ma_texture.loadTexture(LINK_TEX, true);     // texture de la map
+	loader_tex= ma_texture.loadTexture(LINK_TEX, true);     // texture de la my_map
 	if (loader_tex)
 	{
         texture_id = 0;
