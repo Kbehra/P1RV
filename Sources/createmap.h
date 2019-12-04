@@ -28,10 +28,10 @@ class CreateMap {
 
     CreateMap();
     CreateMap(ImageJPEG uneimage);
-    void generateMap();                                 // génération de la map
-    GLvoid afficher();                                  // afficher la map
+    void generateMap();                                 // génération de la my_map
+    GLvoid afficher();                                  // afficher la my_map
     int  getPas();
-    float scale;                                        // facteur de hauteur de la map
+    float scale;                                        // facteur de hauteur de la my_map
     void changeScale(float newscale);
     float getScale();
 

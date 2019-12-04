@@ -12,16 +12,19 @@
 #define GLUT_DISABLE_ATEXIT_HACK
 #endif
 
-#include <QApplication>
+//#include <QApplication>
+#include "qapplication.h"
+#include <QDebug>
 #include "Sources/loadjpeg.h"
 #include "Sources/createmap.h"
 #include "Sources/mydisplay.h"
 #include "Sources/camera.h"
+#include "Sources/interface.h"
 
 
 // Variables globales
-CreateMap map;
-MyDisplay goDisplay;
+CreateMap my_map;
+MyDisplay go_display;
 Camera cam;
 
 // Liens vers le fichier à charger
@@ -32,16 +35,16 @@ int main(int argc, char *argv[]) {
 
     QApplication app(argc, argv);
     // initialisation glut
-    goDisplay.initWindow(argc, argv);
+    go_display.initWindow(argc, argv);
 
 
     ImageJPEG monimage;
 
     bool loaderimage = monimage.loadJPEG(LINK_IMAGE);
 
-    // création de la map
-    map = CreateMap(monimage);
-    map.generateMap();
+    // création de la my_map
+    my_map = CreateMap(monimage);
+    my_map.generateMap();
 
   
 

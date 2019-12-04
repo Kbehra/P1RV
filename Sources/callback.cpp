@@ -5,12 +5,12 @@
 #include "callback.h"
 
 
-extern CreateMap map;
-extern MyDisplay goDisplay;
+extern CreateMap my_map;
+extern MyDisplay go_display;
 extern Camera cam;
 
 void keyBoard(unsigned char c, int x, int y){
-    goDisplay.clavier(c, x, y);
+    go_display.clavier(c, x, y);
 }
 
 void souris(int bouton, int etat, int x, int y){
@@ -22,7 +22,7 @@ void deplacementSouris(int x, int y){
 }
 
 GLvoid rezise(int w, int h) {
-	goDisplay.redimensionner(w, h);
+	go_display.redimensionner(w, h);
 }
 
 
@@ -33,8 +33,8 @@ GLvoid affichage() {
 
 	glMatrixMode(GL_MODELVIEW);
 
-	// give a map a material
-	map.afficher();
+	// give a my_map a material
+	my_map.afficher();
 	Material(4);
 
 	glLoadIdentity();

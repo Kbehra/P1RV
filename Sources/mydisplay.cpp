@@ -6,8 +6,8 @@
 #include "mydisplay.h"
 
 extern Camera cam;
-extern CreateMap map;
-extern MyDisplay goDisplay;
+extern CreateMap my_map;
+extern MyDisplay go_display;
 
 
 
@@ -127,21 +127,21 @@ GLvoid MyDisplay :: clavier (unsigned char touche, int x, int y){
             break;
         case '+':
             {
-                float scale = map.getScale();
-                map.changeScale(scale+=pas);
-                std::cout << map.getScale() << std::endl;
+                float scale = my_map.getScale();
+                my_map.changeScale(scale+=pas);
+                std::cout << my_map.getScale() << std::endl;
                 glutSwapBuffers();
-                map.generateMap();
+                my_map.generateMap();
                 glutPostRedisplay();
             }
             break;
         case '-':
             {
-                float scale = map.getScale();
-                map.changeScale(scale-=pas);
-                std::cout << map.getScale() << std::endl;
+                float scale = my_map.getScale();
+                my_map.changeScale(scale-=pas);
+                std::cout << my_map.getScale() << std::endl;
                 glutSwapBuffers();
-                map.generateMap();
+                my_map.generateMap();
                 glutPostRedisplay();
             }
             break;

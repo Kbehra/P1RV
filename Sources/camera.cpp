@@ -7,7 +7,7 @@
 #include "camera.h"
 #include "mydisplay.h"
 
-extern MyDisplay goDisplay;
+extern MyDisplay go_display;
 
 Camera::Camera() {
     point_size = 1.0f;
