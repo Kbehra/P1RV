@@ -97,10 +97,9 @@ void MyWindow::paintGL()
     my_map.generateMap();
     my_map.afficher();
 
-    std::cout << "paintGL" << std::endl;            // --debug
+
 
     glLoadIdentity();
-    std::cout << -cam.getAngleY() << " " << -cam.getAngleX()<< " "  << cam.getZoom()<< std::endl;
 
     glRotatef(-cam.getAngleY(), 1.0f, 0.0f, 0.0f);
     glRotatef(-cam.getAngleX(), 0.0f, 1.0f, 0.0f);

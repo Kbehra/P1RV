@@ -5,7 +5,6 @@
  */
 
 #include "camera.h"
-#include <iostream>     // --debug
 
 Camera::Camera() {
     point_size = 1.0f;
@@ -24,7 +23,6 @@ Camera::~Camera() {
 // Fonction de rappel de la souris
 GLvoid Camera :: mouseState(int bouton, int etat, int x, int y) {
     // Test pour voir si le bouton gauche de la souris est appuyé
-    std::cout << " etat souris "<<bouton<<" "<<etat<<"  "<<x<<" "<<y<< std::endl;
 
     if (bouton == Qt::LeftButton && etat == Qt::Key_Down) {
         bouton_click_left = true;

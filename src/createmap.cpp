@@ -45,8 +45,7 @@ CreateMap ::CreateMap(ImageJPEG uneimage)
 void CreateMap :: generateMap()
 {
     // QUADS AVEC TEXTURE
-    //glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
-    std::cout << "x = "<<x<<" y = " <<y<<std::endl;          // -- debug
+
     if ((x > 0) && (y>0)) {
         id_display_list = glGenLists(1);
         glNewList(id_display_list, GL_COMPILE);
