@@ -19,17 +19,21 @@ MyMainWindow::MyMainWindow() {
     fenetre_opengl = new MyWindow(this);
     QTextEdit *zoneTexte2 = new QTextEdit("Drawing Heightmap");
 
-    QMdiSubWindow *rendu_3d = zoneCentrale->addSubWindow(fenetre_opengl);
-    QMdiSubWindow *dessin = zoneCentrale->addSubWindow(zoneTexte2);
+    QMdiSubWindow *dessin = zoneCentrale->addSubWindow(zoneTexte2); //second window
+    QMdiSubWindow *rendu_3d = zoneCentrale->addSubWindow(fenetre_opengl); //first window
 
+    zoneCentrale->tileSubWindows();
     setCentralWidget(zoneCentrale);
 
     //Onglet File
     QMenu *menuFichier = menuBar()->addMenu("&File");
     //sous-menu File
     QAction *chargerMap = new QAction("&Load Map...", fenetre_opengl);
+    chargerMap->setShortcut(QKeySequence("Ctrl+M"));
     QAction *chargerTex = new QAction("&Load Texture...", fenetre_opengl);
+    chargerTex->setShortcut(QKeySequence("Ctrl+T"));
     QAction *exportFile = new QAction("&Export (.stl)", fenetre_opengl);
+    exportFile->setShortcut(QKeySequence("Ctrl+S"));
     QAction *config = new QAction("&Settings", this); //options de langues, couleur fenetre...
     QAction *actionQuitter = new QAction("&Quit", this);
     actionQuitter->setShortcut(QKeySequence("Ctrl+Q"));
@@ -60,5 +64,5 @@ MyMainWindow::MyMainWindow() {
 
 //SLOT
 void MyMainWindow::setConfig(){
-
+    //TODO mettre le changement de langue ou autre
 }

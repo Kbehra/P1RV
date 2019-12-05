@@ -83,7 +83,10 @@ void MyWindow::paintGL()
 void MyWindow::openFile()
 {
 
-    QString file = QFileDialog::getOpenFileName(this, "Choose your file", QString(), "Images (*.jpg *.jpeg)");
+    QFileDialog openMap(this);
+    openMap.setViewMode(QFileDialog::Detail); //permet d'afficher en mode detail (modifiable)
+    QString file = openMap.getOpenFileName(this, "Choose your file", "/home/alicia/CLion/Projets/P1RV/examples", "Images (*.jpg *.jpeg)");
+
     QMessageBox::information(this, "File", "This file had been selected :\n" + file);
 
     bool loaderimage = monimage.loadJPEG(file.toStdString().c_str());
@@ -99,10 +102,16 @@ void MyWindow::openFile()
 
 }
 
+/*
+ * Ouverture d'un fichier "images" pour la texture
+ */
 void MyWindow::openTex()
 {
-    QString file = QFileDialog::getOpenFileName(this, "Choose your file", QString(), "Images (*.jpg *.jpeg)");
-    //QMessageBox::information(this, "File", "This file had been selected :\n" + file);
+    QFileDialog openTex(this);
+    openTex.setViewMode(QFileDialog::Detail); //permet d'afficher en mode detail (modifiable)
+    QString file = openTex.getOpenFileName(this, "Choose your texture", "/home/alicia/CLion/Projets/P1RV/examples", "Images (*.jpg *.jpeg)");
+
+    QMessageBox::information(this, "File", "This texture had been selected :\n" + file);
 
 
 
