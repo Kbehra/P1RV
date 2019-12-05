@@ -17,6 +17,7 @@
 #include <QFileDialog>
 #include <QSlider>
 #include <QComboBox>
+#include <QLCDNumber>
 
 class MyWindow : public Interface {
     Q_OBJECT
@@ -68,6 +69,18 @@ private:
     //camera
     Camera cam;
 
+    //fenetre de parametre
+    QWidget fenetre;
+    QTabWidget *onglets; //onglets de la fenetre
+    QWidget *page1;
+    QWidget *page2;
+
+    QPushButton *apply_change;
+    QPushButton *not_apply;
+    QComboBox *chooseprojection;
+    QComboBox *chooseshader;
+    QLCDNumber *m_lcd;
+
     //pour sauvegarder avant de quitter
     int maybeSave();
 
@@ -76,6 +89,7 @@ public slots :
     void openFile();
     void openTex();
     void saveFile();
+    void changeParam();
     void chooseParam();
 
 };

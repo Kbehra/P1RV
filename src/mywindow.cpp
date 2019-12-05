@@ -29,6 +29,49 @@ MyWindow::MyWindow(QWidget *parent) : Interface (60, parent, (char *)"P1RV - Hei
 
     // initialisation camera
     cam = Camera();
+
+    //Pour les parametres
+    fenetre.setWindowTitle("Edit");
+    apply_change = new QPushButton("&Apply",&fenetre);
+    apply_change->setGeometry(0, 0, 50, 25);
+    not_apply = new QPushButton("&Cancel",&fenetre);
+    not_apply->setGeometry(60, 0, 50, 25);
+
+    // Création du QTabWidget pour parametre
+    onglets = new QTabWidget(&fenetre);
+    onglets->setGeometry(0, 30, 340, 260);
+    // Créer 2 pages, en utilisant un widget parent pour contenir chacune des pages
+    page1 = new QWidget;
+    page2 = new QWidget;
+    //Créer le contenu des pages de widgets
+    // Page 1
+    chooseprojection = new QComboBox(); //add fenetre en question
+    chooseprojection->addItem("Perspective");
+    chooseprojection->addItem("Ortho");
+    chooseshader = new QComboBox(); //add fenetre en question
+    chooseshader->addItem("Rendu de Phong");
+    chooseshader->addItem("Eclairage constant");
+    m_lcd = new QLCDNumber();
+    m_lcd->setSegmentStyle(QLCDNumber::Flat);
+    QSlider *slider_pas = new QSlider(Qt::Horizontal);
+    slider_pas->setMaximum(10);
+    slider_pas->setMinimum(1);
+    slider_pas->setTickPosition(QSlider::TicksAbove);
+
+    QVBoxLayout *vbox1 = new QVBoxLayout;
+    vbox1->addWidget(chooseprojection);
+    vbox1->addWidget(chooseshader);
+    vbox1->addWidget(slider_pas);
+    vbox1->addWidget(m_lcd);
+
+    page1->setLayout(vbox1);
+
+    //ajouter les onglets au QTabWidget, en indiquant la page qu'ils contiennent
+    onglets->addTab(page1, "Parameters");
+
+    connect(apply_change, SIGNAL(clicked()), this, SLOT(changeParam()));
+    connect(slider_pas, SIGNAL(valueChanged(int)), m_lcd, SLOT(display(int)));
+    connect(not_apply, SIGNAL(clicked()), &fenetre, SLOT(close()));
 }
 
 void MyWindow::initializeGL()
@@ -61,7 +104,7 @@ void MyWindow::resizeGL(int width, int height)
     }
 
     glViewport(0, 0, width, height);
-    ratio = width/(GLfloat)height;
+    ratio = (GLfloat)width/(GLfloat)height;
 
     top = 1.0f;
     bottom = -1.0f;
@@ -350,13 +393,26 @@ void MyWindow::saveFile()
 
 void MyWindow::chooseParam()
 {
-    QMessageBox::information(this, "Edit", "Parameters");
-//    QSlider param1 = QSlider();
-    QComboBox * projection = new QComboBox(); //add fenetre en question
-    projection->addItem("Ortho");
-    projection->addItem("Perspective");
-    //TODO : relier avec les differents trucs a parametrer
+    fenetre.show();
+}
+void MyWindow::changeParam()
+{
+    int proj = chooseprojection->currentIndex();
+    int shade = chooseshader->currentIndex();
+    if(proj == 0){
+        projection = false;
+    } else {
+        projection = true;
+    }
+    if(shade == 0){
+        shade_model = true;
+    } else {
+        shade_model = false;
+    }
+    pas = pas * m_lcd->intValue();
 
+    //TODO : relier avec les differents trucs a parametrer
+    resizeGL(window_width,window_high);
 }
 
 void MyWindow::closeEvent(QCloseEvent *event)

@@ -96,6 +96,7 @@ void MyMainWindow::aboutApp()
                           "personnalisee avec differents parametre. Il est possible "
                           "de sauvegarder le rendu 3D au format (.stl)."
                           "Explication des raccourcis:");
+    //TODO mettre tout les raccourci clavier utiles
 }
 
 void MyMainWindow::setConfig(){
