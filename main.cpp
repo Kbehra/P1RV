@@ -13,15 +13,8 @@
 #endif
 
 #include <QApplication>
-#include "Sources/loadjpeg.h"
-#include "Sources/createmap.h"
-#include "Sources/mydisplay.h"
-#include "Sources/camera.h"
-#include "Sources/mymainwindow.h"
+#include "src/mymainwindow.h"
 
-
-// Variables globales
-Camera cam;
 
 int main(int argc, char *argv[]) {
 
@@ -30,20 +23,6 @@ int main(int argc, char *argv[]) {
 
     fenetre.show();
 
-    // initialisation glut
-    //go_display.initWindow(argc, argv);
-
-
-
-    // création de la my_map
-    //my_map = CreateMap(monimage);
-    //my_map.generateMap();
-
-  
-
-    //glutMainLoop();
-
-    //return 1;
     return app.exec();
 }
 

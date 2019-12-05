@@ -7,8 +7,6 @@
 #include "mywindow.h"
 #include "createmap.h"
 
-extern Camera cam;
-
 MyWindow::MyWindow(QWidget *parent) : Interface (60, parent, (char *)"P1RV - Heightmap - BEHRA & MARAVAT" )
 {
 
@@ -96,9 +94,9 @@ void MyWindow::paintGL()
 
 
     glLoadIdentity();
-    glRotatef(-cam.getAngleY(), 1.0f, 0.0f, 0.0f);
-    glRotatef(-cam.getAngleX(), 0.0f, 1.0f, 0.0f);
-    glScalef(1.0f+(cam.getZoom() / 100), 1.0f + (cam.getZoom() / 100), 1.0f + (cam.getZoom() / 100));
+//    glRotatef(-cam.getAngleY(), 1.0f, 0.0f, 0.0f);
+//    glRotatef(-cam.getAngleX(), 0.0f, 1.0f, 0.0f);
+//    glScalef(1.0f+(cam.getZoom() / 100), 1.0f + (cam.getZoom() / 100), 1.0f + (cam.getZoom() / 100));
 
     glFlush();
 
@@ -202,7 +200,7 @@ void MyWindow::mouseMoveEvent (QMouseEvent *event) {
     int X = event -> x ();
     int Y = event -> y ();
     if (press) {
-        cam.mouseMove(X, Y);
+        //cam.mouseMove(X, Y);
         update ();
     }
 }

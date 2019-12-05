@@ -15,22 +15,22 @@ set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
 add_executable(P1RV
         main.cpp
-        Sources/loadjpeg.cpp
-        Sources/loadjpeg.h
-        Sources/pixel.cpp
-        Sources/pixel.h
-        Sources/createmap.cpp
-        Sources/createmap.h
-        Sources/camera.cpp
-        Sources/camera.h
-        Sources/material.cpp
-        Sources/material.h
-        Sources/vertex.cpp
-        Sources/vertex.h
-        Sources/interface.cpp
-        Sources/interface.h
-        Sources/mywindow.cpp
-        Sources/mywindow.h Sources/mymainwindow.cpp Sources/mymainwindow.h)
+        src/loadjpeg.cpp
+        src/loadjpeg.h
+        src/pixel.cpp
+        src/pixel.h
+        src/createmap.cpp
+        src/createmap.h
+        src/camera.cpp
+        src/camera.h
+        src/material.cpp
+        src/material.h
+        src/vertex.cpp
+        src/vertex.h
+        src/interface.cpp
+        src/interface.h
+        src/mywindow.cpp
+        src/mywindow.h src/mymainwindow.cpp src/mymainwindow.h)
 
 # Qt4
 # required packages
