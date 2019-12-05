@@ -291,21 +291,16 @@ void MyWindow::openFile()
         }
 
         // création de la map à partir de l'image
+        char* new_link;
         if(!my_map.getLoaderTex())
         {
-
             std::size_t found = file.toStdString().find_last_of("/\\");
             std::string path = file.toStdString().substr(0, found);
-            QString newlink = QString::fromStdString(path) + QString::fromStdString("/texture1.jpeg");
-            std::cout<<"new link "<<newlink.toAscii().data()<<std::endl;
-            //my_map.setLinkTexture(newlink.toAscii().data());
-            my_map.setLinkTexture(const_cast<char*>(newlink.toStdString().c_str()));
-            std::cout<<"char*"<<const_cast<char*>(newlink.toStdString().c_str())<<std::endl;
+            QString newdefaultlink = QString::fromStdString(path) + QString::fromStdString("/texture1.jpeg");
 
+            new_link = newdefaultlink.toAscii().data();
         }
-        my_map = CreateMap(monimage);
-
-
+        my_map = CreateMap(monimage, new_link);
     }
 
 }
@@ -326,7 +321,13 @@ void MyWindow::openTex()
     else
     {
         QMessageBox::information(this, "Texture", "This texture had been selected :\n" + texture);
-        //TODO : relier le chemin avec la fonction pour mettre texture
+    }
+    char* new_link = texture.toAscii().data();
+
+    if (monimage.getX()>4 && monimage.getY()>0)
+    {
+        std::cout<<"Veuillez sélectionner une carte"<<std::endl;
+        my_map = CreateMap(monimage, new_link);
     }
 
 }

@@ -48,7 +48,7 @@ public:
 	GLuint* getPtrID();
 	GLuint getType() const;
     bool loadJPEG(const char* FileName, bool Fast = true);    //chargement de l'image
-    bool loadTexture(char * FileName, bool Fast);
+    bool loadTexture(const char * FileName, bool Fast);
     Pixel getPixel(int x, int y) const;                 //acceder a un pixel
     vector<vector<Pixel>>* getMatPixel();               //pointeur sur la matrice de pixels
     int seekMax() const;                                //permet de chercher le niveau max

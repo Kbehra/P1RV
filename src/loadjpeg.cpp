@@ -16,8 +16,8 @@
 
 ImageJPEG :: ImageJPEG ()
 {
-    //x = 0;
-    //y = 0;
+    x = 0;
+    y = 0;
 }
 
 
@@ -124,7 +124,7 @@ bool ImageJPEG :: loadJPEG(const char* FileName, bool Fast)
     return true;
 }
 
-bool ImageJPEG :: loadTexture(char * FileName, bool Fast){
+bool ImageJPEG :: loadTexture(const char* FileName, bool Fast){
         FILE* file = fopen(FileName, "rb");  //open the file
         struct jpeg_decompress_struct info;  //the jpeg decompress info
         struct jpeg_error_mgr err;           //the error handler

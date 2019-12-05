@@ -8,7 +8,6 @@
 #include "vertex.h"
 
 extern Camera cam;
-extern char* LINK_TEX;
 
 CreateMap :: CreateMap(){
     x = 0;
@@ -16,21 +15,20 @@ CreateMap :: CreateMap(){
     //link_texture = "../examples/texture1.jpeg";
 }
 
-CreateMap ::CreateMap(ImageJPEG uneimage)
+CreateMap ::CreateMap(ImageJPEG uneimage, char* link_tex)
 {
     x = uneimage.getX();                                          // dimension de l'image
     y = uneimage.getY();
     image = uneimage;                                             // image originale
     pas_pixel = 5;                                                //
 
-    scale = 5 ;// default scale
-    //ma_texture = ImageJPEG();
-    std::cout<<link_texture<<std::endl;
-	loader_tex= ma_texture.loadTexture(link_texture, true);     // texture de la my_map
+    scale = 5 ;                                                   // default scale
+    ma_texture = ImageJPEG();
+	loader_tex= ma_texture.loadTexture(link_tex, true);     // texture de la my_map
 	if (loader_tex)
 	{
         texture_id = 0;
-		std::cout << "texture chargee" << std::endl;
+		std::cout << "texture chargée" << std::endl;
 		applyTexture();
 	}
 	else
@@ -170,10 +168,9 @@ bool CreateMap ::getLoaderTex()
     return loader_tex;
 
 }
-void CreateMap ::setLinkTexture(char* link)
+void CreateMap ::setLinkTexture(const char* link)
 {
     link_texture = link;
-
 }
 
 /*

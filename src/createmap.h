@@ -29,7 +29,7 @@ class CreateMap {
     public:
 
     CreateMap();
-    CreateMap(ImageJPEG uneimage);
+    CreateMap(ImageJPEG uneimage, char* link_tex);
     void generateMap();                                 // génération de la my_map
     GLvoid afficher();                                  // afficher la my_map
     int  getPas();
@@ -38,7 +38,8 @@ class CreateMap {
     float getScale();
     void exportToSTL(string link);
     bool getLoaderTex();
-    void setLinkTexture(char* link);
+
+    void setLinkTexture(const char* link);
 
 private:
 	unsigned long x;
@@ -51,7 +52,7 @@ private:
 	ImageJPEG ma_texture;                               //  chargement de la texture
 	bool loader_tex;
 	GLuint texture_id;
-	char* link_texture;                                 // lien de la texture à charger
+	const char* link_texture;                                 // lien de la texture à charger
 	void applyTexture();
 
 
