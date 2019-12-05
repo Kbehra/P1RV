@@ -7,7 +7,7 @@
 #include "mywindow.h"
 #include "createmap.h"
 
-MyWindow::MyWindow(QWidget *parent) : Interface (60, parent, (char *)"P1RV - Heightmap - BEHRA & MARAVAT" )
+MyWindow::MyWindow(QWidget *parent) : Interface (60, parent, (char *)"Heightmap preview" )
 {
 
     setFocusPolicy(Qt::StrongFocus);     // permet d'activer les key evt dans la fenetre

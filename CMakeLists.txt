@@ -30,7 +30,11 @@ add_executable(P1RV
         src/interface.cpp
         src/interface.h
         src/mywindow.cpp
-        src/mywindow.h src/mymainwindow.cpp src/mymainwindow.h)
+        src/mywindow.h
+        src/mymainwindow.cpp
+        src/mymainwindow.h
+        src/mycanvas.cpp
+        src/mycanvas.h)
 
 # Qt4
 # required packages

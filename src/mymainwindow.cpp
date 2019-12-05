@@ -11,18 +11,20 @@
 MyMainWindow::MyMainWindow() {
 
     //Titre de l'appli
-    setWindowTitle("HeightMap Creator Tool");
+    setWindowTitle("HeightMap Creator Tool    -  BEHRA & MARAVAT");
 
     //Permet d'avoir plusieurs fenetre dans notre fenetre principale
     zoneCentrale = new QMdiArea;
 
     //On creer 2 fenetres
     fenetre_opengl = new MyWindow(this);
-    QTextEdit *zoneTexte2 = new QTextEdit("Drawing Heightmap");
+    fenetre_canvas = new MyCanvas(this);
+    //QTextEdit *zoneTexte2 = new QTextEdit("Drawing Heightmap");
 
     //idealement on creer une fenetre a part qui viens se mettre dans la subwindow pour dessin
-    dessin = zoneCentrale->addSubWindow(zoneTexte2); //second window
-    rendu_3d = zoneCentrale->addSubWindow(fenetre_opengl); //first window
+    dessin   = zoneCentrale->addSubWindow(fenetre_canvas);                        //second window
+    rendu_3d = zoneCentrale->addSubWindow(fenetre_opengl);                        //first window
+
 
     zoneCentrale->tileSubWindows();
     setCentralWidget(zoneCentrale);

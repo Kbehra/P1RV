@@ -6,6 +6,8 @@
 #ifndef P1RV_MYMAINWINDOW_H
 #define P1RV_MYMAINWINDOW_H
 #include "mywindow.h"
+#include "mycanvas.h"
+
 #include <QtGui/QMainWindow>
 #include <QApplication>
 #include <QtGui/QMdiArea>
@@ -24,13 +26,17 @@ public:
     MyMainWindow();
 
 private:
+
     //zone centrale
     QMdiArea *zoneCentrale;
+
     //sous-fenetres
     QMdiSubWindow *dessin;
     QMdiSubWindow *rendu_3d;
+
     //widget de la fenetre opengl qui affiche notre map
-    MyWindow* fenetre_opengl; //consideree comme un QGLWidget
+    MyWindow* fenetre_opengl;                           //consideree comme un QGLWidget
+    MyCanvas* fenetre_canvas;
 
     //menus
     QMenu *menuFichier;
@@ -43,11 +49,14 @@ private:
     QAction *exportFile;
     QAction *config;
     QAction *actionQuitter;
-    //Changer les parametre d'affichage
+
+    //Changer les parametres d'affichage
     QAction *params;
+
     //action pour ouvrir/fermer les deux fenetres a l'interieur
     QAction *openHeightMap;
     QAction *openDraw;
+
     //help
     QAction *about;
 
