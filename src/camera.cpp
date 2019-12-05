@@ -26,13 +26,13 @@ GLvoid Camera :: mouseState(int bouton, int etat, int x, int y) {
     // Test pour voir si le bouton gauche de la souris est appuyé
     std::cout << " etat souris "<<bouton<<" "<<etat<<"  "<<x<<" "<<y<< std::endl;
 
-    if (bouton == Qt::LeftButton && etat == QEvent::MouseButtonPress) {
+    if (bouton == Qt::LeftButton && etat == Qt::Key_Down) {
         bouton_click_left = true;
         old_x = x;
         old_y = y;
     }
     // si on relache le bouton gauche
-    if (bouton == Qt::LeftButton && etat == QEvent::MouseButtonRelease) {
+    if (bouton == Qt::LeftButton && etat == Qt::Key_Up) {
         bouton_click_left = false;
     }
 	if (bouton == Qt::RightButton && etat == Qt::Key_Down) {

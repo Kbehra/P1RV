@@ -195,22 +195,39 @@ void MyWindow::keyPressEvent(QKeyEvent *keyEvent)
 }
 
 void MyWindow::mousePressEvent (QMouseEvent *event) {
-    std::cout << "mouse Press Event"<<std::endl;             // --debug
+    // position globale du curseur
     int X = event -> x ();
     int Y = event -> y ();
-    std::cout << X << " "<< Y<< std::endl;                  // --debug
-//    if (press)
-//        setCursor (Qt::ClosedHandCursor);
-    cam.mouseState(event->button(), event->type(), X, Y);
+
+    if (press)
+        setCursor (Qt::ClosedHandCursor);
+    // selection de l'action à effectuer
+    cam.mouseState(event->button(), Qt::Key_Down, X, Y);
+}
+
+void MyWindow::mouseReleaseEvent(QMouseEvent *event){
+
+    // position globale du curseur
+    int X = event -> x ();
+    int Y = event -> y ();
+
+    // selection de l'action à effectuer
+    cam.mouseState(event->button(), Qt::Key_Up, X, Y);
+
+    // maj du contexte OpenGL
+    updateGL();
 }
 
 void MyWindow::mouseMoveEvent (QMouseEvent *event) {
-    std::cout << "mouse move evt" << std::endl;    // --debug
+    // position globale du curseur
     int X = event -> x ();
     int Y = event -> y ();
 
+    // calcul de la transformation
     cam.mouseMove(X, Y);
-        //update ();
+
+    // maj du contexte OpenGL
+    updateGL();
 
 }
 
