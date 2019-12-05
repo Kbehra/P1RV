@@ -9,6 +9,7 @@
 #include "interface.h"
 #include "loadjpeg.h"
 #include "createmap.h"
+#include "material.h"
 #include <GL/glu.h>
 #include <QApplication>
 #include <QWidget>
@@ -30,9 +31,26 @@ public:
 private:
     ImageJPEG monimage;
     CreateMap my_map;
+
+    int choice_mat;
     bool shade_model;
     bool projection;
+    float pas;
 
+    //Tailles
+    int window_width;
+    int window_high;
+
+    //Ortho
+    float left;
+    float right;
+    float top;
+    float bottom;
+
+    //Perspective
+    float focale;
+    float near;
+    float far;
 
 public slots :
     void openFile();

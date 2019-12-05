@@ -11,6 +11,17 @@
 MyWindow::MyWindow(QWidget *parent) : Interface (60, parent, (char *)"P1RV - Heightmap - BEHRA & MARAVAT" )
 {
 
+    window_width = 1080;
+    window_high = 960;
+
+    focale = 11.0f; //10
+    near = 0.0f;
+    far = 0.0f;
+
+    choice_mat = 4;			// permet de sélectionner un matériau par défaut
+    shade_model = false;
+    projection = false;
+    pas = 0.10;
 }
 
 void MyWindow::initializeGL()
@@ -99,6 +110,52 @@ void MyWindow::keyPressEvent(QKeyEvent *keyEvent)
             }
             shade_model = !shade_model;
         }
+        case Qt::Key_D:
+        {
+            glEnable(GL_DEPTH_TEST);
+            glDepthFunc(GL_LESS);
+            //glutSwapBuffers();
+            glFlush();
+            //glutPostRedisplay();
+        }
+            break;
+        case Qt::Key_W:
+        {
+            glDisable(GL_DEPTH_TEST);
+            //glutSwapBuffers();
+            glFlush();
+            //glutPostRedisplay();
+        }
+            break;
+
+        case Qt::Key_M:
+        {
+            // change de the default material
+            choice_mat = (choice_mat + 1) % 5;
+            Material((int)choice_mat);
+            glutPostRedisplay();
+        }
+            break;
+        case Qt::Key_Plus:
+        {
+            float scale = my_map.getScale();
+            my_map.changeScale(scale+=pas);
+            std::cout << my_map.getScale() << std::endl;
+            //glutSwapBuffers();
+            my_map.generateMap();
+            //glutPostRedisplay();
+        }
+            break;
+        case Qt::Key_Minus:
+        {
+            float scale = my_map.getScale();
+            my_map.changeScale(scale-=pas);
+            std::cout << my_map.getScale() << std::endl;
+            //glutSwapBuffers();
+            my_map.generateMap();
+            //glutPostRedisplay();
+        }
+            break;
     }
 }
 
