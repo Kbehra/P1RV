@@ -49,6 +49,7 @@ private:
 	ImageJPEG ma_texture;                               //  chargement de la texture
 	bool loader_tex;
 	GLuint texture_id;
+	char* link_texture;                                 // lien de la texture à charger
 	void applyTexture();
 
 

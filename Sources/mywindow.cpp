@@ -25,6 +25,9 @@ void MyWindow::initializeGL()
     // on active les textures
     glEnable(GL_TEXTURE_2D);
 
+    // création d'une map vide
+    my_map = CreateMap();
+
 //    glShadeModel(GL_SMOOTH);
 //    glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
 //    glClearDepth(1.0f);

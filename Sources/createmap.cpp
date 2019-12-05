@@ -10,7 +10,11 @@
 extern Camera cam;
 extern char* LINK_TEX;
 
-CreateMap :: CreateMap(){ }
+CreateMap :: CreateMap(){
+    x = 0;
+    y = 0;
+    link_texture = "../examples/texture1.jpeg";
+}
 
 CreateMap ::CreateMap(ImageJPEG uneimage)
 {
@@ -20,14 +24,14 @@ CreateMap ::CreateMap(ImageJPEG uneimage)
     pas_pixel = 5;                                                //
 
     scale = 5 ;                                                   // default scale
-	loader_tex= ma_texture.loadTexture(LINK_TEX, true);     // texture de la my_map
+	loader_tex= ma_texture.loadTexture(link_texture, true);     // texture de la my_map
 	if (loader_tex)
 	{
         texture_id = 0;
 		std::cout << "texture chargee" << std::endl;
 		applyTexture();
 	}
-	else { std::cout << "Impossible de charger une texture"<< std::endl;}
+	else { std::cout << "Impossible de charger une texture avec :"<< link_texture << std::endl;}
 
     id_display_list = glGenLists(1);
 	glNewList(id_display_list, GL_COMPILE);
@@ -42,7 +46,7 @@ void CreateMap :: generateMap()
 {
     // QUADS AVEC TEXTURE
     //glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
-    std::cout << "x = "<<x<<" y =" <<y<<std::endl;          // -- debug
+    std::cout << "x = "<<x<<" y = " <<y<<std::endl;          // -- debug
     if ((x > 0) && (y>0)) {
         id_display_list = glGenLists(1);
         glNewList(id_display_list, GL_COMPILE);
@@ -98,8 +102,8 @@ void CreateMap :: generateMap()
                 vertex.push_back(v4);
             }
         }
-        glEndList();
         glEnd();
+        glEndList();
     }
 
 }
