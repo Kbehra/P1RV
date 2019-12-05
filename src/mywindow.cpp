@@ -21,6 +21,8 @@ MyWindow::MyWindow(QWidget *parent) : Interface (60, parent, (char *)"P1RV - Hei
     shade_model = false;
     projection = false;
     pas = 0.10;
+
+    default_directory ="../examples/";
 }
 
 void MyWindow::initializeGL()
@@ -233,7 +235,7 @@ void MyWindow::openFile()
 
     QFileDialog open_map(this);
     open_map.setViewMode(QFileDialog::Detail); //permet d'afficher en mode detail (modifiable)
-    QString file = open_map.getOpenFileName(this, "Choose your file", "/home/alicia/CLion/Projets/P1RV/examples", "Images (*.jpg *.jpeg)");
+    QString file = open_map.getOpenFileName(this, "Choose your file", default_directory, "Images (*.jpg *.jpeg)");
 
     if(file.isEmpty()){
         QMessageBox::warning(this,"Warning","No file selected.");
@@ -260,7 +262,7 @@ void MyWindow::openTex()
 {
     QFileDialog open_tex(this);
     open_tex.setViewMode(QFileDialog::Detail); //permet d'afficher en mode detail (modifiable)
-    QString texture = open_tex.getOpenFileName(this, "Choose your texture", "/home/alicia/CLion/Projets/P1RV/examples", "Images (*.jpg *.jpeg)");
+    QString texture = open_tex.getOpenFileName(this, "Choose your texture", default_directory, "Images (*.jpg *.jpeg)");
 
     if(texture.isEmpty()){
         QMessageBox::warning(this,"Warning","No texture selected.");
@@ -274,7 +276,7 @@ void MyWindow::openTex()
 void MyWindow::saveFile()
 {
     QFileDialog saveNewFile(this);
-    QString file_saved = saveNewFile.getSaveFileName(this, "Save Heightmap", "/home/alicia/CLion/Projets/P1RV/examples", "Images (*.stl)");
+    QString file_saved = saveNewFile.getSaveFileName(this, "Save Heightmap", default_directory, "Images (*.stl)");
     my_map.exportToSTL(file_saved.toStdString());
     //TODO probleme si on selectionne rien
 }

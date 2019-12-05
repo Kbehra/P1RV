@@ -46,6 +46,9 @@ private:
     int window_width;
     int window_high;
 
+    //liens
+    QString default_directory;
+
     // ratio de l'image
     float ratio;
 
