@@ -13,7 +13,7 @@ extern char* LINK_TEX;
 CreateMap :: CreateMap(){
     x = 0;
     y = 0;
-    link_texture = "../examples/texture1.jpeg";
+    //link_texture = "../examples/texture1.jpeg";
 }
 
 CreateMap ::CreateMap(ImageJPEG uneimage)
@@ -23,7 +23,9 @@ CreateMap ::CreateMap(ImageJPEG uneimage)
     image = uneimage;                                             // image originale
     pas_pixel = 5;                                                //
 
-    scale = 5 ;                                                   // default scale
+    scale = 5 ;// default scale
+    //ma_texture = ImageJPEG();
+    std::cout<<link_texture<<std::endl;
 	loader_tex= ma_texture.loadTexture(link_texture, true);     // texture de la my_map
 	if (loader_tex)
 	{
@@ -31,7 +33,10 @@ CreateMap ::CreateMap(ImageJPEG uneimage)
 		std::cout << "texture chargee" << std::endl;
 		applyTexture();
 	}
-	else { std::cout << "Impossible de charger une texture avec :"<< link_texture << std::endl;}
+	else
+    {
+	    std::cout << "Impossible de charger une texture avec :"<< link_texture << std::endl;
+    }
 
     id_display_list = glGenLists(1);
 	glNewList(id_display_list, GL_COMPILE);
@@ -159,6 +164,16 @@ void CreateMap ::changeScale(float newscale) {
 }
 float CreateMap :: getScale(){
     return scale;
+}
+bool CreateMap ::getLoaderTex()
+{
+    return loader_tex;
+
+}
+void CreateMap ::setLinkTexture(char* link)
+{
+    link_texture = link;
+
 }
 
 /*

@@ -15,7 +15,7 @@ MyWindow::MyWindow(QWidget *parent) : Interface (60, parent, (char *)"P1RV - Hei
     window_width = 1080;                        //USELESS
     window_high = 960;                          //USELESS
 
-    focale = 11.0f; //10
+    focale = 10.0f; //10
     near = 0.0f;
     far = 0.0f;
 
@@ -25,7 +25,7 @@ MyWindow::MyWindow(QWidget *parent) : Interface (60, parent, (char *)"P1RV - Hei
     pas = 0.10;
 
     default_directory ="../examples/";
-    default_texture = "../examples/texture1.jpeg";
+    default_texture = "../examples/texture2.jpeg";
 
     // initialisation camera
     cam = Camera();
@@ -289,8 +289,22 @@ void MyWindow::openFile()
         {
             std::cout << "Impossible de charger l'image :" << file.toStdString() << " veuillez réessayer" << std::endl;
         }
+
         // création de la map à partir de l'image
+        if(!my_map.getLoaderTex())
+        {
+
+            std::size_t found = file.toStdString().find_last_of("/\\");
+            std::string path = file.toStdString().substr(0, found);
+            QString newlink = QString::fromStdString(path) + QString::fromStdString("/texture1.jpeg");
+            std::cout<<"new link "<<newlink.toAscii().data()<<std::endl;
+            //my_map.setLinkTexture(newlink.toAscii().data());
+            my_map.setLinkTexture(const_cast<char*>(newlink.toStdString().c_str()));
+            std::cout<<"char*"<<const_cast<char*>(newlink.toStdString().c_str())<<std::endl;
+
+        }
         my_map = CreateMap(monimage);
+
 
     }
 

@@ -37,6 +37,8 @@ class CreateMap {
     void changeScale(float newscale);
     float getScale();
     void exportToSTL(string link);
+    bool getLoaderTex();
+    void setLinkTexture(char* link);
 
 private:
 	unsigned long x;
