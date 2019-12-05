@@ -35,8 +35,6 @@ public slots:
 private:
     QTimer *t_Timer;
     bool b_Fullscreen;
-    bool shade_model;
-
 };
 
 #endif //P1RV_INTERFACE_H

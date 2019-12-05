@@ -50,18 +50,6 @@ void Interface::keyPressEvent(QKeyEvent *keyEvent)
         case Qt::Key_F1:
             toggleFullWindow();
             break;
-        case Qt::Key_S:
-        {
-            std::cout << "Shade Model : " << std::endl;
-            if(shade_model){
-                glShadeModel(GL_SMOOTH);
-                std::cout << "GL_SMOOTH - rendu de Phong, 1 normale par sommets" << std::endl;
-            } else {
-                glShadeModel(GL_FLAT);
-                std::cout << "GL_FLAT - eclairage constant, 1 normale par faces" << std::endl;
-            }
-            shade_model = !shade_model;
-        }
     }
 }
 

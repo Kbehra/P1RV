@@ -25,10 +25,14 @@ public:
     void initializeGL();
     void resizeGL(int width, int height);
     void paintGL();
+    virtual void keyPressEvent( QKeyEvent *keyEvent );
 
 private:
     ImageJPEG monimage;
     CreateMap my_map;
+    bool shade_model;
+    bool projection;
+
 
 public slots :
     void openFile();
