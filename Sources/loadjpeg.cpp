@@ -14,7 +14,11 @@
 #include <stdlib.h>
 #include <vector>
 
-ImageJPEG :: ImageJPEG (){}
+ImageJPEG :: ImageJPEG ()
+{
+    x = 0;
+    y = 0;
+}
 
 
 bool ImageJPEG :: loadJPEG(const char* FileName, bool Fast)

@@ -99,7 +99,10 @@ void MyWindow::openFile()
 void MyWindow::openTex()
 {
     QString file = QFileDialog::getOpenFileName(this, "Choose your file", QString(), "Images (*.jpg *.jpeg)");
-    QMessageBox::information(this, "File", "This file had been selected :\n" + file);
+    //QMessageBox::information(this, "File", "This file had been selected :\n" + file);
+
+
+
     //TODO : relier le chemin avec la fonction pour mettre texture
 
 }
