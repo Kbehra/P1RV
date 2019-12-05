@@ -7,6 +7,7 @@
 #include "mywindow.h"
 #include "createmap.h"
 
+extern Camera cam;
 
 MyWindow::MyWindow(QWidget *parent) : Interface (60, parent, (char *)"P1RV - Heightmap - BEHRA & MARAVAT" )
 {
@@ -36,6 +37,7 @@ void MyWindow::initializeGL()
     // on active les textures
     glEnable(GL_TEXTURE_2D);
 
+    this->applyLights();
     // création d'une map vide
     my_map = CreateMap();
 
@@ -49,14 +51,31 @@ void MyWindow::initializeGL()
 
 void MyWindow::resizeGL(int width, int height)
 {
-//    if(height == 0)
-//        height = 1;
-//    glViewport(0, 0, width, height);
-//    glMatrixMode(GL_PROJECTION);
-//    glLoadIdentity();
-//    gluPerspective(45.0f, (GLfloat)width/(GLfloat)height, 0.1f, 100.0f);
-//    glMatrixMode(GL_MODELVIEW);
-//    glLoadIdentity();
+    if(height == 0)
+        height = 1;
+    glViewport(0, 0, width, height);
+    ratio = width/(GLfloat)height;
+
+    top = 1.0f;
+    bottom = -1.0f;
+    left = -ratio;
+    right = ratio;
+
+    glMatrixMode(GL_PROJECTION);
+    glLoadIdentity();
+
+    // Mise en place de la perspective
+    if(projection)
+    {
+        gluOrtho2D(left,right,bottom,top);
+    }
+    else
+    {
+        gluPerspective(focale, ratio, near, far);
+    }
+
+    glMatrixMode(GL_MODELVIEW);
+    glLoadIdentity();
 }
 
 /*
@@ -77,15 +96,13 @@ void MyWindow::paintGL()
 
 
     glLoadIdentity();
-   // glRotatef(-cam.getAngleY(), 1.0f, 0.0f, 0.0f);
-    //glRotatef(-cam.getAngleX(), 0.0f, 1.0f, 0.0f);
-    //glScalef(1.0f+(cam.getZoom() / 100), 1.0f + (cam.getZoom() / 100), 1.0f + (cam.getZoom() / 100));
+    glRotatef(-cam.getAngleY(), 1.0f, 0.0f, 0.0f);
+    glRotatef(-cam.getAngleX(), 0.0f, 1.0f, 0.0f);
+    glScalef(1.0f+(cam.getZoom() / 100), 1.0f + (cam.getZoom() / 100), 1.0f + (cam.getZoom() / 100));
 
-    //glFlush();
+    glFlush();
 
-
-    //glutSwapBuffers();
-    //glutPostRedisplay();
+    //updateGL();
 }
 
 void MyWindow::keyPressEvent(QKeyEvent *keyEvent)
@@ -98,6 +115,19 @@ void MyWindow::keyPressEvent(QKeyEvent *keyEvent)
         case Qt::Key_F1:
             toggleFullWindow();
             break;
+        case Qt::Key_P:
+        {
+            // change projection mode
+            std::cout << "Projection" << std::endl;
+            if(projection){
+                gluOrtho2D(left,right,bottom,top);
+                std::cout << "Projection orthogonale 2D" << std::endl;
+            } else {
+                gluPerspective(focale, ratio, near, far);
+                std::cout << "Projection perspective 3D" << std::endl;
+            }
+            projection = !projection;
+        }
         case Qt::Key_S:
         {
             std::cout << "Shade Model : " << std::endl;
@@ -157,6 +187,44 @@ void MyWindow::keyPressEvent(QKeyEvent *keyEvent)
         }
             break;
     }
+}
+
+void MyWindow::mousePressEvent (QMouseEvent *event) {
+    //TODO : regarder la doc avec QMouseEvent et associer ce qu'il faut pour que la fonction marche
+    int X = event -> x ();
+    int Y = event -> y ();
+    if (press)
+        setCursor (Qt::ClosedHandCursor);
+    //cam.mouseState(bouton, etat, x, y);
+}
+
+void MyWindow::mouseMoveEvent (QMouseEvent *event) {
+    int X = event -> x ();
+    int Y = event -> y ();
+    if (press) {
+        cam.mouseMove(X, Y);
+        update ();
+    }
+}
+
+GLvoid MyWindow :: applyLights()
+{
+    // Lumiere
+    GLfloat lightpos[] = { 20.5f, 20.0f, 20.5f,20.5f };
+    GLfloat lightcolor[] = { 1.0f, 1.0f, 1.0f,0.5f };
+    GLfloat ambcolor[] = { 0.9f, 0.9f, 1.0f,0.9f};
+    GLfloat lightambient[] = {10.0f, 10.0f,10.0f, 0.0f};
+
+    glEnable(GL_LIGHTING);                               // enable lighting
+    glLightModelfv(GL_LIGHT_MODEL_AMBIENT,ambcolor);     // ambient light
+
+
+    glEnable(GL_LIGHT0);                                 // enable light source
+    glLightfv(GL_LIGHT0,GL_POSITION,lightpos);           // config light source
+    glLightfv(GL_LIGHT0,GL_AMBIENT,lightambient);
+    glLightfv(GL_LIGHT0,GL_DIFFUSE,lightcolor);
+    glLightfv(GL_LIGHT0,GL_SPECULAR,lightcolor);
+
 }
 
 /*

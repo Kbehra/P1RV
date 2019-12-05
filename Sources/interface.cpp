@@ -10,7 +10,6 @@ Interface::Interface(int framesPerSecond, QWidget *parent, char *name) : QGLWidg
 {
     setWindowTitle(QString::fromUtf8(name)); //permet de définir le nom de la fenêtre :param name
     b_Fullscreen = false ;
-    shade_model = false ;
     if(framesPerSecond == 0)
     {
         t_Timer = NULL;

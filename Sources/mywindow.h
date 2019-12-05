@@ -23,10 +23,13 @@ class MyWindow : public Interface {
 public:
     explicit MyWindow(QWidget *parent = 0);
 
+    GLvoid applyLights();
     void initializeGL();
     void resizeGL(int width, int height);
     void paintGL();
     virtual void keyPressEvent( QKeyEvent *keyEvent );
+    void mousePressEvent (QMouseEvent *event);
+    void mouseMoveEvent (QMouseEvent *event);
 
 private:
     ImageJPEG monimage;
@@ -35,11 +38,16 @@ private:
     int choice_mat;
     bool shade_model;
     bool projection;
-    float pas;
+    GLfloat pas;
 
-    //Tailles
+    bool press;
+
+    //Tailles fenetre
     int window_width;
     int window_high;
+
+    // ratio de l'image
+    float ratio;
 
     //Ortho
     float left;
