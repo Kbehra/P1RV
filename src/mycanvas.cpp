@@ -6,7 +6,14 @@
 
 #include "mycanvas.h"
 
+const int IdRole = Qt::UserRole;
+
 MyCanvas::MyCanvas(QWidget *parent)
+{
+
+}
+
+MyCanvas::MyCanvas()
 {
 
 }

@@ -20,6 +20,10 @@
 #include <QFileDialog>
 #include <QSlider>
 #include <QComboBox>
+#include <QLCDNumber>
+
+
+
 
 class MyCanvas : public QWidget {
     Q_OBJECT
@@ -28,9 +32,16 @@ protected:
 
 public:
     explicit MyCanvas(QWidget *parent = 0);
+    MyCanvas();
 
 public slots :
     void paintEvent(QPaintEvent* e);
+
+private slots:
+
+private:
+
+
 
 };
 

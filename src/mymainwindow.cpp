@@ -25,7 +25,6 @@ MyMainWindow::MyMainWindow() {
     dessin   = zoneCentrale->addSubWindow(fenetre_canvas);                        //second window
     rendu_3d = zoneCentrale->addSubWindow(fenetre_opengl);                        //first window
 
-
     zoneCentrale->tileSubWindows();
     setCentralWidget(zoneCentrale);
 
@@ -50,6 +49,7 @@ MyMainWindow::MyMainWindow() {
 
     //Onglet Edit
     menuEdition = menuBar()->addMenu("&Edit");
+
     //sous-menu Edit
     params = new QAction("&Parameters",fenetre_opengl); //parametre modifiable
     //ajout a l'onglet Edit
@@ -57,6 +57,7 @@ MyMainWindow::MyMainWindow() {
 
     //Onglet View
     menuAffichage = menuBar()->addMenu("&View");
+
     //sous-menu Edit
     openHeightMap = new QAction("&Heightmap",rendu_3d);
     openHeightMap->setCheckable(true);
@@ -64,14 +65,17 @@ MyMainWindow::MyMainWindow() {
     openDraw = new QAction("&Draw",dessin);
     openDraw->setCheckable(true);
     openDraw->setChecked(true);
+
     //ajout a l'onglet Edit
     menuAffichage->addAction(openHeightMap);
     menuAffichage->addAction(openDraw);
 
     //Onglet Help
     menuAide = menuBar()->addMenu("&Help");
+
     //sous-menu Help
     about = new QAction(tr("&About.."), this);
+
     //ajout a l'onglet Help
     menuAide->addAction(about);
 
