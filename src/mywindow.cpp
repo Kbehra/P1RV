@@ -10,6 +10,8 @@
 MyWindow::MyWindow(QWidget *parent) : Interface (60, parent, (char *)"P1RV - Heightmap - BEHRA & MARAVAT" )
 {
 
+    setFocusPolicy(Qt::StrongFocus);     // permet d'activer les key evt dans la fenetre
+
     window_width = 1080;                        //USELESS
     window_high = 960;                          //USELESS
 
@@ -54,8 +56,10 @@ void MyWindow::initializeGL()
 
 void MyWindow::resizeGL(int width, int height)
 {
-    if(height == 0)
+    if(height == 0) {
         height = 1;
+    }
+
     glViewport(0, 0, width, height);
     ratio = width/(GLfloat)height;
 
@@ -94,8 +98,6 @@ void MyWindow::paintGL()
     my_map.generateMap();
     my_map.afficher();
 
-
-
     glLoadIdentity();
     glRotatef(-cam.getAngleY(), 1.0f, 0.0f, 0.0f);
     glRotatef(-cam.getAngleX(), 0.0f, 1.0f, 0.0f);
@@ -106,55 +108,72 @@ void MyWindow::paintGL()
 
 void MyWindow::keyPressEvent(QKeyEvent *keyEvent)
 {
-    std::cout<<"Key Press Event"<<std::endl;    // --debug
+
     switch(keyEvent->key())
     {
         case Qt::Key_Escape:
+            //TODO trouver autre chose que Close qui ferme le contexte OpenGL mais pas la fenetre
             close();
             break;
         case Qt::Key_F1:
+            //TODO ne marche pas
             toggleFullWindow();
             break;
         case Qt::Key_P:
         {
             // change projection mode
             std::cout << "Projection" << std::endl;
-            if(projection){
+            glMatrixMode(GL_PROJECTION);
+            glLoadIdentity();
+            if(projection)
+            {
                 gluOrtho2D(left,right,bottom,top);
                 std::cout << "Projection orthogonale 2D" << std::endl;
-            } else {
+            }
+            else
+            {
                 gluPerspective(focale, ratio, near, far);
                 std::cout << "Projection perspective 3D" << std::endl;
             }
             projection = !projection;
+            glMatrixMode(GL_MODELVIEW);
+            glLoadIdentity();
+            updateGL();
         }
+            break;
         case Qt::Key_S:
         {
             std::cout << "Shade Model : " << std::endl;
-            if(shade_model){
+            if(shade_model)
+            {
                 glShadeModel(GL_SMOOTH);
                 std::cout << "GL_SMOOTH - rendu de Phong, 1 normale par sommets" << std::endl;
-            } else {
+            }
+            else
+            {
                 glShadeModel(GL_FLAT);
                 std::cout << "GL_FLAT - eclairage constant, 1 normale par faces" << std::endl;
             }
             shade_model = !shade_model;
+            updateGL();
+
         }
+            break;
         case Qt::Key_D:
         {
             glEnable(GL_DEPTH_TEST);
             glDepthFunc(GL_LESS);
-            //glutSwapBuffers();
             glFlush();
-            //glutPostRedisplay();
+            updateGL();
         }
             break;
         case Qt::Key_W:
         {
             glDisable(GL_DEPTH_TEST);
-            //glutSwapBuffers();
             glFlush();
-            //glutPostRedisplay();
+            updateGL();
+
+
         }
             break;
 
@@ -163,7 +182,7 @@ void MyWindow::keyPressEvent(QKeyEvent *keyEvent)
             // change de the default material
             choice_mat = (choice_mat + 1) % 5;
             Material((int)choice_mat);
-            //glutPostRedisplay();
+            updateGL();
         }
             break;
         case Qt::Key_Plus:
@@ -171,9 +190,9 @@ void MyWindow::keyPressEvent(QKeyEvent *keyEvent)
             float scale = my_map.getScale();
             my_map.changeScale(scale+=pas);
             std::cout << my_map.getScale() << std::endl;
-            //glutSwapBuffers();
+
             my_map.generateMap();
-            //glutPostRedisplay();
+            updateGL();
         }
             break;
         case Qt::Key_Minus:
@@ -182,6 +201,7 @@ void MyWindow::keyPressEvent(QKeyEvent *keyEvent)
             my_map.changeScale(scale-=pas);
             std::cout << my_map.getScale() << std::endl;
             my_map.generateMap();
+            updateGL();
 
         }
             break;
@@ -255,9 +275,12 @@ void MyWindow::openFile()
     open_map.setViewMode(QFileDialog::Detail); //permet d'afficher en mode detail (modifiable)
     QString file = open_map.getOpenFileName(this, "Choose your file", default_directory, "Images (*.jpg *.jpeg)");
 
-    if(file.isEmpty()){
+    if(file.isEmpty())
+    {
         QMessageBox::warning(this,"Warning","No file selected.");
-    } else {
+    }
+    else
+    {
         QMessageBox::information(this, "File", "This file had been selected :\n" + file);
 
         bool loaderimage = monimage.loadJPEG(file.toStdString().c_str());
@@ -268,7 +291,7 @@ void MyWindow::openFile()
         }
         // création de la map à partir de l'image
         my_map = CreateMap(monimage);
-        //my_map.generateMap();
+
     }
 
 }
@@ -282,9 +305,12 @@ void MyWindow::openTex()
     open_tex.setViewMode(QFileDialog::Detail); //permet d'afficher en mode detail (modifiable)
     QString texture = open_tex.getOpenFileName(this, "Choose your texture", default_directory, "Images (*.jpg *.jpeg)");
 
-    if(texture.isEmpty()){
+    if(texture.isEmpty())
+    {
         QMessageBox::warning(this,"Warning","No texture selected.");
-    } else {
+    }
+    else
+    {
         QMessageBox::information(this, "Texture", "This texture had been selected :\n" + texture);
         //TODO : relier le chemin avec la fonction pour mettre texture
     }
