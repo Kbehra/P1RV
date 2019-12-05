@@ -12,10 +12,12 @@ Interface::Interface(int framesPerSecond, QWidget *parent, char *name) : QGLWidg
     b_Fullscreen = false ;
     shade_model = false ;
     if(framesPerSecond == 0)
+    {
         t_Timer = NULL;
+    }
     else
     {   //Controle du temps entre deux images rendus par OpenGL
-        int seconde = 1000; // 1 seconde = 1000 ms
+        int seconde = 100000; // 1 seconde = 1000 ms
         int timerInterval = seconde / framesPerSecond;
         t_Timer = new QTimer(this);
         connect(t_Timer, SIGNAL(timeout()), this, SLOT(timeOutSlot()));

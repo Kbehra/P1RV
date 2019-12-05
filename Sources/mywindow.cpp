@@ -15,24 +15,34 @@ MyWindow::MyWindow(QWidget *parent) : Interface (60, parent, (char *)"P1RV - Hei
 
 void MyWindow::initializeGL()
 {
-    glShadeModel(GL_SMOOTH);
-    glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
-    glClearDepth(1.0f);
+
+    // définition de la couleur d'effacement du framebuffer
+    glClearColor(0.95f, 0.95f, 0.95f, 0.95f);
+
+    // Intialement on active le Z-buffer
     glEnable(GL_DEPTH_TEST);
-    glDepthFunc(GL_LEQUAL);
-    glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);
+
+    // on active les textures
+    glEnable(GL_TEXTURE_2D);
+
+//    glShadeModel(GL_SMOOTH);
+//    glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
+//    glClearDepth(1.0f);
+//    glEnable(GL_DEPTH_TEST);
+//    glDepthFunc(GL_LEQUAL);
+//    glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);
 }
 
 void MyWindow::resizeGL(int width, int height)
 {
-    if(height == 0)
-        height = 1;
-    glViewport(0, 0, width, height);
-    glMatrixMode(GL_PROJECTION);
-    glLoadIdentity();
-    gluPerspective(45.0f, (GLfloat)width/(GLfloat)height, 0.1f, 100.0f);
-    glMatrixMode(GL_MODELVIEW);
-    glLoadIdentity();
+//    if(height == 0)
+//        height = 1;
+//    glViewport(0, 0, width, height);
+//    glMatrixMode(GL_PROJECTION);
+//    glLoadIdentity();
+//    gluPerspective(45.0f, (GLfloat)width/(GLfloat)height, 0.1f, 100.0f);
+//    glMatrixMode(GL_MODELVIEW);
+//    glLoadIdentity();
 }
 
 /*
@@ -40,26 +50,28 @@ void MyWindow::resizeGL(int width, int height)
  */
 void MyWindow::paintGL()
 {
+
+    glClearColor(0.5f, 0.5f, 0.5f, 0.5f);
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
+    glMatrixMode(GL_MODELVIEW);
+
+    // give a my_map a material
     my_map.generateMap();
     my_map.afficher();
-//    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-//    glLoadIdentity();
-//    glTranslatef(-1.5f, 0.0f, -6.0f);
-//
-//    glBegin(GL_TRIANGLES);
-//    glVertex3f(0.0f, 1.0f, 0.0f);
-//    glVertex3f(-1.0f, -1.0f, 0.0f);
-//    glVertex3f(1.0f, -1.0f, 0.0f);
-//    glEnd();
-//
-//    glTranslatef(3.0f, 0.0f, -6.0f);
-//
-//    glBegin(GL_QUADS);
-//    glVertex3f(-1.0f, 1.0f, 0.0f);
-//    glVertex3f(-1.0f, -1.0f, 0.0f);
-//    glVertex3f(1.0f, -1.0f, 0.0f);
-//    glVertex3d(1.0f, 1.0f, 0.0f);
-//    glEnd();
+
+    std::cout << "Je suis la" << std::endl;
+
+
+    glLoadIdentity();
+   // glRotatef(-cam.getAngleY(), 1.0f, 0.0f, 0.0f);
+    //glRotatef(-cam.getAngleX(), 0.0f, 1.0f, 0.0f);
+    //glScalef(1.0f+(cam.getZoom() / 100), 1.0f + (cam.getZoom() / 100), 1.0f + (cam.getZoom() / 100));
+
+    //glFlush();
+
+
+    //glutSwapBuffers();
+    //glutPostRedisplay();
 }
 
 /*
@@ -80,6 +92,8 @@ void MyWindow::openFile()
     // création de la map à partir de l'image
     my_map = CreateMap(monimage);
 
+    //my_map.generateMap();
+
 }
 
 void MyWindow::openTex()
@@ -92,12 +106,9 @@ void MyWindow::openTex()
 
 void MyWindow::saveFile()
 {
-    QMessageBox::information(this, "Save as (.stl)", "Enter the name of your file :");
-
 
     QString file_saved = QFileDialog::getSaveFileName(this, "Save Heightmap", QString(), "Images (*.stl)");
-    //TODO : relier avec l'enregistrement en stl
-
+    my_map.exportToSTL(file_saved.toStdString());
 
 }
 

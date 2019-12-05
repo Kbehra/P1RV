@@ -36,7 +36,7 @@ class CreateMap {
     float scale;                                        // facteur de hauteur de la my_map
     void changeScale(float newscale);
     float getScale();
-    void exportToSTL();
+    void exportToSTL(string link);
 
 private:
 	unsigned long x;

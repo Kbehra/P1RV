@@ -42,10 +42,10 @@ void CreateMap :: generateMap()
 {
     // QUADS AVEC TEXTURE
     //glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
-    if (scale != 5){
-        id_display_list = glGenLists(1);
-        glNewList(id_display_list, GL_COMPILE);
-    }
+
+    id_display_list = glGenLists(1);
+    glNewList(id_display_list, GL_COMPILE);
+
     glBegin(GL_QUADS);
 
     for (int j = 0; j < x - pas_pixel; j += pas_pixel)
@@ -157,7 +157,7 @@ float CreateMap :: getScale(){
  * Permet de sauvegarder le contexte OpenGL en STL
  */
 
-void CreateMap::exportToSTL()
+void CreateMap::exportToSTL(string link)
 {
     // Mots clés format STL
     string facetnormal = "facet normal";
@@ -167,7 +167,7 @@ void CreateMap::exportToSTL()
     string endfacet = "endfacet";
     string endsolid = "ensolid name";
 
-    ofstream file("../test.stl");
+    ofstream file(link+".stl");
     if (file)
     {
         file << "solid name" << std::endl;
@@ -205,7 +205,7 @@ void CreateMap::exportToSTL()
     }
     else
         {
-        std::cout << "Impossible d'ouvrir le fichier"<<std::endl;
+        std::cout << "Impossible d'ouvrir le fichier :"<<link+".stl" <<std::endl;
         }
 
 }
