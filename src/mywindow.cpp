@@ -23,6 +23,9 @@ MyWindow::MyWindow(QWidget *parent) : Interface (60, parent, (char *)"P1RV - Hei
     pas = 0.10;
 
     default_directory ="../examples/";
+
+    // initialisation camera
+    cam = Camera();
 }
 
 void MyWindow::initializeGL()
@@ -37,7 +40,9 @@ void MyWindow::initializeGL()
     // on active les textures
     glEnable(GL_TEXTURE_2D);
 
+    // Initialisation lumière
     this->applyLights();
+
     // création d'une map vide
     my_map = CreateMap();
 
@@ -92,13 +97,14 @@ void MyWindow::paintGL()
     my_map.generateMap();
     my_map.afficher();
 
-    std::cout << "Je suis la" << std::endl;
-
+    std::cout << "paintGL" << std::endl;            // --debug
 
     glLoadIdentity();
-//    glRotatef(-cam.getAngleY(), 1.0f, 0.0f, 0.0f);
-//    glRotatef(-cam.getAngleX(), 0.0f, 1.0f, 0.0f);
-//    glScalef(1.0f+(cam.getZoom() / 100), 1.0f + (cam.getZoom() / 100), 1.0f + (cam.getZoom() / 100));
+    std::cout << -cam.getAngleY() << " " << -cam.getAngleX()<< " "  << cam.getZoom()<< std::endl;
+
+    glRotatef(-cam.getAngleY(), 1.0f, 0.0f, 0.0f);
+    glRotatef(-cam.getAngleX(), 0.0f, 1.0f, 0.0f);
+    glScalef(1.0f+(cam.getZoom() / 100), 1.0f + (cam.getZoom() / 100), 1.0f + (cam.getZoom() / 100));
 
     glFlush();
 
@@ -163,7 +169,7 @@ void MyWindow::keyPressEvent(QKeyEvent *keyEvent)
             // change de the default material
             choice_mat = (choice_mat + 1) % 5;
             Material((int)choice_mat);
-            glutPostRedisplay();
+            //glutPostRedisplay();
         }
             break;
         case Qt::Key_Plus:
@@ -181,30 +187,31 @@ void MyWindow::keyPressEvent(QKeyEvent *keyEvent)
             float scale = my_map.getScale();
             my_map.changeScale(scale-=pas);
             std::cout << my_map.getScale() << std::endl;
-            //glutSwapBuffers();
             my_map.generateMap();
-            //glutPostRedisplay();
+
         }
             break;
     }
 }
 
 void MyWindow::mousePressEvent (QMouseEvent *event) {
-    //TODO : regarder la doc avec QMouseEvent et associer ce qu'il faut pour que la fonction marche
+    std::cout << "mouse Press Event"<<std::endl;             // --debug
     int X = event -> x ();
     int Y = event -> y ();
-    if (press)
-        setCursor (Qt::ClosedHandCursor);
-    //cam.mouseState(bouton, etat, x, y);
+    std::cout << X << " "<< Y<< std::endl;                  // --debug
+//    if (press)
+//        setCursor (Qt::ClosedHandCursor);
+    cam.mouseState(event->button(), event->type(), X, Y);
 }
 
 void MyWindow::mouseMoveEvent (QMouseEvent *event) {
+    std::cout << "mouse move evt" << std::endl;    // --debug
     int X = event -> x ();
     int Y = event -> y ();
-    if (press) {
-        //cam.mouseMove(X, Y);
-        update ();
-    }
+
+    cam.mouseMove(X, Y);
+        //update ();
+
 }
 
 GLvoid MyWindow :: applyLights()

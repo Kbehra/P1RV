@@ -63,6 +63,9 @@ private:
     float near;
     float far;
 
+    //camera
+    Camera cam;
+
 public slots :
     void openFile();
     void openTex();

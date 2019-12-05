@@ -5,9 +5,7 @@
  */
 
 #include "camera.h"
-#include "mydisplay.h"
-
-extern MyDisplay go_display;
+#include <iostream>     // --debug
 
 Camera::Camera() {
     point_size = 1.0f;
@@ -26,22 +24,24 @@ Camera::~Camera() {
 // Fonction de rappel de la souris
 GLvoid Camera :: mouseState(int bouton, int etat, int x, int y) {
     // Test pour voir si le bouton gauche de la souris est appuyé
-    if (bouton == GLUT_LEFT_BUTTON && etat == GLUT_DOWN) {
+    std::cout << " etat souris "<<bouton<<" "<<etat<<"  "<<x<<" "<<y<< std::endl;
+
+    if (bouton == Qt::LeftButton && etat == QEvent::MouseButtonPress) {
         bouton_click_left = true;
         old_x = x;
         old_y = y;
     }
     // si on relache le bouton gauche
-    if (bouton == GLUT_LEFT_BUTTON && etat == GLUT_UP) {
+    if (bouton == Qt::LeftButton && etat == QEvent::MouseButtonRelease) {
         bouton_click_left = false;
     }
-	if (bouton == GLUT_RIGHT_BUTTON && etat == GLUT_DOWN) {
+	if (bouton == Qt::RightButton && etat == Qt::Key_Down) {
         bouton_click_right = true;
         old_x = x;
         old_y = y;
 	}
 	// si on relache le bouton gauche
-	if (bouton == GLUT_RIGHT_BUTTON && etat == GLUT_UP) {
+	if (bouton == Qt::RightButton && etat == Qt::Key_Up) {
         bouton_click_right = false;
 	}
 }
@@ -54,12 +54,11 @@ GLvoid Camera:: mouseMove(int x, int y) {
         angle_x += (x - old_x);
         angle_y += (y - old_y);
         // Appeler le re-affichage de la scene OpenGL
-        glutPostRedisplay();
     }
 	if (bouton_click_right) {
 		zoom += (x - old_x) + (y - old_y);
 		// Appeler le re-affichage de la scene OpenGL
-		glutPostRedisplay();
+
 	}
     // Mise a jour des anciennes positions de la souris en X et Y
     old_x = x;

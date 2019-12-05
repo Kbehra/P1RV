@@ -13,7 +13,8 @@
 #include <Windows.h>
 #endif
 #include <GL/freeglut.h>
-
+#include <QApplication>
+#include <QWidget>
 
 
 class Camera{
