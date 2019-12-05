@@ -176,7 +176,7 @@ void CreateMap::exportToSTL(string link)
     string endsolid = "ensolid name";
 
     ofstream file(link+".stl");
-    if (file)
+    if (file && vertex.size()>4)
     {
         file << "solid name" << std::endl;
         for (int i=0; i<vertex.size()-4; i+=4)

@@ -9,6 +9,7 @@
 
 
 MyMainWindow::MyMainWindow() {
+
     //Titre de l'appli
     setWindowTitle("HeightMap Creator Tool");
 
@@ -27,6 +28,7 @@ MyMainWindow::MyMainWindow() {
 
     //Onglet File
     QMenu *menuFichier = menuBar()->addMenu("&File");
+
     //sous-menu File
     QAction *chargerMap = new QAction("&Load Map...", fenetre_opengl);
     chargerMap->setShortcut(QKeySequence("Ctrl+M"));
@@ -37,6 +39,7 @@ MyMainWindow::MyMainWindow() {
     QAction *config = new QAction("&Settings", this); //options de langues, couleur fenetre...
     QAction *actionQuitter = new QAction("&Quit", this);
     actionQuitter->setShortcut(QKeySequence("Ctrl+Q"));
+
     //ajout a l'onglet File
     menuFichier->addAction(chargerMap);
     menuFichier->addAction(chargerTex);
@@ -61,8 +64,12 @@ MyMainWindow::MyMainWindow() {
     connect(params, SIGNAL(triggered()), fenetre_opengl,SLOT(chooseParam()));
 
 }
+//TODO dans le menu Edit, ajouter la possibilite à l'utilisateur de réouvrir une fenetre fermée (ex: visualisation de l'image)
+// ou Fenetre OpenGL
+
 
 //SLOT
 void MyMainWindow::setConfig(){
     //TODO mettre le changement de langue ou autre
+
 }

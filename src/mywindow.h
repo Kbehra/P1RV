@@ -49,6 +49,7 @@ private:
 
     //liens
     QString default_directory;
+    QString default_texture;
 
     // ratio de l'image
     float ratio;

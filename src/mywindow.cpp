@@ -10,8 +10,8 @@
 MyWindow::MyWindow(QWidget *parent) : Interface (60, parent, (char *)"P1RV - Heightmap - BEHRA & MARAVAT" )
 {
 
-    window_width = 1080;
-    window_high = 960;
+    window_width = 1080;                        //USELESS
+    window_high = 960;                          //USELESS
 
     focale = 11.0f; //10
     near = 0.0f;
@@ -23,6 +23,7 @@ MyWindow::MyWindow(QWidget *parent) : Interface (60, parent, (char *)"P1RV - Hei
     pas = 0.10;
 
     default_directory ="../examples/";
+    default_texture = "../examples/texture1.jpeg";
 
     // initialisation camera
     cam = Camera();
@@ -46,12 +47,9 @@ void MyWindow::initializeGL()
     // création d'une map vide
     my_map = CreateMap();
 
-//    glShadeModel(GL_SMOOTH);
-//    glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
-//    glClearDepth(1.0f);
-//    glEnable(GL_DEPTH_TEST);
-//    glDepthFunc(GL_LEQUAL);
-//    glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);
+    glShadeModel(GL_SMOOTH);
+    glDepthFunc(GL_LEQUAL);
+    glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);
 }
 
 void MyWindow::resizeGL(int width, int height)
@@ -93,25 +91,22 @@ void MyWindow::paintGL()
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
     glMatrixMode(GL_MODELVIEW);
 
-    // give a my_map a material
     my_map.generateMap();
     my_map.afficher();
 
 
 
     glLoadIdentity();
-
     glRotatef(-cam.getAngleY(), 1.0f, 0.0f, 0.0f);
     glRotatef(-cam.getAngleX(), 0.0f, 1.0f, 0.0f);
     glScalef(1.0f+(cam.getZoom() / 100), 1.0f + (cam.getZoom() / 100), 1.0f + (cam.getZoom() / 100));
 
     glFlush();
-
-    //updateGL();
 }
 
 void MyWindow::keyPressEvent(QKeyEvent *keyEvent)
 {
+    std::cout<<"Key Press Event"<<std::endl;    // --debug
     switch(keyEvent->key())
     {
         case Qt::Key_Escape:
@@ -301,7 +296,7 @@ void MyWindow::saveFile()
     QFileDialog saveNewFile(this);
     QString file_saved = saveNewFile.getSaveFileName(this, "Save Heightmap", default_directory, "Images (*.stl)");
     my_map.exportToSTL(file_saved.toStdString());
-    //TODO probleme si on selectionne rien
+
 }
 
 void MyWindow::chooseParam()
