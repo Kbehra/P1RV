@@ -68,7 +68,11 @@ private:
     //camera
     Camera cam;
 
+    //pour sauvegarder avant de quitter
+    int maybeSave();
+
 public slots :
+    virtual void closeEvent(QCloseEvent *);
     void openFile();
     void openTex();
     void saveFile();

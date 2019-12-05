@@ -19,15 +19,43 @@
 #include <QComboBox>
 
 class MyMainWindow : public QMainWindow {
-
+    Q_OBJECT
 public:
     MyMainWindow();
 
 private:
+    //zone centrale
+    QMdiArea *zoneCentrale;
+    //sous-fenetres
+    QMdiSubWindow *dessin;
+    QMdiSubWindow *rendu_3d;
+    //widget de la fenetre opengl qui affiche notre map
     MyWindow* fenetre_opengl; //consideree comme un QGLWidget
 
+    //menus
+    QMenu *menuFichier;
+    QMenu *menuEdition;
+    QMenu *menuAffichage;
+    QMenu *menuAide;
+
+    QAction *chargerMap;
+    QAction *chargerTex;
+    QAction *exportFile;
+    QAction *config;
+    QAction *actionQuitter;
+    //Changer les parametre d'affichage
+    QAction *params;
+    //action pour ouvrir/fermer les deux fenetres a l'interieur
+    QAction *openHeightMap;
+    QAction *openDraw;
+    //help
+    QAction *about;
+
+
 public slots:
+    void aboutApp();
     void setConfig();
+    void viewWindow();
 };
 
 

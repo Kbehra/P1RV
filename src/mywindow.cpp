@@ -106,6 +106,14 @@ void MyWindow::paintGL()
     glFlush();
 }
 
+int MyWindow::maybeSave(){
+    QMessageBox closeornot;
+    closeornot.setText("Do you want to save your changes?");
+    closeornot.setStandardButtons(QMessageBox::Save | QMessageBox::Discard | QMessageBox::Cancel);
+    closeornot.setDefaultButton(QMessageBox::Save);
+    return closeornot.exec();
+}
+
 void MyWindow::keyPressEvent(QKeyEvent *keyEvent)
 {
 
@@ -128,12 +136,12 @@ void MyWindow::keyPressEvent(QKeyEvent *keyEvent)
             if(projection)
             {
                 gluOrtho2D(left,right,bottom,top);
-                std::cout << "Projection orthogonale 2D" << std::endl;
+                std::cout << "Orthogonale 2D" << std::endl;
             }
             else
             {
                 gluPerspective(focale, ratio, near, far);
-                std::cout << "Projection perspective 3D" << std::endl;
+                std::cout << "Perspective 3D" << std::endl;
             }
             projection = !projection;
             glMatrixMode(GL_MODELVIEW);
@@ -349,4 +357,26 @@ void MyWindow::chooseParam()
     projection->addItem("Perspective");
     //TODO : relier avec les differents trucs a parametrer
 
+}
+
+void MyWindow::closeEvent(QCloseEvent *event)
+{
+    switch (maybeSave()) {
+        case QMessageBox::Save:
+            // Save was clicked
+            saveFile();
+            event->accept();
+            break;
+        case QMessageBox::Discard:
+            // Don't Save was clicked
+            event->accept();
+            break;
+        case QMessageBox::Cancel:
+            // Cancel was clicked
+            event->ignore();
+            break;
+        default:
+            // should never be reached
+            break;
+    }
 }
