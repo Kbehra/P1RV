@@ -83,22 +83,25 @@ void MyWindow::paintGL()
 void MyWindow::openFile()
 {
 
-    QFileDialog openMap(this);
-    openMap.setViewMode(QFileDialog::Detail); //permet d'afficher en mode detail (modifiable)
-    QString file = openMap.getOpenFileName(this, "Choose your file", "/home/alicia/CLion/Projets/P1RV/examples", "Images (*.jpg *.jpeg)");
+    QFileDialog open_map(this);
+    open_map.setViewMode(QFileDialog::Detail); //permet d'afficher en mode detail (modifiable)
+    QString file = open_map.getOpenFileName(this, "Choose your file", "/home/alicia/CLion/Projets/P1RV/examples", "Images (*.jpg *.jpeg)");
 
-    QMessageBox::information(this, "File", "This file had been selected :\n" + file);
+    if(file.isEmpty()){
+        QMessageBox::warning(this,"Warning","No file selected.");
+    } else {
+        QMessageBox::information(this, "File", "This file had been selected :\n" + file);
 
-    bool loaderimage = monimage.loadJPEG(file.toStdString().c_str());
+        bool loaderimage = monimage.loadJPEG(file.toStdString().c_str());
 
-    if (!loaderimage)
-    {
-        std::cout << "Impossible de charger l'image :" << file.toStdString() << " veuillez réessayer" << std::endl;
+        if (!loaderimage)
+        {
+            std::cout << "Impossible de charger l'image :" << file.toStdString() << " veuillez réessayer" << std::endl;
+        }
+        // création de la map à partir de l'image
+        my_map = CreateMap(monimage);
+        //my_map.generateMap();
     }
-    // création de la map à partir de l'image
-    my_map = CreateMap(monimage);
-
-    //my_map.generateMap();
 
 }
 
@@ -107,24 +110,25 @@ void MyWindow::openFile()
  */
 void MyWindow::openTex()
 {
-    QFileDialog openTex(this);
-    openTex.setViewMode(QFileDialog::Detail); //permet d'afficher en mode detail (modifiable)
-    QString file = openTex.getOpenFileName(this, "Choose your texture", "/home/alicia/CLion/Projets/P1RV/examples", "Images (*.jpg *.jpeg)");
+    QFileDialog open_tex(this);
+    open_tex.setViewMode(QFileDialog::Detail); //permet d'afficher en mode detail (modifiable)
+    QString texture = open_tex.getOpenFileName(this, "Choose your texture", "/home/alicia/CLion/Projets/P1RV/examples", "Images (*.jpg *.jpeg)");
 
-    QMessageBox::information(this, "File", "This texture had been selected :\n" + file);
-
-
-
-    //TODO : relier le chemin avec la fonction pour mettre texture
+    if(texture.isEmpty()){
+        QMessageBox::warning(this,"Warning","No texture selected.");
+    } else {
+        QMessageBox::information(this, "Texture", "This texture had been selected :\n" + texture);
+        //TODO : relier le chemin avec la fonction pour mettre texture
+    }
 
 }
 
 void MyWindow::saveFile()
 {
-
-    QString file_saved = QFileDialog::getSaveFileName(this, "Save Heightmap", QString(), "Images (*.stl)");
+    QFileDialog saveNewFile(this);
+    QString file_saved = saveNewFile.getSaveFileName(this, "Save Heightmap", "/home/alicia/CLion/Projets/P1RV/examples", "Images (*.stl)");
     my_map.exportToSTL(file_saved.toStdString());
-
+    //TODO probleme si on selectionne rien
 }
 
 void MyWindow::chooseParam()
