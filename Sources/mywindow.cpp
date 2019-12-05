@@ -1,10 +1,14 @@
-//
-// Created by alicia on 04/12/2019.
-//
+/* Projet P1RV - sujet N°2 heightmaps - Kilian BEHRA & Alicia Maravat
+ *
+ *
+ * mywindow.cpp
+ */
 #include "interface.h"
 #include "mywindow.h"
+#include "createmap.h"
 
-MyWindow::MyWindow(QWidget *parent) : Interface (60, parent, (char *)"Premier poly" )
+
+MyWindow::MyWindow(QWidget *parent) : Interface (60, parent, (char *)"P1RV - Heightmap - BEHRA & MARAVAT" )
 {
 
 }
@@ -31,49 +35,55 @@ void MyWindow::resizeGL(int width, int height)
     glLoadIdentity();
 }
 
+/*
+ * Tracer dans le contexte OpenGL
+ */
 void MyWindow::paintGL()
 {
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    glLoadIdentity();
-    glTranslatef(-1.5f, 0.0f, -6.0f);
-
-    glBegin(GL_TRIANGLES);
-    glVertex3f(0.0f, 1.0f, 0.0f);
-    glVertex3f(-1.0f, -1.0f, 0.0f);
-    glVertex3f(1.0f, -1.0f, 0.0f);
-    glEnd();
-
-    glTranslatef(3.0f, 0.0f, -6.0f);
-
-    glBegin(GL_QUADS);
-    glVertex3f(-1.0f, 1.0f, 0.0f);
-    glVertex3f(-1.0f, -1.0f, 0.0f);
-    glVertex3f(1.0f, -1.0f, 0.0f);
-    glVertex3d(1.0f, 1.0f, 0.0f);
-    glEnd();
+    my_map.generateMap();
+    my_map.afficher();
+//    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+//    glLoadIdentity();
+//    glTranslatef(-1.5f, 0.0f, -6.0f);
+//
+//    glBegin(GL_TRIANGLES);
+//    glVertex3f(0.0f, 1.0f, 0.0f);
+//    glVertex3f(-1.0f, -1.0f, 0.0f);
+//    glVertex3f(1.0f, -1.0f, 0.0f);
+//    glEnd();
+//
+//    glTranslatef(3.0f, 0.0f, -6.0f);
+//
+//    glBegin(GL_QUADS);
+//    glVertex3f(-1.0f, 1.0f, 0.0f);
+//    glVertex3f(-1.0f, -1.0f, 0.0f);
+//    glVertex3f(1.0f, -1.0f, 0.0f);
+//    glVertex3d(1.0f, 1.0f, 0.0f);
+//    glEnd();
 }
 
-//SLOTS
+/*
+ * Ouverture d'un fichier "images"
+ */
 void MyWindow::openFile()
 {
 
-    //QMessageBox::information(this, "Titre de la fenêtre", "Bienvenu dans l'application HeightMap !");
-    //QMessageBox::warning(this, "Titre de la fenêtre", "Attention, vous avez selectionner....!");
-    //QMessageBox::critical(this, "Titre de la fenêtre", "Erreur: Vous blabla!");
-    QString dossier = QFileDialog::getExistingDirectory(this);
     QString file = QFileDialog::getOpenFileName(this, "Choose your file", QString(), "Images (*.jpg *.jpeg)");
     QMessageBox::information(this, "File", "This file had been selected :\n" + file);
-    //TODO : relier le chemin avec la fonction pour lire heightmap
+
+    bool loaderimage = monimage.loadJPEG(file.toStdString().c_str());
+
+    if (!loaderimage)
+    {
+        std::cout << "Impossible de charger l'image :" << file.toStdString() << " veuillez réessayer" << std::endl;
+    }
+    // création de la map à partir de l'image
+    my_map = CreateMap(monimage);
 
 }
 
 void MyWindow::openTex()
 {
-
-    //QMessageBox::information(this, "Titre de la fenêtre", "Bienvenu dans l'application HeightMap !");
-    //QMessageBox::warning(this, "Titre de la fenêtre", "Attention, vous avez selectionner....!");
-    //QMessageBox::critical(this, "Titre de la fenêtre", "Erreur: Vous blabla!");
-    QString dossier = QFileDialog::getExistingDirectory(this);
     QString file = QFileDialog::getOpenFileName(this, "Choose your file", QString(), "Images (*.jpg *.jpeg)");
     QMessageBox::information(this, "File", "This file had been selected :\n" + file);
     //TODO : relier le chemin avec la fonction pour mettre texture

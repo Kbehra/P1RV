@@ -21,8 +21,6 @@
 
 
 // Variables globales
-CreateMap my_map;
-MyDisplay go_display;
 Camera cam;
 
 // Liens vers le fichier à charger
@@ -40,13 +38,10 @@ int main(int argc, char *argv[]) {
     //go_display.initWindow(argc, argv);
 
 
-    ImageJPEG monimage;
-
-    bool loaderimage = monimage.loadJPEG(LINK_IMAGE);
 
     // création de la my_map
-    my_map = CreateMap(monimage);
-    my_map.generateMap();
+    //my_map = CreateMap(monimage);
+    //my_map.generateMap();
 
   
 

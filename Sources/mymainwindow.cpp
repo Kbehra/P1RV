@@ -1,7 +1,8 @@
-//
-// Created by alicia on 04/12/2019.
-//
-
+/* Projet P1RV - sujet N°2 heightmaps - Kilian BEHRA & Alicia Maravat
+ *
+ *
+ * mymainwindow.cpp
+ */
 
 #include "mymainwindow.h"
 

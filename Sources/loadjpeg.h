@@ -47,7 +47,7 @@ public:
 	GLuint getID() const;
 	GLuint* getPtrID();
 	GLuint getType() const;
-    bool loadJPEG(char* FileName, bool Fast = true);    //chargement de l'image
+    bool loadJPEG(const char* FileName, bool Fast = true);    //chargement de l'image
     bool loadTexture(char * FileName, bool Fast);
     Pixel getPixel(int x, int y) const;                 //acceder a un pixel
     vector<vector<Pixel>>* getMatPixel();               //pointeur sur la matrice de pixels

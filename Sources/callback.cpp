@@ -1,6 +1,8 @@
-//
-// Created by kiki on 31/10/2019.
-//
+/* Projet P1RV - sujet N°2 heightmaps - Kilian BEHRA & Alicia Maravat
+ *
+ *
+ * callback.cpp
+ */
 
 #include "callback.h"
 

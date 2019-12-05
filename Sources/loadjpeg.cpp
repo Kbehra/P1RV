@@ -17,7 +17,7 @@
 ImageJPEG :: ImageJPEG (){}
 
 
-bool ImageJPEG :: loadJPEG(char* FileName, bool Fast)
+bool ImageJPEG :: loadJPEG(const char* FileName, bool Fast)
 {
     FILE* file = fopen(FileName, "rb");         //open the file
     struct jpeg_decompress_struct info;                //the jpeg decompress info

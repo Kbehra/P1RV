@@ -21,12 +21,8 @@ add_executable(P1RV
         Sources/pixel.h
         Sources/createmap.cpp
         Sources/createmap.h
-        Sources/mydisplay.cpp
-        Sources/mydisplay.h
         Sources/camera.cpp
         Sources/camera.h
-        Sources/callback.cpp
-        Sources/callback.h
         Sources/material.cpp
         Sources/material.h
         Sources/vertex.cpp
