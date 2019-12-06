@@ -40,13 +40,11 @@ private:
     int choice_mat;
     bool shade_model;
     bool projection;
+    QString pas_selected;
+    float convert;
     GLfloat pas;
 
     bool press;
-
-    //Tailles fenetre
-    int window_width;
-    int window_high;
 
     //liens
     QString default_directory;
@@ -77,8 +75,11 @@ private:
 
     QPushButton *apply_change;
     QPushButton *not_apply;
+    QLabel *nameproj;
     QComboBox *chooseprojection;
+    QLabel *nameshade;
     QComboBox *chooseshader;
+    QLabel *namepas;
     QLCDNumber *m_lcd;
 
     //pour sauvegarder avant de quitter
@@ -89,9 +90,11 @@ public slots :
     void openFile();
     void openTex();
     void saveFile();
+    void convertPas(int num);
     void changeParam();
     void chooseParam();
-
+    void setHelpText(int index);
+    void setHelpText2(int useless);
 };
 
 

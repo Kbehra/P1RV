@@ -12,9 +12,6 @@ MyWindow::MyWindow(QWidget *parent) : Interface (60, parent, (char *)"Heightmap 
 
     setFocusPolicy(Qt::StrongFocus);     // permet d'activer les key evt dans la fenetre
 
-    window_width = 1080;                        //USELESS
-    window_high = 960;                          //USELESS
-
     focale = 10.0f; //10
     near = 0.0f;
     far = 0.0f;
@@ -32,45 +29,54 @@ MyWindow::MyWindow(QWidget *parent) : Interface (60, parent, (char *)"Heightmap 
 
     //Pour les parametres
     fenetre.setWindowTitle("Edit");
+    QGridLayout *vbox = new QGridLayout(&fenetre);
     apply_change = new QPushButton("&Apply",&fenetre);
-    apply_change->setGeometry(0, 0, 50, 25);
     not_apply = new QPushButton("&Cancel",&fenetre);
-    not_apply->setGeometry(60, 0, 50, 25);
 
     // Création du QTabWidget pour parametre
     onglets = new QTabWidget(&fenetre);
-    onglets->setGeometry(0, 30, 340, 260);
+    vbox->addWidget(onglets,0,0,2,2);
+    vbox->addWidget(apply_change,3,0,1,1);
+    vbox->addWidget(not_apply,3,1,1,1);
+
     // Créer 2 pages, en utilisant un widget parent pour contenir chacune des pages
     page1 = new QWidget;
     page2 = new QWidget;
     //Créer le contenu des pages de widgets
     // Page 1
+    nameproj = new QLabel("Projection :",&fenetre);
     chooseprojection = new QComboBox(); //add fenetre en question
     chooseprojection->addItem("Perspective");
     chooseprojection->addItem("Ortho");
+    nameshade = new QLabel("Shade Model :",&fenetre);
     chooseshader = new QComboBox(); //add fenetre en question
     chooseshader->addItem("Rendu de Phong");
     chooseshader->addItem("Eclairage constant");
+    namepas = new QLabel("Pas :",&fenetre);
     m_lcd = new QLCDNumber();
     m_lcd->setSegmentStyle(QLCDNumber::Flat);
     QSlider *slider_pas = new QSlider(Qt::Horizontal);
-    slider_pas->setMaximum(10);
     slider_pas->setMinimum(1);
     slider_pas->setTickPosition(QSlider::TicksAbove);
 
-    QVBoxLayout *vbox1 = new QVBoxLayout;
-    vbox1->addWidget(chooseprojection);
-    vbox1->addWidget(chooseshader);
-    vbox1->addWidget(slider_pas);
-    vbox1->addWidget(m_lcd);
+    QGridLayout *vbox1 = new QGridLayout(page1);
+    vbox1->addWidget(nameproj,0,0,1,2);
+    vbox1->addWidget(chooseprojection,0,2,1,1);
+    vbox1->addWidget(nameshade,1,0,1,2);
+    vbox1->addWidget(chooseshader,1,2,1,1);
+    vbox1->addWidget(namepas,2,0,1,1);
+    vbox1->addWidget(m_lcd,2,1,1,1);
+    vbox1->addWidget(slider_pas,2,2,1,1);
 
     page1->setLayout(vbox1);
 
     //ajouter les onglets au QTabWidget, en indiquant la page qu'ils contiennent
     onglets->addTab(page1, "Parameters");
 
+    connect(chooseprojection, SIGNAL(highlighted(int)), this, SLOT(setHelpText2(int)));
+    connect(chooseshader, SIGNAL(highlighted(int)), this, SLOT(setHelpText(int)));
     connect(apply_change, SIGNAL(clicked()), this, SLOT(changeParam()));
-    connect(slider_pas, SIGNAL(valueChanged(int)), m_lcd, SLOT(display(int)));
+    connect(slider_pas, SIGNAL(valueChanged(int)), this, SLOT(convertPas(int)));
     connect(not_apply, SIGNAL(clicked()), &fenetre, SLOT(close()));
 }
 
@@ -169,6 +175,7 @@ void MyWindow::keyPressEvent(QKeyEvent *keyEvent)
         case Qt::Key_F1:
             //TODO ne marche pas
             toggleFullWindow();
+            updateGL();
             break;
         case Qt::Key_P:
         {
@@ -179,14 +186,15 @@ void MyWindow::keyPressEvent(QKeyEvent *keyEvent)
             if(projection)
             {
                 gluOrtho2D(left,right,bottom,top);
+                projection = false;
                 std::cout << "Orthogonale 2D" << std::endl;
             }
             else
             {
                 gluPerspective(focale, ratio, near, far);
+                projection = true;
                 std::cout << "Perspective 3D" << std::endl;
             }
-            projection = !projection;
             glMatrixMode(GL_MODELVIEW);
             glLoadIdentity();
             updateGL();
@@ -395,6 +403,19 @@ void MyWindow::chooseParam()
 {
     fenetre.show();
 }
+void MyWindow::convertPas(int num)
+{
+    if(num <= 10){
+        convert = 0.01 * num;
+        pas_selected = QString::number(convert);
+    } else {
+        convert = 0.1 * (num-9);
+        pas_selected = QString::number(convert);
+    }
+    m_lcd->display(pas_selected);
+
+    updateGL();
+}
 void MyWindow::changeParam()
 {
     int proj = chooseprojection->currentIndex();
@@ -409,10 +430,9 @@ void MyWindow::changeParam()
     } else {
         shade_model = false;
     }
-    pas = pas * m_lcd->intValue();
+    pas =  convert;
 
-    //TODO : relier avec les differents trucs a parametrer
-    resizeGL(window_width,window_high);
+    updateGL();
 }
 
 void MyWindow::closeEvent(QCloseEvent *event)
@@ -435,4 +455,16 @@ void MyWindow::closeEvent(QCloseEvent *event)
             // should never be reached
             break;
     }
+}
+
+void MyWindow::setHelpText(int index){
+    if(index == 0){
+        chooseshader->setToolTip("1 normale par sommets");
+    } else {
+        chooseshader->setToolTip("1 normale par faces");
+    }
+}
+
+void MyWindow::setHelpText2(int useless){
+    chooseprojection->setToolTip("Default Perspective: better for human eye");
 }
