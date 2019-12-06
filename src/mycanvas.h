@@ -21,18 +21,36 @@
 #include <QSlider>
 #include <QComboBox>
 #include <QLCDNumber>
+#include <QGraphicsSceneEvent>
 
 
 
 
 class MyCanvas : public QWidget {
     Q_OBJECT
+
 protected:
-    void mousePressEvent(QMouseEvent* e);
+
+    void mousePressEvent(QGraphicsSceneMouseEvent *event);
+
+    void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
+    //void mousePressEvent(QGraphicsSceneMouseEvent *event);
+    void mouseMoveEvent(QGraphicsSceneMouseEvent *event);
+    void mouseReleaseEvent(QGraphicsSceneMouseEvent *event);
+
+
+    QRectF boundingRect() const;
+
+    QPoint startPoint;
+    QLine m_line;
+    bool pressed ;
+
 
 public:
     explicit MyCanvas(QWidget *parent = 0);
     MyCanvas();
+
+
 
 public slots :
     void paintEvent(QPaintEvent* e);
