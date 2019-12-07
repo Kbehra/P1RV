@@ -116,64 +116,102 @@ void MyCanvas::print()
 
 }
 
-bool MyCanvas::event(QEvent *event)
+void MyCanvas::mousePressEvent(QMouseEvent *event)
 {
-    //std::cout<<"je suis un evt"<<std::endl;
-    switch (event->type()) {
-        case QEvent::MouseButtonPress: {
-            //std::cout<<"je suis la"<<std::endl;
-            QPainter painter(&image);
-            painter.setPen(Qt::NoPen);
-            painter.setBrush(myPenColors.at(1 % myPenColors.count()));
-            painter.drawEllipse(QPointF(10, 100), 10, 10);
-            painter.end();
-            update();
-        }
-            break;
+    //std::cout<<"je suis la"<<std::endl;
+    int X = event -> x ();
+    int Y = event -> y ();
+    if (event->button() == Qt::LeftButton)
+    {
+        QPainter painter(&image);
+        painter.setPen(Qt::NoPen);
+        painter.setBrush(myPenColors.at(2 % myPenColors.count()));
+        painter.drawEllipse(QPointF(X, Y), 5, 5);
+        painter.end();
 
-        case QEvent::MouseMove: {
-            //std::cout << "deplacement" << std::endl;
-        }
-            break;
-        case QEvent::TouchEnd:     {
-            QTouchEvent *touch = static_cast<QTouchEvent *>(event);
-            QList<QTouchEvent::TouchPoint> touchPoints = static_cast<QTouchEvent *>(event)->touchPoints();
-                    foreach (const QTouchEvent::TouchPoint &touchPoint, touchPoints) {
-                    switch (touchPoint.state()) {
-                        case Qt::TouchPointStationary:
-                        case Qt::TouchPointReleased:
-                            // don't do anything if this touch point hasn't moved or has been released
-                            continue;
-                        default:
-                        {
-                            QRectF rect = touchPoint.rect();
-                            if (rect.isEmpty()) {
-                                //qreal diameter = MaximumDiameter;
-//                                if (touch->device()->capabilities() & QTouchDevice::Pressure)
-//                                    diameter = MinimumDiameter + (MaximumDiameter - MinimumDiameter) * touchPoint.pressure();
-                                //rect.setSize(QSizeF(diameter, diameter));
-                            }
 
-                            QPainter painter(&image);
-                            painter.setPen(Qt::NoPen);
-                            painter.setBrush(myPenColors.at(touchPoint.id() % myPenColors.count()));
-                            painter.drawEllipse(rect);
-                            painter.end();
-
-                            modified = true;
-                            int rad = 2;
-                            update(rect.toRect().adjusted(-rad,-rad, +rad, +rad));
-                        }
-                            break;
-                    }
-                }
-            break;
-        }
-        default:
-            return QWidget::event(event);
     }
-    return true;
+    update();
+    // position globale du curseur
+
+
+
 }
+
+void MyCanvas::mouseReleaseEvent(QMouseEvent *event)
+{
+
+}
+
+void MyCanvas::mouseMoveEvent(QMouseEvent *event)
+{
+    int X = event->pos().x();
+    int Y = event->pos().y();
+    QPainter painter(&image);
+    painter.setPen(Qt::NoPen);
+    painter.setBrush(myPenColors.at(2 % myPenColors.count()));
+    painter.drawEllipse(QPointF(X, Y), 5, 5);
+    painter.end();
+    update();
+
+
+    std::cout<<"moove"<<std::endl;
+
+}
+
+//bool MyCanvas::event(QEvent *event)
+//{
+//    //std::cout<<"je suis un evt"<<std::endl;
+//    switch (event->type()) {
+//        case QEvent::MouseButtonPress: {
+//            //std::cout<<"je suis la"<<std::endl;
+//
+//        }
+//            break;
+//
+//        case QEvent::MouseMove: {
+//            //std::cout << "deplacement" << std::endl;
+//        }
+//            break;
+//        case QEvent::TouchEnd:     {
+//            QTouchEvent *touch = static_cast<QTouchEvent *>(event);
+//            QList<QTouchEvent::TouchPoint> touchPoints = static_cast<QTouchEvent *>(event)->touchPoints();
+//                    foreach (const QTouchEvent::TouchPoint &touchPoint, touchPoints) {
+//                    switch (touchPoint.state()) {
+//                        case Qt::TouchPointStationary:
+//                        case Qt::TouchPointReleased:
+//                            // don't do anything if this touch point hasn't moved or has been released
+//                            continue;
+//                        default:
+//                        {
+//                            QRectF rect = touchPoint.rect();
+//                            if (rect.isEmpty()) {
+//                                //qreal diameter = MaximumDiameter;
+////                                if (touch->device()->capabilities() & QTouchDevice::Pressure)
+////                                    diameter = MinimumDiameter + (MaximumDiameter - MinimumDiameter) * touchPoint.pressure();
+//                                //rect.setSize(QSizeF(diameter, diameter));
+//                            }
+//
+//                            QPainter painter(&image);
+//                            painter.setPen(Qt::NoPen);
+//                            painter.setBrush(myPenColors.at(touchPoint.id() % myPenColors.count()));
+//                            painter.drawEllipse(rect);
+//                            painter.end();
+//
+//                            modified = true;
+//                            int rad = 2;
+//                            update(rect.toRect().adjusted(-rad,-rad, +rad, +rad));
+//                        }
+//                            break;
+//                    }
+//                }
+//            break;
+//        }
+//        default:
+//            return QWidget::event(event);
+//    }
+//    return true;
+//}
 
 void MyCanvas::setFileName(QString filename)
 {

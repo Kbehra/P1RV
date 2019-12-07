@@ -38,6 +38,9 @@ public:
     bool saveImage(const QString &fileName, const char *fileFormat);
     bool isModified() const { return modified; }
     void setFileName(QString filename);
+    void mousePressEvent (QMouseEvent *event);
+    void mouseReleaseEvent(QMouseEvent *event);
+    void mouseMoveEvent (QMouseEvent *event);
 
 public slots:
     void openImageGo();
@@ -47,7 +50,7 @@ public slots:
 protected:
     void paintEvent(QPaintEvent *event) override;
     void resizeEvent(QResizeEvent *event) override;
-    bool event(QEvent *event) override;
+    //bool event(QEvent *event) override;
 
 private:
     void resizeImage(QImage *image, const QSize &newSize);
