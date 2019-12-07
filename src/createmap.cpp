@@ -15,12 +15,12 @@ CreateMap :: CreateMap(){
     //link_texture = "../examples/texture1.jpeg";
 }
 
-CreateMap ::CreateMap(ImageJPEG uneimage, char* link_tex)
+CreateMap ::CreateMap(ImageJPEG uneimage, char* link_tex, int paspixel)
 {
     x = uneimage.getX();                                          // dimension de l'image
     y = uneimage.getY();
     image = uneimage;                                             // image originale
-    pas_pixel = 5;                                                //
+    pas_pixel = paspixel;                                                //
 
     scale = 5 ;                                                   // default scale
     ma_texture = ImageJPEG();
@@ -157,6 +157,11 @@ int CreateMap :: getPas()
 
 void CreateMap ::changeScale(float newscale) {
     scale = newscale ;
+    // il faut reinit le vecteur de vertex
+    vertex.clear();
+}
+void CreateMap ::changePas(int newpas) {
+    pas_pixel = newpas ;
     // il faut reinit le vecteur de vertex
     vertex.clear();
 }

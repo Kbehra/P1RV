@@ -21,7 +21,7 @@ MyMainWindow::MyMainWindow() {
     //On creer 2 fenetres
     fenetre_opengl = new MyWindow(this);
     fenetre_canvas = new MyCanvas(this);
-    //QTextEdit *zoneTexte2 = new QTextEdit("Drawing Heightmap");
+    fenetre_canvas->setWindowTitle("Canvas");
 
     //idealement on creer une fenetre a part qui viens se mettre dans la subwindow pour dessin
     dessin   = zoneCentrale->addSubWindow(fenetre_canvas);                        //second window

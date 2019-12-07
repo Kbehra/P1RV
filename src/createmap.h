@@ -29,12 +29,12 @@ class CreateMap {
     public:
 
     CreateMap();
-    CreateMap(ImageJPEG uneimage, char* link_tex);
+    CreateMap(ImageJPEG uneimage, char* link_tex, int paspixel);
     void generateMap();                                 // génération de la my_map
     GLvoid afficher();                                  // afficher la my_map
     int  getPas();
-    float scale;                                        // facteur de hauteur de la my_map
     void changeScale(float newscale);
+    void changePas(int newpas);
     float getScale();
     void exportToSTL(string link);
     bool getLoaderTex();
@@ -46,6 +46,7 @@ private:
 	unsigned long y;
 	int id_display_list;
 	ImageJPEG image;
+    float scale;                                        // facteur de hauteur de la my_map
 	int pas_pixel;                                      // permet de selectionner qu'une partie des pixels -- decimation
 	vector<Vertex> vertex;                              // vertex affichés à l'écran
 

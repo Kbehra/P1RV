@@ -41,9 +41,11 @@ private:
     int choice_mat;
     bool shade_model;
     bool projection;
-    QString pas_selected;
-    float convert;
-    GLfloat pas;
+    int pas_pixel;  //taille maillage
+
+    QString scale_selected; //convertie en string la hauteur max choisie
+    float converted_scale;  //convertir l'entier du slider en float
+    GLfloat pas; //pas pour utiliser les touches '+' et '-' pour modifier la hauteur
 
     bool press;
 
@@ -82,8 +84,9 @@ private:
     QLabel *nameshade;
     QComboBox *chooseshader;
     QLabel *namepas;
-    QLCDNumber *m_lcd;
-
+    QLCDNumber *m_lcd_pas_pixel;
+    QLabel *nameheight;
+    QLCDNumber *m_lcd_map_height;
 
     //pour sauvegarder avant de quitter
     int maybeSave();
@@ -93,9 +96,9 @@ public slots :
     void openFile();
     void openTex();
     void saveFile();
-    void convertPas(int num);
     void changeParam();
     void chooseParam();
+    void convertScale(int num);
     void setHelpText(int index);
     void setHelpText2(int useless);
     QString getFileName();

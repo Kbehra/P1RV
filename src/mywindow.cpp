@@ -19,6 +19,8 @@ MyWindow::MyWindow(QWidget *parent) : Interface (60, parent, (char *)"Heightmap 
     choice_mat = 4;			// permet de sélectionner un matériau par défaut
     shade_model = false;
     projection = false;
+    pas_pixel = 5;
+    converted_scale = 5.0;
     pas = 0.10;
 
     default_directory ="../examples/";
@@ -53,12 +55,20 @@ MyWindow::MyWindow(QWidget *parent) : Interface (60, parent, (char *)"Heightmap 
     chooseshader = new QComboBox(); //add fenetre en question
     chooseshader->addItem("Rendu de Phong");
     chooseshader->addItem("Eclairage constant");
-    namepas = new QLabel("Pas :",&fenetre);
-    m_lcd = new QLCDNumber();
-    m_lcd->setSegmentStyle(QLCDNumber::Flat);
+    namepas = new QLabel("Pas pixel:",&fenetre);
+    m_lcd_pas_pixel = new QLCDNumber();
+    m_lcd_pas_pixel->setSegmentStyle(QLCDNumber::Flat);
     QSlider *slider_pas = new QSlider(Qt::Horizontal);
     slider_pas->setMinimum(1);
+    slider_pas->setMaximum(10);
     slider_pas->setTickPosition(QSlider::TicksAbove);
+    nameheight = new QLabel("Map maximum height:",&fenetre);
+    m_lcd_map_height = new QLCDNumber();
+    m_lcd_map_height->setSegmentStyle(QLCDNumber::Flat);
+    QSlider *slider_height = new QSlider(Qt::Horizontal);
+    slider_height->setMinimum(1);
+    slider_height->setMaximum(99);
+    slider_height->setTickPosition(QSlider::TicksAbove);
 
     QGridLayout *vbox1 = new QGridLayout(page1);
     vbox1->addWidget(nameproj,0,0,1,2);
@@ -66,8 +76,11 @@ MyWindow::MyWindow(QWidget *parent) : Interface (60, parent, (char *)"Heightmap 
     vbox1->addWidget(nameshade,1,0,1,2);
     vbox1->addWidget(chooseshader,1,2,1,1);
     vbox1->addWidget(namepas,2,0,1,1);
-    vbox1->addWidget(m_lcd,2,1,1,1);
+    vbox1->addWidget(m_lcd_pas_pixel, 2, 1, 1, 1);
     vbox1->addWidget(slider_pas,2,2,1,1);
+    vbox1->addWidget(nameheight,3,0,1,1);
+    vbox1->addWidget(m_lcd_map_height, 3, 1, 1, 1);
+    vbox1->addWidget(slider_height,3,2,1,1);
 
     page1->setLayout(vbox1);
 
@@ -77,7 +90,8 @@ MyWindow::MyWindow(QWidget *parent) : Interface (60, parent, (char *)"Heightmap 
     connect(chooseprojection, SIGNAL(highlighted(int)), this, SLOT(setHelpText2(int)));
     connect(chooseshader, SIGNAL(highlighted(int)), this, SLOT(setHelpText(int)));
     connect(apply_change, SIGNAL(clicked()), this, SLOT(changeParam()));
-    connect(slider_pas, SIGNAL(valueChanged(int)), m_lcd, SLOT(display(int)));
+    connect(slider_pas, SIGNAL(valueChanged(int)), m_lcd_pas_pixel, SLOT(display(int)));
+    connect(slider_height, SIGNAL(valueChanged(int)), this, SLOT(convertScale(int)));
     connect(not_apply, SIGNAL(clicked()), &fenetre, SLOT(close()));
     connect(this, SIGNAL(youCanGetFileName()), parent, SLOT(sendFileName()));
 
@@ -265,6 +279,7 @@ void MyWindow::keyPressEvent(QKeyEvent *keyEvent)
             float scale = my_map.getScale();
             my_map.changeScale(scale-=pas);
             std::cout << my_map.getScale() << std::endl;
+
             my_map.generateMap();
             updateGL();
 
@@ -370,7 +385,7 @@ void MyWindow::openFile()
         }
 
 
-        my_map = CreateMap(monimage, new_link);
+        my_map = CreateMap(monimage, new_link, pas_pixel);
         emit youCanGetFileName();
     }
 
@@ -398,7 +413,7 @@ void MyWindow::openTex()
     if (monimage.getX()>4 && monimage.getY()>0)
     {
         std::cout<<"Veuillez sélectionner une carte"<<std::endl;
-        my_map = CreateMap(monimage, new_link);
+        my_map = CreateMap(monimage, new_link, pas_pixel);
     }
 
 }
@@ -416,19 +431,17 @@ void MyWindow::chooseParam()
     fenetre.show();
 }
 
-void MyWindow::convertPas(int num)
+
+void MyWindow::convertScale(int num)
 {
-    if(num <= 10){
-        convert = 0.01 * num;
-        pas_selected = QString::number(convert);
-    } else {
-        convert = 0.1 * (num-9);
-        pas_selected = QString::number(convert);
-    }
-    m_lcd->display(pas_selected);
+    converted_scale = 1/(((float) num)/100);
+    scale_selected = QString::number(((float) num)/10);
+
+    m_lcd_map_height->display(scale_selected);
 
     updateGL();
 }
+
 void MyWindow::changeParam()
 {
     int proj = chooseprojection->currentIndex();
@@ -448,8 +461,11 @@ void MyWindow::changeParam()
     {
         shade_model = false;
     }
-    pas =  convert;
+    pas_pixel =  m_lcd_pas_pixel->intValue();
+    my_map.changePas(pas_pixel);
+    my_map.changeScale(converted_scale);
 
+    my_map.generateMap();
     updateGL();
 }
 
