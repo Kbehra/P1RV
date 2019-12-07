@@ -19,6 +19,7 @@
 #include <QAction>
 #include <QSlider>
 #include <QComboBox>
+#include <QToolBar>
 
 class MyMainWindow : public QMainWindow {
     Q_OBJECT
@@ -48,6 +49,7 @@ private:
     QMenu *menuAffichage;
     QMenu *menuAide;
 
+    //dans file
     QAction *chargerMap;
     QAction *chargerTex;
     QAction *exportFile;
@@ -56,6 +58,7 @@ private:
 
     //Changer les parametres d'affichage
     QAction *params;
+    QAction *drawtool;
 
     //action pour ouvrir/fermer les deux fenetres a l'interieur
     QAction *openHeightMap;
@@ -64,6 +67,10 @@ private:
     //help
     QAction *about;
 
+    //toolbar
+    QToolBar *toolBarDraw;
+    QAction *changeColor;
+
     QString filename;
 
 
@@ -71,6 +78,7 @@ public slots:
     void aboutApp();
     void setConfig();
     void viewWindow();
+    void viewToolBar();
     void sendFileName();
     void toggleFullWindow(bool window);
 

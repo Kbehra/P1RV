@@ -49,6 +49,7 @@ public
     void clearImage();
     void print();
     virtual void closeEvent(QCloseEvent *);
+    void changeBrushColor();
 
     signals:
     void setFullWindow(bool);
@@ -64,6 +65,8 @@ private:
     QList<QColor> myPenColors;
     QImage image;
     QString filename;
+    QColorDialog *chooseColor;
+
     int maybeSave();
 };
 

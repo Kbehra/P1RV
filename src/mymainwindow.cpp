@@ -53,16 +53,25 @@ MyMainWindow::MyMainWindow() {
 
     //Onglet Edit
     menuEdition = menuBar()->addMenu("&Edit");
+    toolBarDraw = addToolBar("&Drawing Tool");
+    changeColor = new QAction(toolBarDraw);
+    toolBarDraw->addAction(changeColor);
+    toolBarDraw->hide();
 
     //sous-menu Edit
     params = new QAction("&Parameters",fenetre_opengl); //parametre modifiable
+    drawtool = new QAction("&Drawing Tool",fenetre_canvas);
+    drawtool->setCheckable(true);
+    drawtool->setChecked(false);
+
     //ajout a l'onglet Edit
     menuEdition->addAction(params);
+    menuEdition->addAction(drawtool);
 
     //Onglet View
     menuAffichage = menuBar()->addMenu("&View");
 
-    //sous-menu Edit
+    //sous-menu View
     openHeightMap = new QAction("&Heightmap",rendu_3d);
     openHeightMap->setCheckable(true);
     openHeightMap->setChecked(true);
@@ -70,7 +79,7 @@ MyMainWindow::MyMainWindow() {
     openDraw->setCheckable(true);
     openDraw->setChecked(true);
 
-    //ajout a l'onglet Edit
+    //ajout a l'onglet View
     menuAffichage->addAction(openHeightMap);
     menuAffichage->addAction(openDraw);
 
@@ -89,11 +98,12 @@ MyMainWindow::MyMainWindow() {
     connect(chargerTex, SIGNAL(triggered()), fenetre_opengl, SLOT(openTex()));
     connect(exportFile, SIGNAL(triggered()), fenetre_opengl, SLOT(saveFile()));
     connect(params, SIGNAL(triggered()), fenetre_opengl,SLOT(chooseParam()));
+    connect(drawtool, SIGNAL(triggered()), this,SLOT(viewToolBar()));
     connect(openHeightMap, SIGNAL(triggered()), this,SLOT(viewWindow()));
     connect(openDraw, SIGNAL(triggered()), this,SLOT(viewWindow()));
     connect(about, SIGNAL(triggered()), this, SLOT(aboutApp()));
     connect(this, SIGNAL(FileNameChanged()), fenetre_canvas, SLOT(openImageGo()));
-
+    connect(changeColor, SIGNAL(triggered()), fenetre_canvas, SLOT(changeBrushColor()));
 }
 //TODO dans le menu Edit, ajouter la possibilite à l'utilisateur de réouvrir une fenetre fermée (ex: visualisation de l'image)
 // ou Fenetre OpenGL
@@ -133,6 +143,18 @@ void MyMainWindow::viewWindow(){
         dessin->hide();
    }
 }
+
+void MyMainWindow::viewToolBar(){
+    if(drawtool->isChecked())
+    {
+        toolBarDraw->show();
+    }
+    else
+    {
+        toolBarDraw->hide();
+    }
+}
+
 void MyMainWindow::sendFileName()
 {
     fenetre_canvas->setFileName(fenetre_opengl->getFileName());

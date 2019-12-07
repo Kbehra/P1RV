@@ -21,6 +21,9 @@ MyCanvas::MyCanvas(QWidget *parent, QString filename): QWidget(parent)
     setAttribute(Qt::WA_StaticContents);
     modified = false;
 
+    chooseColor = new QColorDialog(this);
+
+    //my_brush =
     myPenColors
             << QColor("green")
             << QColor("purple")
@@ -124,6 +127,11 @@ void MyCanvas::print()
 
 }
 
+void MyCanvas::changeBrushColor()
+{
+    chooseColor->open();
+}
+
 void MyCanvas::keyPressEvent(QKeyEvent *keyEvent) {
     switch (keyEvent->key()) {
         case Qt::Key_Escape:
@@ -147,7 +155,7 @@ void MyCanvas::mousePressEvent(QMouseEvent *event)
     {
         QPainter painter(&image);
         painter.setPen(Qt::NoPen);
-        painter.setBrush(myPenColors.at(2 % myPenColors.count()));
+        painter.setBrush(chooseColor->selectedColor());
         painter.drawEllipse(QPointF(X, Y), 5, 5);
         painter.end();
     }
@@ -165,7 +173,7 @@ void MyCanvas::mouseMoveEvent(QMouseEvent *event)
     int Y = event->pos().y();
     QPainter painter(&image);
     painter.setPen(Qt::NoPen);
-    painter.setBrush(myPenColors.at(2 % myPenColors.count()));
+    painter.setBrush(chooseColor->selectedColor());
     painter.drawEllipse(QPointF(X, Y), 5, 5);
     painter.end();
     update();
