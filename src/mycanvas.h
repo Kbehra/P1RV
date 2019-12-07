@@ -22,46 +22,39 @@
 #include <QComboBox>
 #include <QLCDNumber>
 #include <QGraphicsSceneEvent>
+#include <QTimer>
+#include <QResizeEvent>
+#include <QColor>
+#include <QImage>
+#include <QPoint>
 
-
-
-
-class MyCanvas : public QWidget {
-    Q_OBJECT
-
-protected:
-
-    void mousePressEvent(QGraphicsSceneMouseEvent *event);
-
-    void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
-    //void mousePressEvent(QGraphicsSceneMouseEvent *event);
-    void mouseMoveEvent(QGraphicsSceneMouseEvent *event);
-    void mouseReleaseEvent(QGraphicsSceneMouseEvent *event);
-
-
-    QRectF boundingRect() const;
-
-    QPoint startPoint;
-    QLine m_line;
-    bool pressed ;
-
+class MyCanvas : public QWidget
+{
+Q_OBJECT
 
 public:
-    explicit MyCanvas(QWidget *parent = 0);
-    MyCanvas();
+    MyCanvas(QWidget *parent = 0, QString filename="");
+    bool openImage(const QString &fileName);
+    bool saveImage(const QString &fileName, const char *fileFormat);
+    bool isModified() const { return modified; }
+    void setFileName(QString filename);
 
+public slots:
+    void openImageGo();
+    void clearImage();
+    void print();
 
-
-public slots :
-    void paintEvent(QPaintEvent* e);
-
-private slots:
+protected:
+    void paintEvent(QPaintEvent *event) override;
+    void resizeEvent(QResizeEvent *event) override;
+    bool event(QEvent *event) override;
 
 private:
-
-
-
+    void resizeImage(QImage *image, const QSize &newSize);
+    bool modified;
+    QList<QColor> myPenColors;
+    QImage image;
+    QString filename;
 };
-
 
 #endif //P1RV_MYCANVAS_H

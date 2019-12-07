@@ -32,6 +32,7 @@ public:
     void mousePressEvent (QMouseEvent *event);
     void mouseReleaseEvent(QMouseEvent *event);
     void mouseMoveEvent (QMouseEvent *event);
+    QMessageBox *info;
 
 private:
     ImageJPEG monimage;
@@ -49,6 +50,7 @@ private:
     //liens
     QString default_directory;
     QString default_texture;
+    QString filename;
 
     // ratio de l'image
     float ratio;
@@ -82,6 +84,7 @@ private:
     QLabel *namepas;
     QLCDNumber *m_lcd;
 
+
     //pour sauvegarder avant de quitter
     int maybeSave();
 
@@ -95,6 +98,11 @@ public slots :
     void chooseParam();
     void setHelpText(int index);
     void setHelpText2(int useless);
+    QString getFileName();
+
+    signals:
+        void youCanGetFileName();
+
 };
 
 

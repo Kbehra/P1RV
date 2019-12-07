@@ -23,6 +23,7 @@ MyWindow::MyWindow(QWidget *parent) : Interface (60, parent, (char *)"Heightmap 
 
     default_directory ="../examples/";
     default_texture = "../examples/texture2.jpeg";
+    filename = "e";
 
     // initialisation camera
     cam = Camera();
@@ -76,8 +77,11 @@ MyWindow::MyWindow(QWidget *parent) : Interface (60, parent, (char *)"Heightmap 
     connect(chooseprojection, SIGNAL(highlighted(int)), this, SLOT(setHelpText2(int)));
     connect(chooseshader, SIGNAL(highlighted(int)), this, SLOT(setHelpText(int)));
     connect(apply_change, SIGNAL(clicked()), this, SLOT(changeParam()));
-    connect(slider_pas, SIGNAL(valueChanged(int)), this, SLOT(convertPas(int)));
+    connect(slider_pas, SIGNAL(valueChanged(int)), m_lcd, SLOT(display(int)));
     connect(not_apply, SIGNAL(clicked()), &fenetre, SLOT(close()));
+    connect(this, SIGNAL(youCanGetFileName()), parent, SLOT(sendFileName()));
+
+
 }
 
 void MyWindow::initializeGL()
@@ -105,7 +109,8 @@ void MyWindow::initializeGL()
 
 void MyWindow::resizeGL(int width, int height)
 {
-    if(height == 0) {
+    if(height == 0)
+    {
         height = 1;
     }
 
@@ -155,7 +160,8 @@ void MyWindow::paintGL()
     glFlush();
 }
 
-int MyWindow::maybeSave(){
+int MyWindow::maybeSave()
+{
     QMessageBox closeornot;
     closeornot.setText("Do you want to save your changes?");
     closeornot.setStandardButtons(QMessageBox::Save | QMessageBox::Discard | QMessageBox::Cancel);
@@ -333,14 +339,17 @@ void MyWindow::openFile()
     QFileDialog open_map(this);
     open_map.setViewMode(QFileDialog::Detail); //permet d'afficher en mode detail (modifiable)
     QString file = open_map.getOpenFileName(this, "Choose your file", default_directory, "Images (*.jpg *.jpeg)");
-
+    filename = file;
     if(file.isEmpty())
     {
         QMessageBox::warning(this,"Warning","No file selected.");
     }
     else
     {
-        QMessageBox::information(this, "File", "This file had been selected :\n" + file);
+        info = new QMessageBox;
+        info->setText("This file had been selected :\n"+file );
+        info->exec();
+        //QMessageBox::information(this, "File", "This file had been selected :\n" + file);
 
         bool loaderimage = monimage.loadJPEG(file.toStdString().c_str());
 
@@ -359,7 +368,10 @@ void MyWindow::openFile()
 
             new_link = newdefaultlink.toAscii().data();
         }
+
+
         my_map = CreateMap(monimage, new_link);
+        emit youCanGetFileName();
     }
 
 }
@@ -403,6 +415,7 @@ void MyWindow::chooseParam()
 {
     fenetre.show();
 }
+
 void MyWindow::convertPas(int num)
 {
     if(num <= 10){
@@ -422,12 +435,17 @@ void MyWindow::changeParam()
     int shade = chooseshader->currentIndex();
     if(proj == 0){
         projection = false;
-    } else {
+    }
+    else
+    {
         projection = true;
     }
-    if(shade == 0){
+    if(shade == 0)
+    {
         shade_model = true;
-    } else {
+    }
+    else
+    {
         shade_model = false;
     }
     pas =  convert;
@@ -437,7 +455,8 @@ void MyWindow::changeParam()
 
 void MyWindow::closeEvent(QCloseEvent *event)
 {
-    switch (maybeSave()) {
+    switch (maybeSave())
+    {
         case QMessageBox::Save:
             // Save was clicked
             saveFile();
@@ -458,13 +477,22 @@ void MyWindow::closeEvent(QCloseEvent *event)
 }
 
 void MyWindow::setHelpText(int index){
-    if(index == 0){
+    if(index == 0)
+    {
         chooseshader->setToolTip("1 normale par sommets");
-    } else {
+    }
+    else
+    {
         chooseshader->setToolTip("1 normale par faces");
     }
 }
 
-void MyWindow::setHelpText2(int useless){
+void MyWindow::setHelpText2(int useless)
+{
     chooseprojection->setToolTip("Default Perspective: better for human eye");
+}
+
+QString MyWindow::getFileName()
+{
+    return filename;
 }

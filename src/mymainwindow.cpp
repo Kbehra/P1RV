@@ -5,6 +5,8 @@
  */
 
 #include "mymainwindow.h"
+#include <QTime>
+
 
 
 
@@ -84,11 +86,12 @@ MyMainWindow::MyMainWindow() {
     connect(chargerMap, SIGNAL(triggered()), fenetre_opengl, SLOT(openFile()));
     connect(chargerTex, SIGNAL(triggered()), fenetre_opengl, SLOT(openTex()));
     connect(exportFile, SIGNAL(triggered()), fenetre_opengl, SLOT(saveFile()));
-    //connect(config, SIGNAL(triggered()), this, SLOT());
     connect(params, SIGNAL(triggered()), fenetre_opengl,SLOT(chooseParam()));
     connect(openHeightMap, SIGNAL(triggered()), this,SLOT(viewWindow()));
     connect(openDraw, SIGNAL(triggered()), this,SLOT(viewWindow()));
     connect(about, SIGNAL(triggered()), this, SLOT(aboutApp()));
+    connect(this, SIGNAL(FileNameChanged()), fenetre_canvas, SLOT(openImageGo()));
+
 }
 //TODO dans le menu Edit, ajouter la possibilite à l'utilisateur de réouvrir une fenetre fermée (ex: visualisation de l'image)
 // ou Fenetre OpenGL
@@ -112,14 +115,31 @@ void MyMainWindow::setConfig(){
 
 void MyMainWindow::viewWindow(){
 
-   if(openHeightMap->isChecked()){
+   if(openHeightMap->isChecked())
+   {
        rendu_3d->show();
-   } else {
+   }
+   else
+   {
        rendu_3d->hide();
    }
-    if(openDraw->isChecked()){
+   if(openDraw->isChecked())
+   {
         dessin->show();
-    } else {
+   }
+   else
+   {
         dessin->hide();
-    }
+   }
 }
+void MyMainWindow::sendFileName()
+{
+    fenetre_canvas->setFileName(fenetre_opengl->getFileName());
+}
+
+void MyMainWindow::setFileName(QString filename)
+{
+    this->filename=filename;
+    emit FileNameChanged();
+}
+

@@ -43,12 +43,10 @@ find_package(Qt4 COMPONENTS QtCore QtGui QtOpenGL REQUIRED)
 include(${QT_USE_FILE})
 set(LIBRARIES ${LIBRARIES} ${QT_LIBRARIES})
 
-
 # OpenGL
 # required packages
 find_package ( OpenGL REQUIRED )
 find_package ( GLUT REQUIRED )
-
 
 add_definitions(${QT_DEFINITIONS})
 

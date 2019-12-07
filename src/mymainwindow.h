@@ -24,6 +24,7 @@ class MyMainWindow : public QMainWindow {
     Q_OBJECT
 public:
     MyMainWindow();
+    void setFileName(QString filename);
 
 private:
 
@@ -60,11 +61,17 @@ private:
     //help
     QAction *about;
 
+    QString filename;
+
 
 public slots:
     void aboutApp();
     void setConfig();
     void viewWindow();
+    void sendFileName();
+
+    signals:
+        void FileNameChanged();
 };
 
 
