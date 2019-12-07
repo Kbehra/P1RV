@@ -35,6 +35,9 @@ private:
     QMdiSubWindow *dessin;
     QMdiSubWindow *rendu_3d;
 
+    bool b_Fullscreen_opengl; //full window opengl
+    bool b_Fullscreen_draw; //full window canvas
+
     //widget de la fenetre opengl qui affiche notre map
     MyWindow* fenetre_opengl;                           //consideree comme un QGLWidget
     MyCanvas* fenetre_canvas;
@@ -69,6 +72,7 @@ public slots:
     void setConfig();
     void viewWindow();
     void sendFileName();
+    void toggleFullWindow(bool window);
 
     signals:
         void FileNameChanged();

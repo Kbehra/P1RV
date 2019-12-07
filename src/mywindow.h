@@ -105,7 +105,7 @@ public slots :
 
     signals:
         void youCanGetFileName();
-
+        void setFullWindow(bool);
 };
 
 

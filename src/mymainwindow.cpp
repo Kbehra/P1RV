@@ -18,6 +18,8 @@ MyMainWindow::MyMainWindow() {
     //Permet d'avoir plusieurs fenetre dans notre fenetre principale
     zoneCentrale = new QMdiArea;
 
+    b_Fullscreen_opengl = true;
+    b_Fullscreen_draw = true;
     //On creer 2 fenetres
     fenetre_opengl = new MyWindow(this);
     fenetre_canvas = new MyCanvas(this);
@@ -96,7 +98,6 @@ MyMainWindow::MyMainWindow() {
 //TODO dans le menu Edit, ajouter la possibilite à l'utilisateur de réouvrir une fenetre fermée (ex: visualisation de l'image)
 // ou Fenetre OpenGL
 
-
 //SLOT
 void MyMainWindow::aboutApp()
 {
@@ -143,3 +144,26 @@ void MyMainWindow::setFileName(QString filename)
     emit FileNameChanged();
 }
 
+void MyMainWindow::toggleFullWindow(bool window)
+{
+    if(window){
+        if(b_Fullscreen_opengl)
+        {
+            rendu_3d->showMaximized();
+            b_Fullscreen_opengl = false;
+        }
+        else
+        {
+            rendu_3d->showNormal();
+            b_Fullscreen_opengl = true;
+        }
+    } else {
+        if (b_Fullscreen_draw) {
+            dessin->showMaximized();
+            b_Fullscreen_draw = false;
+        } else {
+            dessin->showNormal();
+            b_Fullscreen_draw = true;
+        }
+    }
+}

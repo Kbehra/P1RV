@@ -94,8 +94,7 @@ MyWindow::MyWindow(QWidget *parent) : Interface (60, parent, (char *)"Heightmap 
     connect(slider_height, SIGNAL(valueChanged(int)), this, SLOT(convertScale(int)));
     connect(not_apply, SIGNAL(clicked()), &fenetre, SLOT(close()));
     connect(this, SIGNAL(youCanGetFileName()), parent, SLOT(sendFileName()));
-
-
+    connect(this, SIGNAL(setFullWindow(bool)), parent, SLOT(toggleFullWindow(bool)));
 }
 
 void MyWindow::initializeGL()
@@ -192,10 +191,10 @@ void MyWindow::keyPressEvent(QKeyEvent *keyEvent)
             //TODO trouver autre chose que Close qui ferme le contexte OpenGL mais pas la fenetre
             close();
             break;
-        case Qt::Key_F1:
-            //TODO ne marche pas
-            toggleFullWindow();
+        case Qt::Key_F1:{
+            emit setFullWindow(true);
             updateGL();
+        }
             break;
         case Qt::Key_P:
         {
@@ -364,7 +363,6 @@ void MyWindow::openFile()
         info = new QMessageBox;
         info->setText("This file had been selected :\n"+file );
         info->exec();
-        //QMessageBox::information(this, "File", "This file had been selected :\n" + file);
 
         bool loaderimage = monimage.loadJPEG(file.toStdString().c_str());
 

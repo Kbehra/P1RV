@@ -26,7 +26,6 @@ public:
     virtual void initializeGL() = 0;
     virtual void resizeGL(int width, int height) = 0;
     virtual void paintGL() = 0; //afficher la scène OpenGL
-    void toggleFullWindow();
     virtual void keyPressEvent( QKeyEvent *keyEvent );
 
 public slots:
@@ -34,7 +33,6 @@ public slots:
 
 private:
     QTimer *t_Timer;
-    bool b_Fullscreen;
 };
 
 #endif //P1RV_INTERFACE_H

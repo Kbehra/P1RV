@@ -10,7 +10,7 @@ Interface::Interface(int framesPerSecond, QWidget *parent, char *name) : QGLWidg
 {
 
     setWindowTitle(QString::fromUtf8(name)); //permet de définir le nom de la fenêtre :param name
-    b_Fullscreen = false ;
+
     if(framesPerSecond == 0)
     {
         t_Timer = NULL;
@@ -25,19 +25,6 @@ Interface::Interface(int framesPerSecond, QWidget *parent, char *name) : QGLWidg
     }
 }
 
-void Interface::toggleFullWindow()
-{
-    if(b_Fullscreen)
-    {
-        showNormal();
-        b_Fullscreen = false;
-    }
-    else
-    {
-        showFullScreen();
-        b_Fullscreen = true;
-    }
-}
 
 /* Evenement clavier*/
 void Interface::keyPressEvent(QKeyEvent *keyEvent)
@@ -48,7 +35,6 @@ void Interface::keyPressEvent(QKeyEvent *keyEvent)
             close();
             break;
         case Qt::Key_F1:
-            toggleFullWindow();
             break;
     }
 }

@@ -41,11 +41,17 @@ public:
     void mousePressEvent (QMouseEvent *event);
     void mouseReleaseEvent(QMouseEvent *event);
     void mouseMoveEvent (QMouseEvent *event);
+    virtual void keyPressEvent( QKeyEvent *keyEvent ) override;
 
-public slots:
+public
+    slots:
     void openImageGo();
     void clearImage();
     void print();
+    virtual void closeEvent(QCloseEvent *);
+
+    signals:
+    void setFullWindow(bool);
 
 protected:
     void paintEvent(QPaintEvent *event) override;
@@ -58,6 +64,7 @@ private:
     QList<QColor> myPenColors;
     QImage image;
     QString filename;
+    int maybeSave();
 };
 
 #endif //P1RV_MYCANVAS_H
