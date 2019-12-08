@@ -6,7 +6,8 @@
 
 #include "camera.h"
 
-Camera::Camera() {
+Camera::Camera()
+{
     point_size = 1.0f;
 
     angle_x = 0.0f;                  // Rotations autour de X et Y
@@ -17,43 +18,52 @@ Camera::Camera() {
     bouton_click_left = false;
     bouton_click_right = false;
 }
+
 Camera::~Camera() {
 }
 
 // Fonction de rappel de la souris
-GLvoid Camera :: mouseState(int bouton, int etat, int x, int y) {
+GLvoid Camera :: mouseState(int bouton, int etat, int x, int y)
+{
     // Test pour voir si le bouton gauche de la souris est appuyé
 
-    if (bouton == Qt::LeftButton && etat == Qt::Key_Down) {
+    if (bouton == Qt::LeftButton && etat == Qt::Key_Down)
+    {
         bouton_click_left = true;
         old_x = x;
         old_y = y;
     }
     // si on relache le bouton gauche
-    if (bouton == Qt::LeftButton && etat == Qt::Key_Up) {
+    if (bouton == Qt::LeftButton && etat == Qt::Key_Up)
+    {
         bouton_click_left = false;
     }
-	if (bouton == Qt::RightButton && etat == Qt::Key_Down) {
+	if (bouton == Qt::RightButton && etat == Qt::Key_Down)
+	{
         bouton_click_right = true;
         old_x = x;
         old_y = y;
 	}
 	// si on relache le bouton gauche
-	if (bouton == Qt::RightButton && etat == Qt::Key_Up) {
+	if (bouton == Qt::RightButton && etat == Qt::Key_Up)
+	{
         bouton_click_right = false;
 	}
 }
-GLvoid Camera:: mouseMove(int x, int y) {
+GLvoid Camera:: mouseMove(int x, int y)
+{
     // si le bouton gauche est appuye et qu'on se deplace
     // alors on doit modifier les angles de rotations du cube
     // en fonction de la derniere position de la souris
     // et de sa position actuelle
-    if(bouton_click_left) {
+    if(bouton_click_left)
+    {
         angle_x += (x - old_x);
         angle_y += (y - old_y);
         // Appeler le re-affichage de la scene OpenGL
     }
-	if (bouton_click_right) {
+	if (bouton_click_right)
+	{
 		zoom += (x - old_x) + (y - old_y);
 		// Appeler le re-affichage de la scene OpenGL
 
@@ -63,12 +73,17 @@ GLvoid Camera:: mouseMove(int x, int y) {
     old_y = y;
 }
 
-GLfloat Camera :: getAngleX(){
+GLfloat Camera :: getAngleX()
+{
     return angle_x;
 }
-GLfloat Camera :: getAngleY(){
+
+GLfloat Camera :: getAngleY()
+{
     return angle_y;
 }
-GLfloat Camera::getZoom() {
+
+GLfloat Camera::getZoom()
+{
 	return zoom;
 }

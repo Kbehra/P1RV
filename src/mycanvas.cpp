@@ -31,7 +31,7 @@ MyCanvas::MyCanvas(QWidget *parent, QString filename): QWidget(parent)
 bool MyCanvas::openImage(const QString &fileName)
 {
     std::cout<<"image chargée"<<std::endl;
-    std::cout<<fileName.toStdString()<<std::endl;
+
     QImage loadedImage;
     if (!loadedImage.load(fileName))
         return false;
@@ -95,18 +95,6 @@ void MyCanvas::paintEvent(QPaintEvent *event)
     painter.drawImage(rect.topLeft(), image, rect);
 }
 
-void MyCanvas::resizeEvent(QResizeEvent *event)
-{
-    if (width() > image.width() || height() > image.height())
-    {
-        int newWidth = qMax(width() + 128, image.width());
-        int newHeight = qMax(height() + 128, image.height());
-        resizeImage(&image, QSize(newWidth, newHeight));
-        update();
-    }
-
-    QWidget::resizeEvent(event);
-}
 
 void MyCanvas::resizeImage(QImage *image, const QSize &newSize)
 {

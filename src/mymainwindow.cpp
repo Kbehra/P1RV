@@ -127,8 +127,6 @@ MyMainWindow::MyMainWindow() {
     connect(setRound, SIGNAL(triggered()), this, SLOT(changeIcon()));
     connect(setSquare, SIGNAL(triggered()), this, SLOT(changeIcon()));
 }
-//TODO dans le menu Edit, ajouter la possibilite à l'utilisateur de réouvrir une fenetre fermée (ex: visualisation de l'image)
-// ou Fenetre OpenGL
 
 //SLOT
 void MyMainWindow::aboutApp()
@@ -141,7 +139,8 @@ void MyMainWindow::aboutApp()
     //TODO mettre tout les raccourci clavier utiles
 }
 
-void MyMainWindow::setConfig(){
+void MyMainWindow::setConfig()
+{
     //TODO mettre le changement de langue ou autre
 
 }
@@ -166,7 +165,8 @@ void MyMainWindow::viewWindow(){
    }
 }
 
-void MyMainWindow::viewToolBar(){
+void MyMainWindow::viewToolBar()
+{
     if(drawtool->isChecked())
     {
         toolBarDraw->show();
@@ -176,6 +176,7 @@ void MyMainWindow::viewToolBar(){
         toolBarDraw->hide();
     }
 }
+
 
 void MyMainWindow::changeIcon() {
     if(setRound->isEnabled())
@@ -205,7 +206,8 @@ void MyMainWindow::setFileName(QString filename)
 
 void MyMainWindow::toggleFullWindow(bool window)
 {
-    if(window){
+    if(window)
+    {
         if(b_Fullscreen_opengl)
         {
             rendu_3d->showMaximized();
@@ -216,7 +218,8 @@ void MyMainWindow::toggleFullWindow(bool window)
             rendu_3d->showNormal();
             b_Fullscreen_opengl = true;
         }
-    } else {
+    }
+    else {
         if (b_Fullscreen_draw) {
             dessin->showMaximized();
             b_Fullscreen_draw = false;

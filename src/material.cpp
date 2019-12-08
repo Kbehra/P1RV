@@ -1,6 +1,9 @@
-//
-// Created by kiki on 01/11/2019.
-//
+/* Projet P1RV - sujet N°2 heightmaps - Kilian BEHRA & Alicia Maravat
+ *
+ *
+ * Material.cpp
+ *
+ */
 
 #include "material.h"
 

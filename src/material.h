@@ -1,6 +1,9 @@
-//
-// Created by kiki on 01/11/2019.
-//
+/* Projet P1RV - sujet N°2 heightmaps - Kilian BEHRA & Alicia Maravat
+ *
+ *
+ * Material.h
+ *
+ */
 
 #ifndef P1RV_HEIGHTMAPS_BEHRA_MARAVAT_MATERIAL_H
 #define P1RV_HEIGHTMAPS_BEHRA_MARAVAT_MATERIAL_H
@@ -12,7 +15,8 @@
 #endif
 #include <GL/freeglut.h>
 
-class Material {
+class Material
+{
 
 public:
     Material(int choice);

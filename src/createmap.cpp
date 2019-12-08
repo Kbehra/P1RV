@@ -52,15 +52,18 @@ CreateMap ::CreateMap(ImageJPEG uneimage, char* link_tex, int paspixel)
 void CreateMap :: generateMap()
 {
     // QUADS AVEC TEXTURE
-
-    if ((x > 0) && (y>0)) {
+    vertex.clear();
+    if ((x > 0) && (y>0))
+    {
         id_display_list = glGenLists(1);
         glNewList(id_display_list, GL_COMPILE);
 
         glBegin(GL_QUADS);
 
-        for (int j = 0; j < x - pas_pixel; j += pas_pixel) {
-            for (int i = 0; i < y - pas_pixel; i += pas_pixel) {
+        for (int j = 0; j < x - pas_pixel; j += pas_pixel)
+        {
+            for (int i = 0; i < y - pas_pixel; i += pas_pixel)
+            {
                 Pixel p1 = image.getPixel(i, j);
                 Pixel p2 = image.getPixel(i + pas_pixel, j);
                 Pixel p3 = image.getPixel(i, j + pas_pixel);
@@ -116,6 +119,7 @@ void CreateMap :: generateMap()
 
 void CreateMap ::generateMap(QImage image)
 {
+    vertex.clear();
     x = image.width();
     y = image.height();
     if ((x > pas_pixel) && (y>pas_pixel)) {
@@ -124,8 +128,10 @@ void CreateMap ::generateMap(QImage image)
 
         glBegin(GL_QUADS);
 
-        for (int j = 0; j < x - pas_pixel; j += pas_pixel) {
-            for (int i = 0; i < y - pas_pixel; i += pas_pixel) {
+        for (int j = 0; j < x - pas_pixel; j += pas_pixel)
+        {
+            for (int i = 0; i < y - pas_pixel; i += pas_pixel)
+            {
 
                 QRgb p1 = image.pixel(i, j);
                 QColor c = QColor(p1);
@@ -238,19 +244,25 @@ int CreateMap :: getPas()
     return pas_pixel;
 }
 
-void CreateMap ::changeScale(float newscale) {
+void CreateMap ::changeScale(float newscale)
+{
     scale = newscale ;
     // il faut reinit le vecteur de vertex
     vertex.clear();
 }
-void CreateMap ::changePas(int newpas) {
+
+void CreateMap ::changePas(int newpas)
+{
     pas_pixel = newpas ;
     // il faut reinit le vecteur de vertex
     vertex.clear();
 }
-float CreateMap :: getScale(){
+
+float CreateMap :: getScale()
+{
     return scale;
 }
+
 bool CreateMap ::getLoaderTex()
 {
     return loader_tex;
@@ -318,6 +330,7 @@ void CreateMap::exportToSTL(string link)
 
 }
 
-int CreateMap::getSizeImage() {
+int CreateMap::getSizeImage()
+{
     return x*y;
 }

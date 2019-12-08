@@ -6,7 +6,8 @@
 #define P1RV_HEIGHTMAPS_BEHRA_MARAVAT_PIXEL_H
 #include <iostream>
 
-class Pixel{
+class Pixel
+{
 public:
     Pixel();
     int getR() const;

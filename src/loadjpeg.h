@@ -25,7 +25,8 @@
 
 using namespace std;
 
-class ImageJPEG {
+class ImageJPEG
+{
 
 protected:
     unsigned long x;

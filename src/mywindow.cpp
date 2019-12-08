@@ -2,7 +2,12 @@
  *
  *
  * mywindow.cpp
+ *
+ * Interface OpenGL - permet de tracer la map dans le contexte OpenGL
+ *
+ *
  */
+
 #include "interface.h"
 #include "mywindow.h"
 #include "createmap.h"
@@ -44,6 +49,7 @@ MyWindow::MyWindow(QWidget *parent) : Interface (60, parent, (char *)"Heightmap 
 
     // Créer 2 pages, en utilisant un widget parent pour contenir chacune des pages
     page1 = new QWidget;
+
     //Créer le contenu des pages de widgets
     // Page 1
     nameproj = new QLabel("Projection :",&fenetre);
@@ -57,8 +63,10 @@ MyWindow::MyWindow(QWidget *parent) : Interface (60, parent, (char *)"Heightmap 
     namepas = new QLabel("Pas pixel:",&fenetre);
     m_lcd_pas_pixel = new QLCDNumber();
     m_lcd_pas_pixel->setSegmentStyle(QLCDNumber::Flat);
+
     QSlider *slider_pas = new QSlider(Qt::Horizontal);
     slider_pas->setMinimum(1);
+    slider_pas->setValue(pas_pixel);
     slider_pas->setMaximum(10);
     slider_pas->setTickPosition(QSlider::TicksAbove);
     nameheight = new QLabel("Map maximum height:",&fenetre);
@@ -67,9 +75,10 @@ MyWindow::MyWindow(QWidget *parent) : Interface (60, parent, (char *)"Heightmap 
     QSlider *slider_height = new QSlider(Qt::Horizontal);
     slider_height->setMinimum(1);
     slider_height->setMaximum(99);
+    slider_height->setValue(1);
     slider_height->setTickPosition(QSlider::TicksAbove);
     namemat = new QLabel("Material :",&fenetre);
-    choosematerial = new QComboBox(); //add fenetre en question
+    choosematerial = new QComboBox();                   //add fenetre en question
     choosematerial->addItem("1");
     choosematerial->addItem("2");
     choosematerial->addItem("3");
@@ -176,7 +185,11 @@ void MyWindow::paintGL()
     if (my_map->getSizeImage()>0)
     {
         my_map->generateMap(image);
-        //my_map.generateMap();
+        my_map->afficher();
+    }
+    else
+    {
+        my_map->generateMap();
         my_map->afficher();
     }
 
@@ -204,7 +217,6 @@ void MyWindow::keyPressEvent(QKeyEvent *keyEvent)
     switch(keyEvent->key())
     {
         case Qt::Key_Escape:
-            //TODO trouver autre chose que Close qui ferme le contexte OpenGL mais pas la fenetre
             close();
             break;
         case Qt::Key_F1:{
@@ -482,12 +494,17 @@ void MyWindow::changeParam()
         shade_model = false;
     }
 
-    //Material((int)mater);  TODO : ca marche pas ca plante quand on le met alors que c'est pareil dans keyPress
-    pas_pixel =  m_lcd_pas_pixel->intValue();
+    Material(int(mater));
+
+    if (m_lcd_pas_pixel->intValue()>0)
+    {
+        pas_pixel =  m_lcd_pas_pixel->intValue();
+    }
+
     my_map->changePas(pas_pixel);
     my_map->changeScale(converted_scale);
 
-    my_map->generateMap();
+    my_map->generateMap(image);
     updateGL();
 }
 
