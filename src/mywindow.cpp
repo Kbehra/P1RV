@@ -44,7 +44,6 @@ MyWindow::MyWindow(QWidget *parent) : Interface (60, parent, (char *)"Heightmap 
 
     // Créer 2 pages, en utilisant un widget parent pour contenir chacune des pages
     page1 = new QWidget;
-    page2 = new QWidget;
     //Créer le contenu des pages de widgets
     // Page 1
     nameproj = new QLabel("Projection :",&fenetre);
@@ -69,6 +68,13 @@ MyWindow::MyWindow(QWidget *parent) : Interface (60, parent, (char *)"Heightmap 
     slider_height->setMinimum(1);
     slider_height->setMaximum(99);
     slider_height->setTickPosition(QSlider::TicksAbove);
+    namemat = new QLabel("Material :",&fenetre);
+    choosematerial = new QComboBox(); //add fenetre en question
+    choosematerial->addItem("1");
+    choosematerial->addItem("2");
+    choosematerial->addItem("3");
+    choosematerial->addItem("4");
+    choosematerial->addItem("5");
 
     QGridLayout *vbox1 = new QGridLayout(page1);
     vbox1->addWidget(nameproj,0,0,1,2);
@@ -81,6 +87,8 @@ MyWindow::MyWindow(QWidget *parent) : Interface (60, parent, (char *)"Heightmap 
     vbox1->addWidget(nameheight,3,0,1,1);
     vbox1->addWidget(m_lcd_map_height, 3, 1, 1, 1);
     vbox1->addWidget(slider_height,3,2,1,1);
+    vbox1->addWidget(namemat,4,0,1,2);
+    vbox1->addWidget(choosematerial,4,2,1,1);
 
     page1->setLayout(vbox1);
 
@@ -456,6 +464,8 @@ void MyWindow::changeParam()
 {
     int proj = chooseprojection->currentIndex();
     int shade = chooseshader->currentIndex();
+    int mater = choosematerial->currentIndex();
+
     if(proj == 0){
         projection = false;
     }
@@ -471,6 +481,8 @@ void MyWindow::changeParam()
     {
         shade_model = false;
     }
+
+    //Material((int)mater);  TODO : ca marche pas ca plante quand on le met alors que c'est pareil dans keyPress
     pas_pixel =  m_lcd_pas_pixel->intValue();
     my_map->changePas(pas_pixel);
     my_map->changeScale(converted_scale);
