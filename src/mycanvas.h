@@ -51,6 +51,8 @@ public
     void print();
     virtual void closeEvent(QCloseEvent *);
     void changeBrushColor();
+    void changePenWidth(double width);
+    void changePenCap(bool cap_style);
 
     signals:
     void setFullWindow(bool);
@@ -63,10 +65,11 @@ protected:
 private:
     void resizeImage(QImage *image, const QSize &newSize);
     bool modified;
-    QList<QColor> myPenColors;
     QImage image;
     QString filename;
+    QPen *my_pen;
     QColorDialog *chooseColor;
+    float *pen_width;
 
     int maybeSave();
 };

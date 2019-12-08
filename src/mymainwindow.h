@@ -71,6 +71,10 @@ private:
     //toolbar
     QToolBar *toolBarDraw;
     QAction *changeColor;
+    QLabel *namepenwidth;
+    QDoubleSpinBox *setPenWidth;
+    QAction *setRound;
+    QAction *setSquare;
 
     QString filename;
 
@@ -80,12 +84,14 @@ public slots:
     void setConfig();
     void viewWindow();
     void viewToolBar();
+    void changeIcon();
     void sendFileName();
     void toggleFullWindow(bool window);
     void getImage();
 
     signals:
         void FileNameChanged();
+        void changeCapStyle(bool cap_style);
 };
 
 

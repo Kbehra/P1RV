@@ -20,23 +20,11 @@ MyCanvas::MyCanvas(QWidget *parent, QString filename): QWidget(parent)
     setAttribute(Qt::WA_AcceptTouchEvents);
     setAttribute(Qt::WA_StaticContents);
     modified = false;
-
+    my_pen = new QPen(QBrush(Qt::NoBrush),5.0,Qt::SolidLine,Qt::RoundCap,Qt::RoundJoin);
+    my_pen->setBrush(Qt::red);
     chooseColor = new QColorDialog(this);
 
-    //my_brush =
-    myPenColors
-            << QColor("green")
-            << QColor("purple")
-            << QColor("red")
-            << QColor("blue")
-            << QColor("yellow")
-
-            << QColor("pink")
-            << QColor("orange")
-            << QColor("brown")
-            << QColor("grey")
-            << QColor("black");
-
+    connect(parent, SIGNAL(changeCapStyle(bool)), this, SLOT(changePenCap(bool)));
     connect(this, SIGNAL(setFullWindow(bool)), parent, SLOT(toggleFullWindow(bool)));
 }
 
@@ -116,13 +104,7 @@ void MyCanvas::resizeEvent(QResizeEvent *event)
         resizeImage(&image, QSize(newWidth, newHeight));
         update();
     }
-    /*if (event->size().width()> image.width() || event->size().height()> image.height())
-    {
-        int newWidth = qMax(event->size().width() + 128, image.width());
-        int newHeight = qMax(event->size().height() + 128, image.height());
-        resizeImage(&image, QSize(newWidth, newHeight));
-        update();
-    }*/
+
     QWidget::resizeEvent(event);
 }
 
@@ -147,6 +129,18 @@ void MyCanvas::changeBrushColor()
 {
     chooseColor->open();
 }
+void MyCanvas::changePenWidth(double width)
+{
+    my_pen->setWidth(float (width));
+}
+void MyCanvas::changePenCap(bool cap_style)
+{
+    if(cap_style){
+        my_pen->setCapStyle(Qt::RoundCap);
+    } else {
+        my_pen->setCapStyle(Qt::SquareCap);
+    }
+}
 
 void MyCanvas::keyPressEvent(QKeyEvent *keyEvent) {
     switch (keyEvent->key()) {
@@ -170,9 +164,10 @@ void MyCanvas::mousePressEvent(QMouseEvent *event)
     if (event->button() == Qt::LeftButton)
     {
         QPainter painter(&image);
-        painter.setPen(Qt::NoPen);
-        painter.setBrush(chooseColor->selectedColor());
-        painter.drawEllipse(QPointF(X, Y), 5, 5);
+        my_pen->setColor(chooseColor->selectedColor());
+        painter.setPen(*my_pen);
+        //painter.drawEllipse(QPointF(X, Y), 10, 10);
+        painter.drawPoint(QPointF(X, Y));
         painter.end();
     }
     update();
@@ -180,21 +175,20 @@ void MyCanvas::mousePressEvent(QMouseEvent *event)
 
 void MyCanvas::mouseReleaseEvent(QMouseEvent *event)
 {
-
+    update();
 }
 
 void MyCanvas::mouseMoveEvent(QMouseEvent *event)
 {
-    int X = event->pos().x();
-    int Y = event->pos().y();
-    QPainter painter(&image);
-    painter.setPen(Qt::NoPen);
-    painter.setBrush(chooseColor->selectedColor());
-    painter.drawEllipse(QPointF(X, Y), 5, 5);
-    painter.end();
-    update();
-
-
+        int X = event->pos().x();
+        int Y = event->pos().y();
+        QPainter painter(&image);
+        my_pen->setColor(chooseColor->selectedColor());
+        painter.setPen(*my_pen);
+        //painter.drawEllipse(QPointF(X, Y), 10, 10);
+        painter.drawPoint(QPointF(X, Y));
+        painter.end();
+        update();
 }
 
 void MyCanvas::setFileName(QString filename)
@@ -218,7 +212,7 @@ void MyCanvas::closeEvent(QCloseEvent *event)
     {
         case QMessageBox::Save:
             // Save was clicked
-            //saveImage();
+            //saveImage(&image,);
             event->accept();
             break;
         case QMessageBox::Discard:

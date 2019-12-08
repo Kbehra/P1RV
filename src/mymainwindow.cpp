@@ -55,7 +55,26 @@ MyMainWindow::MyMainWindow() {
     menuEdition = menuBar()->addMenu("&Edit");
     toolBarDraw = addToolBar("&Drawing Tool");
     changeColor = new QAction(toolBarDraw);
+    changeColor->setIcon(QIcon("../icons/icon_seau_couleur.png"));
+    namepenwidth = new QLabel("Pen Width:");
+    setPenWidth = new QDoubleSpinBox(toolBarDraw);
+    setPenWidth->setMinimum(1.0);
+    setPenWidth->setMaximum(60.0);
+    setPenWidth->setDecimals(1);
+    setRound = new QAction(toolBarDraw);
+    setRound->setIcon(QIcon("../icons/icon_pinceau.png"));
+    setRound->setEnabled(false);
+    setSquare = new QAction(toolBarDraw);
+    setSquare->setIcon(QIcon("../icons/icon_rouleau_peinture.png"));
+    setSquare->setEnabled(true);
     toolBarDraw->addAction(changeColor);
+    toolBarDraw->addSeparator();
+    toolBarDraw->addWidget(namepenwidth);
+    toolBarDraw->addWidget(setPenWidth);
+    toolBarDraw->addSeparator();
+    toolBarDraw->addAction(setRound);
+    toolBarDraw->addAction(setSquare);
+    toolBarDraw->addSeparator();
     toolBarDraw->hide();
 
     //sous-menu Edit
@@ -104,6 +123,9 @@ MyMainWindow::MyMainWindow() {
     connect(about, SIGNAL(triggered()), this, SLOT(aboutApp()));
     connect(this, SIGNAL(FileNameChanged()), fenetre_canvas, SLOT(openImageGo()));
     connect(changeColor, SIGNAL(triggered()), fenetre_canvas, SLOT(changeBrushColor()));
+    connect(setPenWidth,SIGNAL(valueChanged(double)),fenetre_canvas,SLOT(changePenWidth(double)));
+    connect(setRound, SIGNAL(triggered()), this, SLOT(changeIcon()));
+    connect(setSquare, SIGNAL(triggered()), this, SLOT(changeIcon()));
 }
 //TODO dans le menu Edit, ajouter la possibilite à l'utilisateur de réouvrir une fenetre fermée (ex: visualisation de l'image)
 // ou Fenetre OpenGL
@@ -152,6 +174,21 @@ void MyMainWindow::viewToolBar(){
     else
     {
         toolBarDraw->hide();
+    }
+}
+
+void MyMainWindow::changeIcon() {
+    if(setRound->isEnabled())
+    {
+        setRound->setEnabled(false);
+        setSquare->setEnabled(true);
+        emit changeCapStyle(true); //round =false
+    }
+    else
+    {
+        setSquare->setEnabled(false);
+        setRound->setEnabled(true);
+        emit changeCapStyle(false); //square = true
     }
 }
 
