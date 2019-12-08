@@ -42,6 +42,7 @@ public:
     void mouseReleaseEvent(QMouseEvent *event);
     void mouseMoveEvent (QMouseEvent *event);
     virtual void keyPressEvent( QKeyEvent *keyEvent ) override;
+    QImage getImage();
 
 public
     slots:

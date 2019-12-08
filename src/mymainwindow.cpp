@@ -189,3 +189,9 @@ void MyMainWindow::toggleFullWindow(bool window)
         }
     }
 }
+
+void MyMainWindow::getImage() {
+    QImage image = fenetre_canvas->getImage();
+    fenetre_opengl->setImage(image);
+
+}

@@ -95,13 +95,14 @@ MyWindow::MyWindow(QWidget *parent) : Interface (60, parent, (char *)"Heightmap 
     connect(not_apply, SIGNAL(clicked()), &fenetre, SLOT(close()));
     connect(this, SIGNAL(youCanGetFileName()), parent, SLOT(sendFileName()));
     connect(this, SIGNAL(setFullWindow(bool)), parent, SLOT(toggleFullWindow(bool)));
+    connect(this, SIGNAL(IWantImage()), parent, SLOT(getImage()));
 }
 
 void MyWindow::initializeGL()
 {
 
     // définition de la couleur d'effacement du framebuffer
-    glClearColor(0.95f, 0.95f, 0.95f, 0.95f);
+    glClearColor(1.00f, 1.00f, 0.95f, 1.00f);
 
     // Intialement on active le Z-buffer
     glEnable(GL_DEPTH_TEST);
@@ -113,7 +114,7 @@ void MyWindow::initializeGL()
     this->applyLights();
 
     // création d'une map vide
-    my_map = CreateMap();
+    my_map = new CreateMap();
 
     glShadeModel(GL_SMOOTH);
     glDepthFunc(GL_LEQUAL);
@@ -158,12 +159,19 @@ void MyWindow::resizeGL(int width, int height)
 void MyWindow::paintGL()
 {
 
-    glClearColor(0.5f, 0.5f, 0.5f, 0.5f);
+    glClearColor(1.0f, 1.0f, 1.0f, 0.5f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
     glMatrixMode(GL_MODELVIEW);
 
-    my_map.generateMap();
-    my_map.afficher();
+    emit IWantImage();
+
+    if (my_map->getSizeImage()>0)
+    {
+        my_map->generateMap(image);
+        //my_map.generateMap();
+        my_map->afficher();
+    }
+
 
     glLoadIdentity();
     glRotatef(-cam.getAngleY(), 1.0f, 0.0f, 0.0f);
@@ -265,21 +273,21 @@ void MyWindow::keyPressEvent(QKeyEvent *keyEvent)
             break;
         case Qt::Key_Plus:
         {
-            float scale = my_map.getScale();
-            my_map.changeScale(scale+=pas);
-            std::cout << my_map.getScale() << std::endl;
+            float scale = my_map->getScale();
+            my_map->changeScale(scale+=pas);
+            std::cout << my_map->getScale() << std::endl;
 
-            my_map.generateMap();
+            my_map->generateMap();
             updateGL();
         }
             break;
         case Qt::Key_Minus:
         {
-            float scale = my_map.getScale();
-            my_map.changeScale(scale-=pas);
-            std::cout << my_map.getScale() << std::endl;
+            float scale = my_map->getScale();
+            my_map->changeScale(scale-=pas);
+            std::cout << my_map->getScale() << std::endl;
 
-            my_map.generateMap();
+            my_map->generateMap();
             updateGL();
 
         }
@@ -373,7 +381,7 @@ void MyWindow::openFile()
 
         // création de la map à partir de l'image
         char* new_link;
-        if(!my_map.getLoaderTex())
+        if(!my_map->getLoaderTex())
         {
             std::size_t found = file.toStdString().find_last_of("/\\");
             std::string path = file.toStdString().substr(0, found);
@@ -382,8 +390,12 @@ void MyWindow::openFile()
             new_link = newdefaultlink.toAscii().data();
         }
 
+       // delete(my_map);
 
-        my_map = CreateMap(monimage, new_link, pas_pixel);
+        my_map = new CreateMap(monimage, new_link, pas_pixel);
+
+
+
         emit youCanGetFileName();
     }
 
@@ -411,7 +423,7 @@ void MyWindow::openTex()
     if (monimage.getX()>4 && monimage.getY()>0)
     {
         std::cout<<"Veuillez sélectionner une carte"<<std::endl;
-        my_map = CreateMap(monimage, new_link, pas_pixel);
+        my_map = new CreateMap(monimage, new_link, pas_pixel);
     }
 
 }
@@ -420,7 +432,7 @@ void MyWindow::saveFile()
 {
     QFileDialog saveNewFile(this);
     QString file_saved = saveNewFile.getSaveFileName(this, "Save Heightmap", default_directory, "Images (*.stl)");
-    my_map.exportToSTL(file_saved.toStdString());
+    my_map->exportToSTL(file_saved.toStdString());
 
 }
 
@@ -460,10 +472,10 @@ void MyWindow::changeParam()
         shade_model = false;
     }
     pas_pixel =  m_lcd_pas_pixel->intValue();
-    my_map.changePas(pas_pixel);
-    my_map.changeScale(converted_scale);
+    my_map->changePas(pas_pixel);
+    my_map->changeScale(converted_scale);
 
-    my_map.generateMap();
+    my_map->generateMap();
     updateGL();
 }
 
@@ -509,4 +521,9 @@ void MyWindow::setHelpText2(int useless)
 QString MyWindow::getFileName()
 {
     return filename;
+}
+
+void MyWindow::setImage(QImage image)
+{
+    this->image=image;
 }

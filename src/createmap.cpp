@@ -14,6 +14,10 @@ CreateMap :: CreateMap(){
     y = 0;
     //link_texture = "../examples/texture1.jpeg";
 }
+CreateMap :: ~CreateMap()
+{
+
+}
 
 CreateMap ::CreateMap(ImageJPEG uneimage, char* link_tex, int paspixel)
 {
@@ -33,7 +37,7 @@ CreateMap ::CreateMap(ImageJPEG uneimage, char* link_tex, int paspixel)
 	}
 	else
     {
-	    std::cout << "Impossible de charger une texture avec :"<< link_texture << std::endl;
+	    std::cout << "Impossible de charger une texture" << std::endl;
     }
 
     id_display_list = glGenLists(1);
@@ -107,6 +111,85 @@ void CreateMap :: generateMap()
         glEnd();
         glEndList();
     }
+
+}
+
+void CreateMap ::generateMap(QImage image)
+{
+    x = image.width();
+    y = image.height();
+    if ((x > pas_pixel) && (y>pas_pixel)) {
+        id_display_list = glGenLists(1);
+        glNewList(id_display_list, GL_COMPILE);
+
+        glBegin(GL_QUADS);
+
+        for (int j = 0; j < x - pas_pixel; j += pas_pixel) {
+            for (int i = 0; i < y - pas_pixel; i += pas_pixel) {
+
+                QRgb p1 = image.pixel(i, j);
+                QColor c = QColor(p1);
+                int s1 = c.red();
+
+                int p2 = image.pixel(i + pas_pixel, j);
+                c = QColor(p2);
+                int s2 = c.red();
+
+
+                int p3 = image.pixel(i, j + pas_pixel);
+                c = QColor(p3);
+                int s3 = c.red();
+
+                int p4 = image.pixel(i + pas_pixel, j + pas_pixel);
+                c = QColor(p4);
+                int s4 = c.red();
+
+                //std::cout << scale << std::endl;        //debug
+
+                Vertex v1 = Vertex((float) i / x, (float) s1 / (255 * scale),
+                                   (float) j / y);
+                Vertex v2 = Vertex((float) (i + pas_pixel) / x, (float) s2 / (255 * scale),
+                                   (float) j / y);
+                Vertex v3 = Vertex((float) i / x, (float) s3 / (255 * scale),
+                                   (float) (j + pas_pixel) / y);
+                Vertex v4 = Vertex((float) (i + pas_pixel) / x, (float) s4 / (255 * scale),
+                                   (float) (j + pas_pixel) / y);
+
+                Vertex normal;
+
+                normal.computeCross(v2 - v1, v3 - v1);
+                glNormal3f(normal.getX(), normal.getY(), normal.getZ());
+                glTexCoord2f(0.0, 0.0);
+                glVertex3f(v1.getX(), v1.getY(), v1.getZ());
+
+
+                normal.computeCross(v4 - v2, v1 - v2);
+                glNormal3f(normal.getX(), normal.getY(), normal.getZ());
+                glTexCoord2f(0.0, 1.0);
+                glVertex3f(v2.getX(), v2.getY(), v2.getZ());
+
+                normal.computeCross(v3 - v4, v2 - v4);
+                glNormal3f(normal.getX(), normal.getY(), normal.getZ());
+                glTexCoord2f(1.0, 1.0);
+                glVertex3f(v4.getX(), v4.getY(), v4.getZ());
+
+
+                normal.computeCross(v1 - v3, v4 - v3);
+                glNormal3f(normal.getX(), normal.getY(), normal.getZ());
+                glTexCoord2f(1.0, 0.0);
+                glVertex3f(v3.getX(), v3.getY(), v3.getZ());
+
+                // enregistrement des résultats (pour export)
+                vertex.push_back(v1);
+                vertex.push_back(v2);
+                vertex.push_back(v3);
+                vertex.push_back(v4);
+            }
+        }
+        glEnd();
+        glEndList();
+    }
+
 
 }
 
@@ -233,4 +316,8 @@ void CreateMap::exportToSTL(string link)
         std::cout << "Impossible d'ouvrir le fichier :"<<link+".stl" <<std::endl;
         }
 
+}
+
+int CreateMap::getSizeImage() {
+    return x*y;
 }

@@ -29,8 +29,10 @@ class CreateMap {
     public:
 
     CreateMap();
+    ~CreateMap();
     CreateMap(ImageJPEG uneimage, char* link_tex, int paspixel);
     void generateMap();                                 // génération de la my_map
+    void generateMap(QImage image);
     GLvoid afficher();                                  // afficher la my_map
     int  getPas();
     void changeScale(float newscale);
@@ -38,6 +40,7 @@ class CreateMap {
     float getScale();
     void exportToSTL(string link);
     bool getLoaderTex();
+    int getSizeImage();
 
     void setLinkTexture(const char* link);
 

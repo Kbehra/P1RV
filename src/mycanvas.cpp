@@ -47,11 +47,27 @@ bool MyCanvas::openImage(const QString &fileName)
     QImage loadedImage;
     if (!loadedImage.load(fileName))
         return false;
-
-    QSize newSize = loadedImage.size().expandedTo(parentWidget()->size());
+    QSize newSize = loadedImage.size();
     resizeImage(&loadedImage, newSize);
+    int w = loadedImage.size().width();
+    int h = loadedImage.size().height();
 
-    image = loadedImage;
+    if(parentWidget()->size().width()>w)
+    {
+        int ratio = parentWidget()->size().width()/w;
+        image = loadedImage.scaled(loadedImage.size().width()*ratio,
+                loadedImage.size().height()*ratio,Qt::KeepAspectRatio);
+    }
+    else
+    {
+        image = loadedImage;
+
+    }
+
+    //QSize newSize = loadedImage.size().expandedTo(parentWidget()->size());
+
+
+    //image = loadedImage.scaled(loadedImage.size().width()*2,   loadedImage.size().height()*2,Qt::KeepAspectRatio);
     modified = false;
     update();
     return true;
@@ -178,6 +194,7 @@ void MyCanvas::mouseMoveEvent(QMouseEvent *event)
     painter.end();
     update();
 
+
 }
 
 void MyCanvas::setFileName(QString filename)
@@ -216,4 +233,7 @@ void MyCanvas::closeEvent(QCloseEvent *event)
             // should never be reached
             break;
     }
+}
+QImage MyCanvas::getImage() {
+    return image;
 }

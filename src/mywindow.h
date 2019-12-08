@@ -36,7 +36,7 @@ public:
 
 private:
     ImageJPEG monimage;
-    CreateMap my_map;
+    CreateMap *my_map;
 
     int choice_mat;
     bool shade_model;
@@ -71,6 +71,9 @@ private:
     //camera
     Camera cam;
 
+    //image
+    QImage image;
+
     //fenetre de parametre
     QWidget fenetre;
     QTabWidget *onglets; //onglets de la fenetre
@@ -102,10 +105,12 @@ public slots :
     void setHelpText(int index);
     void setHelpText2(int useless);
     QString getFileName();
+    void setImage(QImage image);
 
     signals:
         void youCanGetFileName();
         void setFullWindow(bool);
+        void IWantImage();
 };
 
 

@@ -27,6 +27,7 @@ public:
     MyMainWindow();
     void setFileName(QString filename);
 
+
 private:
 
     //zone centrale
@@ -81,6 +82,7 @@ public slots:
     void viewToolBar();
     void sendFileName();
     void toggleFullWindow(bool window);
+    void getImage();
 
     signals:
         void FileNameChanged();
