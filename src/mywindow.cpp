@@ -388,10 +388,6 @@ void MyWindow::openFile()
     }
     else
     {
-        info = new QMessageBox;
-        info->setText("This file had been selected :\n"+file );
-        info->exec();
-
         bool loaderimage = monimage.loadJPEG(file.toStdString().c_str());
 
         if (!loaderimage)
