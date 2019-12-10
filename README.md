@@ -41,10 +41,11 @@ Assurez vous de disposer du client git.
     
  Une fois les dépendances renseignées vous devriez pouvoir compiler. Assurez vous également que les liens pointent bien vers les images. 
  
- 
  ### Version Linux 
  
  Dans le dépôt vous devriez trouver une branche pour compiler le projet depuis linux avec Cmake (version sans les shaders) 
  
+ 
+ Source Materiau : http://devernay.free.fr/cours/opengl/materials.html
  
    
