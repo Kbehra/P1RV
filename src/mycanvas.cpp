@@ -69,7 +69,7 @@ bool MyCanvas::saveImage(const QString &fileName, const char *fileFormat)
     QImage visibleImage = image;
     resizeImage(&visibleImage, size());
 
-    if (visibleImage.save(fileName, "(*.jpeg)"))
+    if (visibleImage.save(fileName, "JPG"))
     {
         modified = false;
         return true;
