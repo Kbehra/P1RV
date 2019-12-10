@@ -32,7 +32,6 @@ public:
     void mousePressEvent (QMouseEvent *event);
     void mouseReleaseEvent(QMouseEvent *event);
     void mouseMoveEvent (QMouseEvent *event);
-    QMessageBox *info;
 
 private:
     ImageJPEG monimage;

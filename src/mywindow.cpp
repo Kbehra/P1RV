@@ -21,7 +21,7 @@ MyWindow::MyWindow(QWidget *parent) : Interface (60, parent, (char *)"Heightmap 
     near = 0.0f;
     far = 0.0f;
 
-    choice_mat = 4;			// permet de sélectionner un matériau par défaut
+    choice_mat = 1;			// permet de sélectionner un matériau par défaut
     shade_model = false;
     projection = false;
     pas_pixel = 5;
@@ -79,11 +79,11 @@ MyWindow::MyWindow(QWidget *parent) : Interface (60, parent, (char *)"Heightmap 
     slider_height->setTickPosition(QSlider::TicksAbove);
     namemat = new QLabel("Material :",&fenetre);
     choosematerial = new QComboBox();                   //add fenetre en question
-    choosematerial->addItem("1");
-    choosematerial->addItem("2");
-    choosematerial->addItem("3");
-    choosematerial->addItem("4");
-    choosematerial->addItem("5");
+    choosematerial->addItem("Normal");
+    choosematerial->addItem("Red Plastic");
+    choosematerial->addItem("Gold");
+    choosematerial->addItem("Green Rubber");
+    choosematerial->addItem("Jade");
 
     QGridLayout *vbox1 = new QGridLayout(page1);
     vbox1->addWidget(nameproj,0,0,1,2);
@@ -278,8 +278,6 @@ void MyWindow::keyPressEvent(QKeyEvent *keyEvent)
             glDisable(GL_DEPTH_TEST);
             glFlush();
             updateGL();
-
-
         }
             break;
 
@@ -388,15 +386,11 @@ void MyWindow::openFile()
     }
     else
     {
-        info = new QMessageBox;
-        info->setText("This file had been selected :\n"+file );
-        info->exec();
-
         bool loaderimage = monimage.loadJPEG(file.toStdString().c_str());
 
         if (!loaderimage)
         {
-            std::cout << "Impossible de charger l'image :" << file.toStdString() << " veuillez réessayer" << std::endl;
+            std::cout << "Impossible to load the file :" << file.toStdString() << ". Try again." << std::endl;
         }
 
         // création de la map à partir de l'image
@@ -410,11 +404,7 @@ void MyWindow::openFile()
             new_link = newdefaultlink.toAscii().data();
         }
 
-       // delete(my_map);
-
         my_map = new CreateMap(monimage, new_link, pas_pixel);
-
-
 
         emit youCanGetFileName();
     }
@@ -434,15 +424,11 @@ void MyWindow::openTex()
     {
         QMessageBox::warning(this,"Warning","No texture selected.");
     }
-    else
-    {
-        QMessageBox::information(this, "Texture", "This texture had been selected :\n" + texture);
-    }
     char* new_link = texture.toAscii().data();
 
     if (monimage.getX()>4 && monimage.getY()>0)
     {
-        std::cout<<"Veuillez sélectionner une carte"<<std::endl;
+        std::cout<<"Select a map"<<std::endl;
         my_map = new CreateMap(monimage, new_link, pas_pixel);
     }
 
@@ -534,11 +520,11 @@ void MyWindow::closeEvent(QCloseEvent *event)
 void MyWindow::setHelpText(int index){
     if(index == 0)
     {
-        chooseshader->setToolTip("1 normale par sommets");
+        chooseshader->setToolTip("1 normal by vertex");
     }
     else
     {
-        chooseshader->setToolTip("1 normale par faces");
+        chooseshader->setToolTip("1 normal by triangle");
     }
 }
 

@@ -17,8 +17,11 @@
 
 MyCanvas::MyCanvas(QWidget *parent, QString filename): QWidget(parent)
 {
+    setFocusPolicy(Qt::StrongFocus);     // permet d'activer les key evt dans la fenetre
+
     setAttribute(Qt::WA_AcceptTouchEvents);
     setAttribute(Qt::WA_StaticContents);
+
     modified = false;
     my_pen = new QPen(QBrush(Qt::NoBrush),5.0,Qt::SolidLine,Qt::RoundCap,Qt::RoundJoin);
     my_pen->setBrush(Qt::red);
@@ -66,13 +69,14 @@ bool MyCanvas::saveImage(const QString &fileName, const char *fileFormat)
     QImage visibleImage = image;
     resizeImage(&visibleImage, size());
 
-    if (visibleImage.save(fileName, fileFormat))
+    if (visibleImage.save(fileName, "(*.jpeg)"))
     {
         modified = false;
         return true;
     }
     else
     {
+        QMessageBox::warning(this,"Warning","The file can't be saved.");
         return false;
     }
 }
@@ -133,7 +137,6 @@ void MyCanvas::changePenCap(bool cap_style)
 void MyCanvas::keyPressEvent(QKeyEvent *keyEvent) {
     switch (keyEvent->key()) {
         case Qt::Key_Escape:
-            //TODO trouver autre chose que Close qui ferme le contexte OpenGL mais pas la fenetre
             close();
             break;
         case Qt::Key_F1: {
@@ -198,10 +201,14 @@ void MyCanvas::closeEvent(QCloseEvent *event)
 {
     switch (maybeSave())
     {
-        case QMessageBox::Save:
+        case QMessageBox::Save: {
             // Save was clicked
-            //saveImage(&image,);
+            QFileDialog saveNewFile(this);
+            QString file_saved = saveNewFile.getSaveFileName(this, "Save image", "../", "Images (*.jpg *.jpeg)");
+
+            saveImage(file_saved, nullptr);
             event->accept();
+        }
             break;
         case QMessageBox::Discard:
             // Don't Save was clicked
