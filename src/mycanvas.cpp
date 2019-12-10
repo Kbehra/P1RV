@@ -33,7 +33,7 @@ MyCanvas::MyCanvas(QWidget *parent, QString filename): QWidget(parent)
 
 bool MyCanvas::openImage(const QString &fileName)
 {
-    std::cout<<"image chargée"<<std::endl;
+    std::cout<<"Image loaded."<<std::endl;
 
     QImage loadedImage;
     if (!loadedImage.load(fileName))
@@ -55,10 +55,6 @@ bool MyCanvas::openImage(const QString &fileName)
 
     }
 
-    //QSize newSize = loadedImage.size().expandedTo(parentWidget()->size());
-
-
-    //image = loadedImage.scaled(loadedImage.size().width()*2,   loadedImage.size().height()*2,Qt::KeepAspectRatio);
     modified = false;
     update();
     return true;
@@ -105,7 +101,7 @@ void MyCanvas::resizeImage(QImage *image, const QSize &newSize)
     if (image->size() == newSize)
         return;
 
-    QImage newImage(newSize, QImage::Format_RGB32); //TODO : utiliser scaled de QImage?
+    QImage newImage(newSize, QImage::Format_RGB32);
     newImage.fill(qRgb(255, 255, 255));
     QPainter painter(&newImage);
     painter.drawImage(QPoint(0, 0), *image);

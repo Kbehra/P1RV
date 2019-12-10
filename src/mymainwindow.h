@@ -41,8 +41,8 @@ private:
     bool b_Fullscreen_draw; //full window canvas
 
     //widget de la fenetre opengl qui affiche notre map
-    MyWindow* fenetre_opengl;                           //consideree comme un QGLWidget
-    MyCanvas* fenetre_canvas;
+    MyWindow* fenetre_opengl;               //consideree comme un QGLWidget
+    MyCanvas* fenetre_canvas;               //la toile
 
     //menus
     QMenu *menuFichier;
@@ -67,6 +67,7 @@ private:
 
     //help
     QAction *about;
+    QAction *shortcutHelp;
 
     //toolbar
     QToolBar *toolBarDraw;
@@ -81,6 +82,7 @@ private:
 
 public slots:
     void aboutApp();
+    void shortcut();
     void setConfig();
     void viewWindow();
     void viewToolBar();
